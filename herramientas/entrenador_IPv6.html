@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+    <title>Práctica IPv6 - Master Trainer</title>
+    <style>
+        html {
+            -webkit-text-size-adjust:100%;
+            -moz-text-size-adjust:100%;
+            text-size-adjust:100%;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2c3e50;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #ecf0f1;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .contentwrap {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        input {
+            font-family: 'Consolas', 'Monaco', monospace;
+            text-align: center;
+            font-size: 1.1em;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box; 
+        }
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+            background-color: #eaf2f8;
+        }
+        
+        input[type=button] {
+            background: #3498db; 
+            color: white; 
+            border: none; 
+            padding: 8px 15px; 
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+            width: auto;
+        }
+        input[type=button]:hover {
+            background: #2980b9;
+        }
+        input[value="Nuevo reto IPv6"] {
+            background: #e67e22; 
+            font-size: 1.1em;
+        }
+        input[value="Nuevo reto IPv6"]:hover {
+            background: #d35400;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        td, th {
+            padding: 10px; 
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+        
+        ul {
+            line-height: 1.6;
+        }
+
+        .show-btn {
+            display: none; 
+        }
+
+        .ip-display {
+            font-size: 1.4em;
+            letter-spacing: 1px;
+            font-weight: bold;
+            color: #2980b9;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            word-break: break-all;
+            text-align: center;
+            border: 2px dashed #bdc3c7;
+        }
+
+        .hint {
+            font-size: 0.8em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        ul {
+    line-height: 1.6;
+    color: #FFFFFF;
+}
+
+    </style>
+
+    <script language="javascript" type="text/javascript">
+
+        var fullIPv6 = []; 
+        var correctAnswers = {}; 
+
+        // --- FUNCIÓN 1: RESET TOTAL (Para botón Nuevo Reto) ---
+        function ResetAll() {
+            var form = document.querySelector('form');
+            var feedbackFields = ['abbrOK', 'prefixOK', 'subnetOK', 'interfaceOK', 'nextOK'];
+            
+            feedbackFields.forEach(function(field) {
+                if(form.elements[field]) {
+                    form.elements[field].value = "";
+                    form.elements[field].style.backgroundColor = "white";
+                }
+            });
+        }
+
+        // --- FUNCIÓN 2: RESET INDIVIDUAL (Para cuando escriben) ---
+        function ClearOne(fieldName) {
+            var form = document.querySelector('form');
+            if(form.elements[fieldName]) {
+                form.elements[fieldName].value = "";
+                form.elements[fieldName].style.backgroundColor = "white";
+            }
+        }
+
+        function GenerateProblem() {
+            var form = document.querySelector('form');
+            
+            // Limpiar inputs de usuario
+            form.inputAbbr.value = "";
+            form.inputPrefix.value = "";
+            form.inputSubnet.value = "";
+            form.inputInterface.value = "";
+            form.inputNext.value = "";
+            
+            // Limpiar estados (Reset Total)
+            ResetAll();
+
+            // Generar IPv6
+            fullIPv6 = [];
+            fullIPv6.push((Math.floor(Math.random() * 8191) + 8192).toString(16)); 
+            
+            for(var i=1; i<8; i++) {
+                var rand = Math.random();
+                if (rand < 0.3) {
+                    fullIPv6.push("0000"); 
+                } else if (rand < 0.5) {
+                    fullIPv6.push(Math.floor(Math.random() * 255).toString(16).padStart(4, '0'));
+                } else {
+                    fullIPv6.push(Math.floor(Math.random() * 65535).toString(16).padStart(4, '0'));
+                }
+            }
+            
+            var ipString = fullIPv6.join(":");
+            document.getElementById("givenIP").innerText = ipString;
+
+            CalculateAnswers();
+            form.inputAbbr.focus();
+        }
+
+        function CalculateAnswers() {
+            var cleanHextets = fullIPv6.map(h => parseInt(h, 16).toString(16));
+            
+            // Lógica de compresión ::
+            var bestStart = -1;
+            var bestLen = 0;
+            var currentStart = -1;
+            var currentLen = 0;
+
+            for(var i=0; i<8; i++) {
+                if(cleanHextets[i] === "0") {
+                    if(currentStart === -1) currentStart = i;
+                    currentLen++;
+                } else {
+                    if(currentLen > bestLen) {
+                        bestLen = currentLen;
+                        bestStart = currentStart;
+                    }
+                    currentStart = -1;
+                    currentLen = 0;
+                }
+            }
+            if(currentLen > bestLen) {
+                bestLen = currentLen;
+                bestStart = currentStart;
+            }
+
+            var abbrIP = "";
+            if(bestLen >= 2) {
+                var part1 = cleanHextets.slice(0, bestStart).join(":");
+                var part2 = cleanHextets.slice(bestStart + bestLen).join(":");
+                abbrIP = part1 + "::" + part2;
+            } else {
+                abbrIP = cleanHextets.join(":");
+            }
+
+            correctAnswers.abbr = abbrIP;
+            correctAnswers.prefix = cleanHextets.slice(0, 3).join(":");
+            correctAnswers.subnet = cleanHextets[3];
+            correctAnswers.interface = cleanHextets.slice(4, 8).join(":");
+
+            var currentSubnetInt = parseInt(fullIPv6[3], 16);
+            var nextSubnetInt = currentSubnetInt + 1;
+            if(nextSubnetInt > 65535) nextSubnetInt = 0; 
+            var nextSubnetHex = nextSubnetInt.toString(16);
+            correctAnswers.next = cleanHextets.slice(0, 3).join(":") + ":" + nextSubnetHex + "::";
+        }
+
+        function Check(form, type) {
+            function normalize(str) {
+                return str.trim().toLowerCase();
+            }
+
+            function setStatus(inputElement, statusElement, correctVal) {
+                var userVal = normalize(inputElement.value);
+                var targetVal = normalize(correctVal);
+
+                if(userVal === targetVal) {
+                    statusElement.value = "YES";
+                    statusElement.style.backgroundColor = "#2ecc71";
+                    statusElement.style.color = "white";
+                } else {
+                    statusElement.value = "NO";
+                    statusElement.style.backgroundColor = "#e74c3c"; 
+                    statusElement.style.color = "white";
+                }
+            }
+
+            switch(type) {
+                case 'abbr': setStatus(form.inputAbbr, form.abbrOK, correctAnswers.abbr); break;
+                case 'prefix': setStatus(form.inputPrefix, form.prefixOK, correctAnswers.prefix); break;
+                case 'subnet': setStatus(form.inputSubnet, form.subnetOK, correctAnswers.subnet); break;
+                case 'interface': setStatus(form.inputInterface, form.interfaceOK, correctAnswers.interface); break;
+                case 'next': setStatus(form.inputNext, form.nextOK, correctAnswers.next); break;
+            }
+        }
+
+        function Show(form, type) {
+            switch(type) {
+                case 'abbr': form.inputAbbr.value = correctAnswers.abbr; Check(form, 'abbr'); break;
+                case 'prefix': form.inputPrefix.value = correctAnswers.prefix; Check(form, 'prefix'); break;
+                case 'subnet': form.inputSubnet.value = correctAnswers.subnet; Check(form, 'subnet'); break;
+                case 'interface': form.inputInterface.value = correctAnswers.interface; Check(form, 'interface'); break;
+                case 'next': form.inputNext.value = correctAnswers.next; Check(form, 'next'); break;
+            }
+        }
+
+        function doEnterAction(event) {
+            event.preventDefault();
+        }
+
+    </script>
+</head>
+<body>
+    <h1>ENTRENADOR IPv6 MASTER</h1>
+
+    <ul>
+           
+            <li><strong>Misión:</strong> Aplica las reglas de compresión y segmentación.</li>
+            <li><strong>Reglas:</strong> Usa minúsculas. Elimina ceros a la izquierda. Usa <code>::</code> para la secuencia más larga de ceros.</li>
+            <li>Supón un prefijo de sitio <strong>/48</strong> y subredes de <strong>/64</strong>.</li>
+        </ul>
+    <div class="contentwrap">
+        
+<strong><input type="button" value="Nuevo reto IPv6" onclick="GenerateProblem()"></strong>
+        <div style="margin: 20px 0;">
+            <div style="text-align:center; font-weight:bold; color:#7f8c8d; margin-bottom:5px;">DIRECCIÓN IPv6 EXTENDIDA (ORIGINAL)</div>
+            <div id="givenIP" class="ip-display">Haga click en Nuevo Reto</div>
+        </div>
+
+        <form onsubmit="doEnterAction(event)">
+            <table border="3">
+                <thead>
+                    <tr>
+                        <th width="25%">Concepto</th>
+                        <th width="45%">Tu Respuesta</th>
+                        <th width="20%">Acción</th>
+                        <th width="10%">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>
+                            Dirección Comprimida<br>
+                            <span class="hint">(Sintaxis RFC 5952)</span>
+                        </th>
+                        <td><input type="text" name="inputAbbr" oninput="ClearOne('abbrOK')" placeholder="Ej: 2001:db8::1"></td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form, 'abbr')">
+                            <input type="button" value="Show" onclick="Show(this.form, 'abbr')" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="abbrOK" disabled style="font-weight:bold;"></td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            Prefijo de Enrutamiento Global<br>
+                            <span class="hint">(Primeros 48 bits / 3 hextetos)</span>
+                        </th>
+                        <td><input type="text" name="inputPrefix" oninput="ClearOne('prefixOK')" placeholder="Ej: 2001:db8:cafe"></td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form, 'prefix')">
+                            <input type="button" value="Show" onclick="Show(this.form, 'prefix')" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="prefixOK" disabled style="font-weight:bold;"></td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            ID de Subred<br>
+                            <span class="hint">(El 4º hexteto)</span>
+                        </th>
+                        <td><input type="text" name="inputSubnet" oninput="ClearOne('subnetOK')" placeholder="Ej: 000a (o a)"></td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form, 'subnet')">
+                            <input type="button" value="Show" onclick="Show(this.form, 'subnet')" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="subnetOK" disabled style="font-weight:bold;"></td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            ID de Interfaz<br>
+                            <span class="hint">(Los últimos 64 bits)</span>
+                        </th>
+                        <td><input type="text" name="inputInterface" oninput="ClearOne('interfaceOK')" placeholder="Host portion"></td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form, 'interface')">
+                            <input type="button" value="Show" onclick="Show(this.form, 'interface')" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="interfaceOK" disabled style="font-weight:bold;"></td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            Siguiente Subred (/64)<br>
+                            <span class="hint">(Subnet ID + 1 en Hex)</span>
+                        </th>
+                        <td><input type="text" name="inputNext" oninput="ClearOne('nextOK')" placeholder="Ej: 2001:db8:cafe:b::"></td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form, 'next')">
+                            <input type="button" value="Show" onclick="Show(this.form, 'next')" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="nextOK" disabled style="font-weight:bold;"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <script>
+        // Inicializar al cargar
+        GenerateProblem();
+    </script>
+
+</body>
+</html>
