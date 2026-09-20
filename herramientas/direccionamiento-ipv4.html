@@ -24,6 +24,13 @@
     .show-btn { display: none; }
     .bg-cabe th { background: #dadddd; }
     #inputError { color: #b42318; font-weight: 600; text-align: center; min-height: 1.4em; }
+    .power-calculator { margin-top: 20px; padding: 16px 20px; background: #e9ecef; border-radius: 8px; }
+    .power-calculator h2 { margin: 0 0 5px; font-size: 1.1em; color: #2c3e50; }
+    .power-calculator p { margin: 0 0 12px; font-size: .9em; color: #5f6b6d; }
+    .power-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .power-row input { width: 80px; }
+    .power-result { font-family: Consolas, Monaco, monospace; font-size: 1.15em; font-weight: bold; overflow-wrap: anywhere; }
+    .power-error { color: #b42318; font-size: .85em; min-height: 1.2em; margin-top: 5px; }
     @media (max-width: 650px) { body { padding-inline: 5px; } .contentwrap { padding: 10px 5px; } input { max-width: 45px; } input.long-answer { max-width: 110px; } td, th { font-size: .85em; } }
   </style>
 </head>
@@ -60,11 +67,24 @@
       </table>
     </form>
   </div>
+  <section class="power-calculator" aria-labelledby="powerTitle">
+    <h2 id="powerTitle">Calculadora de potencias de 2</h2>
+    <p>Apoyo para realizar los cálculos del ejercicio.</p>
+    <div class="power-row">
+      <label for="powerExponent">Exponente:</label>
+      <input type="text" id="powerExponent" inputmode="numeric" maxlength="4" autocomplete="off">
+      <output id="powerResult" class="power-result" for="powerExponent"></output>
+    </div>
+    <div id="powerError" class="power-error" role="status"></div>
+  </section>
   <script>
     "use strict";
     const form = document.querySelector("form");
     const ipFields = ["mask", "network", "firstHost", "lastHost", "broadcast", "nextNetwork"];
     const allFields = [...ipFields, "hosts"];
+    const powerExponent = document.getElementById("powerExponent");
+    const powerResult = document.getElementById("powerResult");
+    const powerError = document.getElementById("powerError");
 
     function buildInterface() {
       ipFields.forEach(field => {
@@ -113,12 +133,40 @@
 
     function answer(field) { const problem = readProblem(); return calculate(problem.ip, problem.prefix)[field]; }
     function inputsFor(field) { return field === "hosts" ? [form.hostsInput] : [1,2,3,4].map(i => form.elements[`${field}${i}`]); }
-    function resetFeedback() { document.getElementById("inputError").textContent = ""; allFields.forEach(field => { const status = form.elements[`${field}OK`]; status.value = ""; status.style.backgroundColor = "white"; }); }
+    function formatHostsInput() {
+      const digits = form.hostsInput.value.replace(/\D/g, "");
+      form.hostsInput.value = digits === "" ? "" : new Intl.NumberFormat("es-ES", { useGrouping: "always" }).format(BigInt(digits));
+    }
+    function clearFieldFeedback(field) {
+      const status = form.elements[`${field}OK`];
+      status.value = "";
+      status.style.backgroundColor = "white";
+    }
+    function resetFeedback() { document.getElementById("inputError").textContent = ""; allFields.forEach(clearFieldFeedback); }
+    function fieldForInput(input) {
+      if (input.name.endsWith("Input")) return input.name.slice(0, -5);
+      return ipFields.find(field => input.name.startsWith(field)) || null;
+    }
+    function handleInputChange(input) {
+      document.getElementById("inputError").textContent = "";
+      if (input.name.startsWith("given")) resetFeedback();
+      else {
+        const field = fieldForInput(input);
+        if (field) clearFieldFeedback(field);
+      }
+    }
     function run(field, show) {
       try {
         const expected = answer(field); const inputs = inputsFor(field);
-        if (show) (Array.isArray(expected) ? expected : [expected]).forEach((value, i) => inputs[i].value = value);
-        const values = inputs.map(input => input.value.trim()); const correct = values.every((value, i) => /^\d+$/.test(value) && Number(value) === (Array.isArray(expected) ? expected[i] : expected));
+        if (show) {
+          (Array.isArray(expected) ? expected : [expected]).forEach((value, i) => inputs[i].value = value);
+          if (field === "hosts") formatHostsInput();
+        }
+        const values = inputs.map(input => input.value.trim());
+        const correct = values.every((value, i) => {
+          const normalized = field === "hosts" ? value.replace(/\./g, "") : value;
+          return /^\d+$/.test(normalized) && Number(normalized) === (Array.isArray(expected) ? expected[i] : expected);
+        });
         const status = form.elements[`${field}OK`]; status.value = correct ? "YES" : "NO"; status.style.backgroundColor = correct ? "#90EE90" : "#FFB6C1";
         document.getElementById("inputError").textContent = "";
       } catch (error) { document.getElementById("inputError").textContent = error.message; }
@@ -132,11 +180,27 @@
       form.givenMask.value = choice.prefix; document.querySelectorAll("input.userinput").forEach(input => { if (!input.name.startsWith("given")) input.value = ""; }); resetFeedback(); form.mask1.focus();
     }
 
+    function updatePowerResult() {
+      const exponent = powerExponent.value.trim();
+      powerError.textContent = "";
+      powerResult.textContent = "";
+      if (exponent === "") return;
+      if (!/^\d+$/.test(exponent)) {
+        powerError.textContent = "Introduce un número entero no negativo.";
+        return;
+      }
+      const value = 2n ** BigInt(exponent);
+      const superscript = exponent.replace(/\d/g, digit => "⁰¹²³⁴⁵⁶⁷⁸⁹"[Number(digit)]);
+      powerResult.textContent = `2${superscript} = ${new Intl.NumberFormat("es-ES").format(value)}`;
+    }
+
     buildInterface();
-    document.addEventListener("input", event => { if (event.target.classList.contains("userinput")) resetFeedback(); });
+    form.hostsInput.addEventListener("input", formatHostsInput);
+    document.addEventListener("input", event => { if (event.target.classList.contains("userinput")) handleInputChange(event.target); });
     document.addEventListener("keydown", event => { if ((event.key === "." || event.key === "/") && event.target.classList.contains("userinput")) { const fields = [...document.querySelectorAll(".userinput")]; const next = fields[fields.indexOf(event.target) + 1]; if (next) { event.preventDefault(); next.focus(); } } });
     document.addEventListener("click", event => { if (event.target.dataset.check) run(event.target.dataset.check, false); if (event.target.dataset.show) run(event.target.dataset.show, true); });
     document.getElementById("btnNewProblem").addEventListener("click", newProblem);
+    powerExponent.addEventListener("input", updatePowerResult);
     newProblem();
   </script>
 </body>
