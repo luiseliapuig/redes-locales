@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)https://moodle.elpuig.xeill.net/pluginfile.php/132065/mod_resource/content/18/subnetting_IPv4_v2.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Práctica Subnetting IPv4 - Master Final</title>
+    <style>
+        html {
+            -webkit-text-size-adjust:100%;
+            -moz-text-size-adjust:100%;
+            text-size-adjust:100%;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 900px;
+
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        li {font-size: 14px;}
+        .contentwrap {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        input {
+            font-family: 'Consolas', 'Monaco', monospace;
+            text-align: center;
+            font-size: 1em;
+            padding: 2px 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+            background-color: #eaf2f8;
+        }
+        /* Botones */
+        input[type=button] {
+            background: #3498db; 
+            color: white; 
+            font-size: 1em;
+            border: none; 
+            padding: 6px 15px; 
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        input[type=button]:hover {
+            background: #2980b9;
+        }
+        input[value="Nuevo reto"] {
+            background: #27ae60;
+            font-size: 1.1em;
+        }
+        input[value="Nuevo reto"]:hover {
+            background: #219150;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 0px;
+        }
+        td, th {
+            padding: 2px; 
+            border-bottom: 1px solid #f3f3f3;
+            text-align: center;
+        }
+        th {
+            background-color: #ecf0f1;
+        }
+        
+        .long-answer {
+            width: 120px;
+        }
+        
+        ul {
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .show-btn {
+            display: none; 
+        }
+
+        /* --- ESTILOS DEL VISUALIZADOR --- */
+        #visualizer-area {
+            margin-top: 30px;
+            border: 2px solid #34495e;
+            border-radius: 6px;
+            overflow: hidden;
+            display: none; /* OCULTO POR DEFECTO */
+        }
+        .visual-header {
+            background-color: #34495e;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .vis-container {
+            display: flex;
+            flex-direction: row;
+            max-height: 400px;
+        }
+        .vis-col-left {
+            width: 40%;
+            background-color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 2px solid #bdc3c7;
+            padding: 20px;
+            flex-direction: column;
+        }
+        .vis-col-right {
+            width: 60%;
+            background-color: #fff;
+            overflow-y: auto;
+        }
+        .subnet-row {
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee;
+            font-family: monospace;
+            font-size: 1.1em;
+            text-align: left;
+            padding-left: 20px;
+        }
+        .subnet-row:last-child {
+            border-bottom: none;
+        }
+        .subnet-row:hover {
+            background-color: #f9f9f9;
+        }
+        /* Resaltar la subred actual del ejercicio */
+        .highlight-current-no {
+            background-color: #f39c12 !important;
+            color: white;
+            font-weight: bold;
+        }
+        .base-network-box {
+            font-size: 1.4em;
+            color: #2c3e50;
+            font-weight: bold;
+            font-family: monospace;
+            border: 2px dashed #7f8c8d;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .base-label {
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7f8c8d;
+            font-size: 0.8em;
+            text-align: center;
+        }
+        .bg-cabe th { background: #dadddd;}
+
+    </style>
+
+    <script language="javascript" type="text/javascript">
+
+        var uiCurrent;
+        var uiNext;
+        var uiNames = [];
+
+        function uiInput(currentinput) {
+            uiCurrent = currentinput.name;
+            uiCurrentIndex = uiNames.indexOf(uiCurrent);
+            if (uiCurrentIndex == (uiNames.length - 1)) {
+                uiNext = uiNames[0];
+            } else {
+                uiNext = uiNames[uiCurrentIndex + 1];
+            }
+        }
+
+        function jumpdot(event) {
+            var y = event.key;
+            if (y == "." || y == "/" ) {
+                event.preventDefault();
+                document.getElementsByName(uiNext)[0].focus();
+            } 
+        }
+
+        function doEnterAction() {
+            event.preventDefault();
+        }
+
+        var octet=new Array();
+        var i=0;
+        var j=0;
+
+        // --- NUEVA FUNCIÓN: LIMPIEZA VISUAL (RESET) ---
+        function ResetFeedback() {
+            var form = document.querySelector('form');
+            var okFields = ['networkOK', 'firstHostOK', 'lastHostOK', 'broadcastOK', 'nextsubnetOK', 'jumpOK', 'subnetsOK', 'hostsOK', 'maskOK'];
+            
+            // 1. Limpiar campos YES/NO y colores
+            okFields.forEach(function(field) {
+                if(form.elements[field]) {
+                    form.elements[field].value = "";
+                    form.elements[field].style.backgroundColor = "white";
+                }
+            });
+
+            // 2. Ocultar Visualizador
+            document.getElementById("visualizer-area").style.display = "none";
+        }
+
+        function UpdateVisibility() {
+            var form = document.querySelector('form');
+            var mask = parseInt(form.givenMask.value);
+            var rowJump = document.getElementById("row_jump");
+            var rowSubnets = document.getElementById("row_subnets");
+
+            // Activamos el reset visual porque ha cambiado la máscara
+            ResetFeedback();
+
+            if (isNaN(mask)) return;
+
+            if(mask == 8 || mask == 16 || mask == 24) {
+                rowJump.style.display = "none";
+                rowSubnets.style.display = "none";
+            } else {
+                rowJump.style.display = "table-row";
+                rowSubnets.style.display = "table-row";
+            }
+            
+            // Actualizamos la lógica interna con los nuevos datos
+            GetProblem(form);
+        }
+
+        function ClearForm(form){
+            for(i=0; i <35; i++) { octet[i] =0; }
+
+            form.networkOctet1.value     = "";   form.networkOctet2.value     = "";
+            form.networkOctet3.value     = "";   form.networkOctet4.value     = "";
+            form.firstHostOctet1.value   = "";   form.firstHostOctet2.value   = "";
+            form.firstHostOctet3.value   = "";   form.firstHostOctet4.value   = "";
+            form.lastHostOctet1.value    = "";   form.lastHostOctet2.value    = "";
+            form.lastHostOctet3.value    = "";   form.lastHostOctet4.value    = "";
+            form.broadcastOctet1.value   = "";   form.broadcastOctet2.value   = "";
+            form.broadcastOctet3.value   = "";   form.broadcastOctet4.value   = "";
+            form.nextsubnetOctet1.value  = "";   form.nextsubnetOctet2.value  = "";
+            form.nextsubnetOctet3.value  = "";   form.nextsubnetOctet4.value  = "";
+
+            form.jumpInput.value = "";    
+            form.subnetsInput.value = ""; 
+            form.hostsInput.value = "";   
+            form.maskInput1.value = ""; form.maskInput2.value = "";
+            form.maskInput3.value = ""; form.maskInput4.value = "";
+
+            // Llamamos a ResetFeedback para limpiar estados
+            ResetFeedback();
+
+            i=Math.floor(Math.random()*3);      
+            if (i==0){ octet[0] = 8+Math.floor(Math.random()*22); octet[1] = 1+Math.floor(Math.random()*126); }
+            if (i==1){ octet[0] = 16+Math.floor(Math.random()*14); octet[1] = 128+Math.floor(Math.random()*63); }
+            if (i==2){ octet[0] = 24+Math.floor(Math.random()*6); octet[1] = 192+Math.floor(Math.random()*31); }
+            
+            octet[2] = Math.floor(Math.random()*255);
+            octet[3] = Math.floor(Math.random()*255);
+            octet[4] = Math.floor(Math.random()*255);
+
+            form.givenMask.value   = octet[0];
+            form.givenOctet1.value = octet[1];
+            form.givenOctet2.value = octet[2];
+            form.givenOctet3.value = octet[3];
+            form.givenOctet4.value = octet[4];
+            
+            UpdateVisibility(); // Ajusta filas y recalcula
+            
+            form.elements["maskInput1"].focus();
+        }
+
+        function DrawVisualizer() {
+            var container = document.getElementById("vis_subnets_container");
+            var baseLabel = document.getElementById("vis_base_network");
+            var baseTitle = document.getElementById("vis_base_title");
+            
+            container.innerHTML = ""; 
+            
+            var mask = octet[0];
+            var jump = octet[25];
+            
+            var baseIP = "";
+            var workingIndex = 0; 
+            
+            if (mask >= 24) {
+                baseTitle.innerHTML = "RED ORIGINAL (CLASE C)";
+                baseIP = octet[1] + "." + octet[2] + "." + octet[3] + ".0 / 24";
+                workingIndex = 3;
+            } else if (mask >= 16) {
+                baseTitle.innerHTML = "RED ORIGINAL (CLASE B)";
+                baseIP = octet[1] + "." + octet[2] + ".0.0 / 16";
+                workingIndex = 2;
+            } else {
+                baseTitle.innerHTML = "RED ORIGINAL (CLASE A)";
+                baseIP = octet[1] + ".0.0.0 / 8";
+                workingIndex = 1;
+            }
+            baseLabel.innerHTML = baseIP;
+
+            var currentVal = 0;
+            var html = "";
+            var targetIP = octet[20] + "." + octet[5] + "." + octet[6] + "." + octet[7];
+
+            while(currentVal < 256) {
+                var subIP = "";
+                
+                if(workingIndex == 3) {
+                    subIP = octet[1] + "." + octet[2] + "." + octet[3] + "." + currentVal;
+                } else if (workingIndex == 2) {
+                    subIP = octet[1] + "." + octet[2] + "." + currentVal + ".0";
+                } else {
+                    subIP = octet[1] + "." + currentVal + ".0.0";
+                }
+                
+                var highlightClass = "";
+                var rowId = "";
+                if(subIP == targetIP) {
+                    highlightClass = " highlight-current";
+                    rowId = 'id="targetRow"'; 
+                }
+
+                html += '<div ' + rowId + ' class="subnet-row' + highlightClass + '">' + subIP + ' / ' + mask + '</div>';
+                currentVal += jump;
+            }
+
+            container.innerHTML = html;
+
+            var targetElement = document.getElementById("targetRow");
+            if(targetElement) {
+                setTimeout(function(){
+                    targetElement.scrollIntoView({behavior: "smooth", block: "center"});
+                }, 500);
+            }
+        }
+
+        function Show(form,x){
+            GetProblem(form);
+            switch(x){
+                case(1): form.networkOctet1.value=octet[20]; form.networkOctet2.value=octet[5]; form.networkOctet3.value=octet[6]; form.networkOctet4.value=octet[7]; break;
+                case(2): form.firstHostOctet1.value=octet[21]; form.firstHostOctet2.value=octet[8]; form.firstHostOctet3.value=octet[9]; form.firstHostOctet4.value=octet[10]; break;
+                case(3): form.lastHostOctet1.value=octet[22]; form.lastHostOctet2.value=octet[11]; form.lastHostOctet3.value=octet[12]; form.lastHostOctet4.value=octet[13]; break;
+                case(4): form.broadcastOctet1.value=octet[23]; form.broadcastOctet2.value=octet[14]; form.broadcastOctet3.value=octet[15]; form.broadcastOctet4.value=octet[16]; break;
+                case(5): form.nextsubnetOctet1.value=octet[24]; form.nextsubnetOctet2.value=octet[17]; form.nextsubnetOctet3.value=octet[18]; form.nextsubnetOctet4.value=octet[19]; break;
+                case(6): form.jumpInput.value = octet[25]; break;
+                case(7): form.subnetsInput.value = octet[26]; break;
+                case(8): form.hostsInput.value = octet[27]; break;
+                case(9): form.maskInput1.value = octet[28]; form.maskInput2.value = octet[29]; form.maskInput3.value = octet[30]; form.maskInput4.value = octet[31]; break;
+            }
+            Check(form, x);
+        }
+
+        function Check(form,x){
+            GetProblem(form);
+            function setStatus(field, isCorrect) {
+                if(isCorrect) { field.value = "YES"; field.style.backgroundColor = "#90EE90"; } 
+                else { field.value = "NO"; field.style.backgroundColor = "#FFB6C1"; }
+            }
+            switch(x){
+                case(1): setStatus(form.networkOK, (form.networkOctet1.value == octet[20] && form.networkOctet2.value == octet[5] && form.networkOctet3.value == octet[6] && form.networkOctet4.value == octet[7])); break;
+                case(2): setStatus(form.firstHostOK, (form.firstHostOctet1.value == octet[21] && form.firstHostOctet2.value == octet[8] && form.firstHostOctet3.value == octet[9] && form.firstHostOctet4.value == octet[10])); break;
+                case(3): setStatus(form.lastHostOK, (form.lastHostOctet1.value == octet[22] && form.lastHostOctet2.value == octet[11] && form.lastHostOctet3.value == octet[12] && form.lastHostOctet4.value == octet[13])); break;
+                case(4): setStatus(form.broadcastOK, (form.broadcastOctet1.value == octet[23] && form.broadcastOctet2.value == octet[14] && form.broadcastOctet3.value == octet[15] && form.broadcastOctet4.value == octet[16])); break;
+                case(5): setStatus(form.nextsubnetOK, (form.nextsubnetOctet1.value == octet[24] && form.nextsubnetOctet2.value == octet[17] && form.nextsubnetOctet3.value == octet[18] && form.nextsubnetOctet4.value == octet[19])); break;
+                case(6): setStatus(form.jumpOK, form.jumpInput.value == octet[25]); break;
+                case(7): 
+                    var isCorrect = (form.subnetsInput.value == octet[26]);
+                    setStatus(form.subnetsOK, isCorrect); 
+                    if(isCorrect) {
+                        DrawVisualizer();
+                        document.getElementById("visualizer-area").style.display = "block";
+                    }
+                    break;
+                case(8): setStatus(form.hostsOK, form.hostsInput.value == octet[27]); break;
+                case(9): setStatus(form.maskOK, (form.maskInput1.value == octet[28] && form.maskInput2.value == octet[29] && form.maskInput3.value == octet[30] && form.maskInput4.value == octet[31])); break;
+            }
+        }
+
+        function GetProblem(form){
+            var maskVal = parseInt(form.givenMask.value);
+            if (isNaN(maskVal)) maskVal = 24; 
+            octet[0] = maskVal;
+            octet[1] = parseInt(form.givenOctet1.value);
+            octet[2] = parseInt(form.givenOctet2.value);
+            octet[3] = parseInt(form.givenOctet3.value);
+            octet[4] = parseInt(form.givenOctet4.value);
+            CalculateOctets();
+        }
+
+        function CalculateOctets(){
+            j=1; i=octet[0]%8;
+            for(i=8-octet[0]%8; i>0; i--) { j=j*2; }
+            octet[25] = j; 
+            octet[27] = Math.pow(2, (32 - octet[0])) - 2; if(octet[27] < 0) octet[27] = 0; 
+            var baseBits = 8; 
+            if (octet[0] >= 24) baseBits = 24; else if (octet[0] >= 16) baseBits = 16; else baseBits = 8;  
+            var borrowedBits = octet[0] - baseBits; if (borrowedBits < 0) borrowedBits = 0;
+            octet[26] = Math.pow(2, borrowedBits);
+            for(var k=0; k<4; k++) {
+                var bits = octet[0] - (k*8);
+                if(bits >= 8) octet[28+k] = 255; else if(bits <= 0) octet[28+k] = 0; else octet[28+k] = 256 - Math.pow(2, 8-bits);
+            }
+            if(octet[0] < 16){ 
+                if(octet[0] < 8){ 
+                    octet[21] = octet[20] = Math.floor(octet[1]/j)*j;
+                    octet[10] = 1; octet[11] = octet[14] = octet[5]+j-1;
+                    octet[23] = octet[22] = octet[21]+j-1;
+                    octet[12] = octet[15] = octet[16] =255; octet[11] = octet[14] = octet[17] =255;
+                    octet[13] = 254; octet[18] = octet[15]; octet[24] = octet[23];
+                    octet[6] = 0; octet[9] = 0; octet[5] = 0; octet[8] = 0; octet[7] = 0;
+                    octet[19] = octet[16];
+                    if (octet[19]>254) { octet[19] = 0; octet[18] = octet[18]+1; }
+                    if (octet[18]>254) { octet[18] = 0; octet[17] = octet[17]+1; }
+                    if (octet[17]>254) { octet[17] = 0; if ((octet[23]+1)>255) octet[24] = 255; else octet[24] = (octet[23]+1); }
+                    if((octet[23]==255) && (octet[14]==255) && (octet[15]==255) && (octet[16]==255) ){ octet[24] = 255; octet[17] = 255; octet[18] = 255; octet[19] = 255; }
+                } else { 
+                    octet[5] = octet[8] = Math.floor(octet[2]/j)*j;
+                    octet[10] = 1; octet[11] = octet[14] = octet[5]+j-1; octet[12] = octet[15] = octet[16] =255;
+                    octet[20] = octet[1]; octet[13] = 254;
+                    octet[20] = octet[1]; octet[21] = octet[1]; octet[22] = octet[1]; octet[23] = octet[1]; octet[24] = octet[1];
+                    octet[18] = octet[19] = 0; octet[6] = octet[9] = 0; octet[7] = 0;
+                    octet[17] = octet[14]+1; if (octet[17]>255) { octet[17] = 0; octet[24] = (octet[23]+1); }
+                }
+            } else { 
+                if(octet[0] < 24){ 
+                    octet[5]  = octet[8] = octet[11] = octet[14] = octet[2];
+                    octet[6]  = octet[9] = Math.floor(octet[3]/j)*j;
+                    octet[12] = octet[15] = octet[6]+j-1;
+                    octet[7]  = 0; octet[20] = octet[1]; octet[10] = 1; octet[13] = 254; octet[16] = 255;
+                    octet[20] = octet[1]; octet[21] = octet[1]; octet[22] = octet[1]; octet[23] = octet[1]; octet[24] = octet[1];
+                    octet[19] = 0; octet[18] = octet[15]+1; octet[17] = octet[14];
+                    if (octet[18]>255) { octet[18] = 0; octet[17] = octet[17]+1; }
+                    if (octet[17]>255) { octet[17] = 0; octet[24] = octet[23]+1; }
+                } else { 
+                    octet[5]  = octet[8] = octet[11] = octet[14] = octet[2];
+                    octet[6]  = octet[9] = octet[12] = octet[15] = octet[3];
+                    octet[7]  = Math.floor(octet[4]/j)*j;
+                    octet[10] = octet[7]+1; octet[16] = octet[7]+j-1; octet[13] = octet[16]-1; octet[19] = octet[16]+1;
+                    octet[20] = octet[1]; octet[21] = octet[1]; octet[22] = octet[1]; octet[23] = octet[1]; octet[24] = octet[1];
+                    octet[18] = octet[15]; octet[17] = octet[14];
+                    if (octet[19]>255) { octet[19] = 0; octet[18] = octet[18]+1; }
+                    if (octet[18]>255) { octet[18] = 0; octet[17] = octet[17]+1; }
+                    if (octet[17]>255) { octet[17] = 0; octet[24] = octet[23]+1; }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Subnetting IPv4</h1>
+    <ul>
+            <li><strong>Misión:</strong> Rellena los campos. Puedes introducir manualmente un problema propio modificando la IP superior.</li>
+            <li><strong>Salto y Subredes:</strong> Sólo cuando la máscara NO es natural. Se calculan contando bits desde la clase anterior (A=/8, B=/16, C=/24).</li>
+           
+        </ul><br>
+    <div class="contentwrap">
+       
+
+        <form onsubmit="doEnterAction()">
+            <table style="font-size: 1.2em; border:none; ">
+                <tbody>
+                    <tr>
+                       <td style="text-align:left; font-size:14px; width: 114px; "><input type="button" value="Nuevo reto" onclick="ClearForm(document.querySelector('form'))" id="btnNewProblem"></td>
+                        <td style="border:none; text-align:center"><strong>Dirección IP:</strong>
+                            <input type="tel" name="givenOctet1" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)" oninput="ResetFeedback()" value="220"> <strong>.</strong>
+                            <input type="tel" name="givenOctet2" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)" oninput="ResetFeedback()" value="60"> <strong>.</strong>
+                            <input type="tel" name="givenOctet3" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)" oninput="ResetFeedback()" value="204"> <strong>.</strong>
+                            <input type="tel" name="givenOctet4" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)" oninput="ResetFeedback()" value="130"> <strong>/</strong>
+                            <input type="tel" name="givenMask" size="2" maxlength="2" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)" oninput="UpdateVisibility()" value="25">
+                        </td>
+                        <td style="text-align:left; font-size:14px; width: 114px; "></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <table border="0">
+                <tbody>
+                    <tr class="bg-cabe">
+                        <th width="30%">Concepto</th>
+                        <th>Tu Respuesta</th>
+                        <th width="15%">Acción</th>
+                        <th width="10%">Estado</th>
+                    </tr>
+
+                    <tr>
+                        <th>Máscara Decimal</th>
+                        <td><input type="tel" name="maskInput1" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="maskInput2" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="maskInput3" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="maskInput4" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)">
+                        </td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form,9)">
+                            <input type="button" value="Show" onclick="Show(this.form,9)" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="maskOK" size="3" disabled="disabled" style="background-color: white;"></td>
+                    </tr>
+
+                    <tr id="row_jump" style="display: table-row;">
+                        <th>Salto (Incremento)</th>
+                        <td><input type="tel" name="jumpInput" class="userinput long-answer" onfocus="uiInput(this)"></td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form,6)">
+                            <input type="button" value="Show" onclick="Show(this.form,6)" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="jumpOK" size="3" disabled="disabled" style="background-color: white;"></td>
+                    </tr>
+
+                    <tr id="row_subnets" style="display: table-row;">
+                        <th>Nº de Subredes</th>
+                        <td><input type="tel" name="subnetsInput" class="userinput long-answer" onfocus="uiInput(this)"></td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form,7)">
+                            <input type="button" value="Show" onclick="Show(this.form,7)" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="subnetsOK" size="3" disabled="disabled" style="background-color: white;"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Hosts por Subred</th>
+                        <td><input type="tel" name="hostsInput" class="userinput long-answer" onfocus="uiInput(this)"></td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form,8)">
+                            <input type="button" value="Show" onclick="Show(this.form,8)" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="hostsOK" size="3" disabled="disabled" style="background-color: white;"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Dirección de Red</th>
+                        <td><input type="tel" name="networkOctet1" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="networkOctet2" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="networkOctet3" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="networkOctet4" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)">
+                        </td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form,1)">
+                            <input type="button" value="Show" onclick="Show(this.form,1)" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="networkOK" size="3" disabled="disabled" style="background-color: white;"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Primer Host</th>
+                        <td><input type="tel" name="firstHostOctet1" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="firstHostOctet2" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="firstHostOctet3" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="firstHostOctet4" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)">
+                        </td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form,2)">
+                            <input type="button" value="Show" onclick="Show(this.form,2)" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="firstHostOK" size="3" disabled="disabled" style="background-color: white;"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Último Host</th>
+                        <td><input type="tel" name="lastHostOctet1" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="lastHostOctet2" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="lastHostOctet3" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="lastHostOctet4" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)">
+                        </td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form,3)">
+                            <input type="button" value="Show" onclick="Show(this.form,3)" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="lastHostOK" size="3" disabled="disabled" style="background-color: white;"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Broadcast</th>
+                        <td><input type="tel" name="broadcastOctet1" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="broadcastOctet2" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="broadcastOctet3" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="broadcastOctet4" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)">
+                        </td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form,4)">
+                            <input type="button" value="Show" onclick="Show(this.form,4)" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="broadcastOK" size="3" disabled="disabled" style="background-color: white;"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Siguiente Subnet</th>
+                        <td><input type="tel" name="nextsubnetOctet1" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="nextsubnetOctet2" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="nextsubnetOctet3" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)"> .
+                            <input type="tel" name="nextsubnetOctet4" size="3" maxlength="3" class="userinput" onfocus="uiInput(this)" onkeydown="jumpdot(event)">
+                        </td>
+                        <td>
+                            <input type="button" value="Check" onclick="Check(this.form,5)">
+                            <input type="button" value="Show" onclick="Show(this.form,5)" class="show-btn" style="background-color:#f39c12">
+                        </td>
+                        <td><input type="text" name="nextsubnetOK" size="3" disabled="disabled" style="background-color: white;"></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            
+            <div id="visualizer-area" style="display: none;">
+                <div class="visual-header">ESTRUCTURA DE SUBREDES</div>
+                <div class="vis-container">
+                    <div class="vis-col-left">
+                        <div class="base-label" id="vis_base_title">RED ORIGINAL</div>
+                        <div class="base-network-box" id="vis_base_network">
+                            192.168.1.0
+                        </div>
+                    </div>
+                    <div class="vis-col-right" id="vis_subnets_container">
+                        </div>
+                </div>
+            </div>
+
+            <input type="submit" style="border:0; padding:0; font-size:0" tabindex="-1">
+        </form>
+
+         
+    </div>
+
+    <script>
+        var uiBoxes = document.querySelectorAll('.userinput');
+        for (i=0 ; i<uiBoxes.length ; i++){
+            uiNames.push(uiBoxes[i].name);
+            uiBoxes[i].setAttribute('onfocus',"uiInput(this)");
+            if(!uiBoxes[i].name.includes("Input")) { 
+               uiBoxes[i].setAttribute('onkeydown',"jumpdot(event)");
+            }
+        }
+        document.getElementById("btnNewProblem").click();
+    </script>
+
+
+</body></html>

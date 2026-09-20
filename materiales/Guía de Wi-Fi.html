@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)https://moodle.elpuig.xeill.net/pluginfile.php/143217/mod_resource/content/8/guia-wifi.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Wi-Fi</title>
+<link href="./Guía de Wi-Fi_files/css2" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F3EE;
+    --surface: #FDFCF9;
+    --ink: #1A1916;
+    --ink-muted: #6B6862;
+    --ink-faint: #B0ADA8;
+    --accent: #1D3557;
+    --accent-2: #E63946;
+    --accent-3: #457B9D;
+    --border: rgba(26,25,22,0.10);
+    --border-strong: rgba(26,25,22,0.20);
+    --radius: 4px;
+    --radius-lg: 12px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--accent);
+    color: #fff;
+    padding: 80px 48px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; right: 80px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .hero-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    max-width: 640px;
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: rgba(255,255,255,0.45);
+  }
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  /* STICKY NAV */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--accent);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+  }
+  .sticky-nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    height: 52px;
+    overflow: hidden;
+  }
+  .sticky-nav a {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 5px 14px;
+    border-radius: 100px;
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .sticky-nav a:hover {
+    color: rgba(255,255,255,0.85);
+    border-color: rgba(255,255,255,0.3);
+  }
+  .sticky-nav a.active {
+    color: #fff;
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.5);
+    font-weight: 500;
+  }
+  @media (max-width: 640px) {
+    .sticky-nav-inner { padding: 0 16px; gap: 5px; }
+    .sticky-nav a { font-size: 12px; padding: 4px 10px; }
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .section-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    min-width: 48px;
+    padding-top: 6px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .section-title span {
+    color: var(--ink-faint);
+  }
+
+  /* BODY TEXT */
+  .body-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--ink);
+    max-width: 680px;
+  }
+  .body-text p { margin-bottom: 16px; }
+  .body-text p:last-child { margin-bottom: 0; }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2px;
+    margin: 40px 0;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .card {
+    background: var(--surface);
+    padding: 28px 28px 32px;
+  }
+  .card-icon {
+    font-size: 24px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .card-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+  .card-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-muted);
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 40px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 10px; bottom: 10px;
+    width: 1px;
+    background: var(--border-strong);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 36px;
+  }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -36px; top: 8px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .timeline-item h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .timeline-item p {
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 40px 0;
+    font-size: 14px;
+  }
+  .compare-table thead tr {
+    background: var(--accent);
+    color: #fff;
+  }
+  .compare-table thead th {
+    padding: 14px 20px;
+    text-align: left;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .compare-table thead th:first-child {
+    border-radius: var(--radius) 0 0 0;
+  }
+  .compare-table thead th:last-child {
+    border-radius: 0 var(--radius) 0 0;
+  }
+  .compare-table tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table tbody tr:last-child { border-bottom: none; }
+  .compare-table tbody tr:nth-child(even) {
+    background: rgba(26,25,22,0.02);
+  }
+  .compare-table td {
+    padding: 13px 20px;
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .compare-table td:first-child {
+    font-weight: 500;
+    color: var(--ink-muted);
+    font-size: 13px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .badge-yes { background: #E8F5E9; color: #2E7D32; }
+  .badge-no  { background: #FBE9E7; color: #BF360C; }
+
+  /* PROTOCOL CARDS */
+  .proto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 40px 0;
+  }
+  .proto-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .proto-card.obsolete::before {
+    content: 'OBSOLETO';
+    position: absolute;
+    top: 12px; right: -18px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    background: #EF9F27;
+    color: #412402;
+    padding: 3px 24px;
+    transform: rotate(45deg);
+    transform-origin: center;
+  }
+  .proto-card.insecure::before {
+    content: 'INSEGURO';
+    background: #E24B4A;
+    color: #fff;
+    position: absolute;
+    top: 12px; right: -22px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 32px;
+    transform: rotate(45deg);
+    transform-origin: center;
+  }
+  .proto-card.best::before {
+    content: 'RECOMENDADO';
+    background: #63992210;
+    color: #3B6D11;
+    border: 1px solid #97C45950;
+    position: absolute;
+    top: 12px; right: -28px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 3px 38px;
+    transform: rotate(45deg);
+    transform-origin: center;
+  }
+  .proto-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .proto-desc {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  /* HANDSHAKE STEPS */
+  .steps {
+    margin: 40px 0;
+    counter-reset: steps;
+  }
+  .step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    background: var(--accent);
+    min-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .step-content p {
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  /* BAND VISUAL */
+  .band-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin: 40px 0;
+    background: var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .band-cell {
+    background: var(--surface);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .band-freq {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .band-name {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 16px;
+  }
+  .band-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+  }
+  .band-pill {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: rgba(26,25,22,0.05);
+    color: var(--ink-muted);
+  }
+  .band-pill.pro { background: #EAF3DE; color: #3B6D11; }
+  .band-pill.con { background: #FCEBEB; color: #A32D2D; }
+
+  /* CSMA DIAGRAM */
+  .flow-diagram {
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .flow-row {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+  }
+  .flow-box {
+    background: var(--surface);
+    padding: 20px 24px;
+    flex: 1;
+  }
+  .flow-box.accent-bg {
+    background: var(--accent);
+    color: #fff;
+  }
+  .flow-box h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .flow-box.accent-bg h4 { color: rgba(255,255,255,0.9); }
+  .flow-box p {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+  .flow-box.accent-bg p { color: rgba(255,255,255,0.6); }
+  .flow-arrow {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--ink-faint);
+    padding: 0 4px;
+    min-width: 32px;
+  }
+
+  /* QUOTE */
+  .callout {
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    background: rgba(29,53,87,0.04);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    margin: 32px 0;
+  }
+  .callout p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .callout strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 40px;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+  }
+  footer strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 48px 24px 56px; }
+    .container { padding: 0 20px; }
+    .section { padding: 48px 0; }
+    .band-visual { grid-template-columns: 1fr; }
+    .proto-grid { grid-template-columns: 1fr 1fr; }
+    .compare-table { font-size: 13px; }
+    .compare-table td, .compare-table th { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-label">Guía técnica · Wi-Fi</div>
+  <h1>Todo sobre<br><em>el</em> Wi-Fi</h1>
+  <p class="hero-sub">Desde Hedy Lamarr y los torpedos de la Segunda Guerra Mundial hasta el handshake de 4 pasos que protege tu red.</p>
+</header>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="sticky-nav">
+  <div class="sticky-nav-inner">
+    <a href="https://moodle.elpuig.xeill.net/pluginfile.php/143217/mod_resource/content/8/guia-wifi.html#historia" data-section="historia">Historia</a>
+    <a href="https://moodle.elpuig.xeill.net/pluginfile.php/143217/mod_resource/content/8/guia-wifi.html#ondas" data-section="ondas">Ondas</a>
+    <a href="https://moodle.elpuig.xeill.net/pluginfile.php/143217/mod_resource/content/8/guia-wifi.html#bandas" data-section="bandas">Bandas</a>
+    <a href="https://moodle.elpuig.xeill.net/pluginfile.php/143217/mod_resource/content/8/guia-wifi.html#seguridad" data-section="seguridad">Seguridad</a>
+    <a href="https://moodle.elpuig.xeill.net/pluginfile.php/143217/mod_resource/content/8/guia-wifi.html#autenticacion" data-section="autenticacion">Autenticación</a>
+    <a href="https://moodle.elpuig.xeill.net/pluginfile.php/143217/mod_resource/content/8/guia-wifi.html#cifrado" data-section="cifrado">Cifrado</a>
+    <a href="https://moodle.elpuig.xeill.net/pluginfile.php/143217/mod_resource/content/8/guia-wifi.html#acceso" data-section="acceso">Acceso al medio</a>
+  </div>
+</nav>
+
+<!-- 1. HISTORIA -->
+<section class="section" id="historia">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2 class="section-title">Historia: <span>de los torpedos al router</span></h2>
+    </div>
+
+    <div class="body-text">
+      <p>El Wi-Fi no fue obra de una sola persona ni nació en un laboratorio. Surgió de la confluencia de ciencia, guerra, música y matemáticas a lo largo de varias décadas.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Siglo XIX — Joseph Fourier</h3>
+        <p>El matemático Fourier descubre que cualquier señal compleja puede descomponerse en ondas simples. Su <em>transformada de Fourier</em> hace posible la técnica OFDM, que permite enviar muchos datos simultáneamente por diferentes frecuencias sin interferencias.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>1942 — Hedy Lamarr y George Antheil</h3>
+        <p>La actriz Hedy Lamarr y el compositor George Antheil patentan el <em>salto de frecuencia</em>: emisor y receptor cambian de frecuencia de forma sincronizada para evitar que los enemigos intercepten señales de torpedos. Demasiado avanzado para su época, se convertiría décadas después en la base del Bluetooth y el Wi-Fi.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Años 80 — El espectro libre</h3>
+        <p>El gobierno de EE. UU. abre ciertas bandas de radio (incluida la de 2,4 GHz) sin necesidad de licencia. Esto permite que cualquier ingeniero pueda experimentar con redes inalámbricas. Nacen las condiciones para el Wi-Fi.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Años 90 — El estándar 802.11</h3>
+        <p>El IEEE (el mismo grupo que definió Ethernet) trabaja para llevar las redes "al aire". La Universidad de Waikato, NCR, Lucent y Apple participan en los primeros desarrollos. Las primeras versiones son lentas, pero funcionan.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>1999 — Nace el nombre "Wi-Fi"</h3>
+        <p>Para hacer comercial el árido nombre técnico "IEEE 802.11b", se acuña <strong>Wi-Fi</strong>, imitando el término Hi-Fi de los equipos de sonido de alta fidelidad. El resto es historia.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>En resumen:</strong> El Wi-Fi no surgió de la nada. Surgió de los cables (Ethernet), del espectro libre, de las matemáticas de Fourier y de la creatividad bélica de Hedy Lamarr. Hoy nos parece tan normal como respirar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. ONDAS -->
+<section class="section" id="ondas">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2 class="section-title">Ondas <span>electromagnéticas</span></h2>
+    </div>
+
+    <div class="body-text">
+      <p>Las ondas electromagnéticas son vibraciones invisibles que transportan información a través del aire sin necesidad de cables. Cada onda tiene tres características clave:</p>
+    </div>
+
+    <div class="card-grid" style="margin-top: 32px;">
+      <div class="card">
+        <span class="card-icon">〰</span>
+        <div class="card-label">Característica</div>
+        <div class="card-title">Frecuencia</div>
+        <div class="card-body">Cuántas veces vibra la onda por segundo. Se mide en hercios (Hz). A mayor frecuencia, más datos puede transportar, pero menos distancia recorre.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">↕</span>
+        <div class="card-label">Característica</div>
+        <div class="card-title">Amplitud</div>
+        <div class="card-body">La "altura" de la onda, que determina la potencia o intensidad de la señal emitida por el dispositivo.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">◎</span>
+        <div class="card-label">Característica</div>
+        <div class="card-title">Fase</div>
+        <div class="card-body">En qué punto del ciclo se encuentra la onda en un momento dado. Fundamental para que varias señales no colisionen.</div>
+      </div>
+    </div>
+
+    <div class="body-text" style="margin-top: 32px;">
+      <p>Las ondas Wi-Fi no viajan en línea recta perfecta: se <strong>reflejan</strong> en paredes, se <strong>atenúan</strong> con obstáculos como ladrillos o agua, y se <strong>interfieren</strong> unas con otras. Por eso a veces una señal buena se corta al moverte unos metros.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. BANDAS -->
+<section class="section" id="bandas">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2 class="section-title">Bandas <span>y canales</span></h2>
+    </div>
+
+    <div class="band-visual">
+      <div class="band-cell">
+        <div class="band-freq">2,4 GHz</div>
+        <div class="band-name">Banda clásica</div>
+        <div class="band-pills">
+          <span class="band-pill pro">Mayor alcance</span>
+          <span class="band-pill pro">Traspasa paredes</span>
+          <span class="band-pill con">Más interferencias</span>
+          <span class="band-pill con">Solo 3 canales libres</span>
+          <span class="band-pill con">Menor velocidad</span>
+        </div>
+      </div>
+      <div class="band-cell">
+        <div class="band-freq">5 GHz</div>
+        <div class="band-name">Banda rápida</div>
+        <div class="band-pills">
+          <span class="band-pill pro">Mayor velocidad</span>
+          <span class="band-pill pro">20+ canales</span>
+          <span class="band-pill pro">Menos saturación</span>
+          <span class="band-pill con">Menor alcance</span>
+          <span class="band-pill con">Peor en obstáculos</span>
+        </div>
+      </div>
+      <div class="band-cell">
+        <div class="band-freq">6 GHz</div>
+        <div class="band-name">Wi-Fi 6E</div>
+        <div class="band-pills">
+          <span class="band-pill pro">Más limpia</span>
+          <span class="band-pill pro">Máxima velocidad</span>
+          <span class="band-pill pro">Menos dispositivos</span>
+          <span class="band-pill con">Alcance reducido</span>
+          <span class="band-pill con">Hardware nuevo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>Los <strong>canales</strong> son microbandas dentro de una banda mayor. En 2,4 GHz existen 13 canales en Europa, pero solo 3 no se solapan entre sí (1, 6 y 11). En 5 GHz hay más de 20 canales no solapados, lo que reduce las interferencias enormemente. Los routers modernos de <strong>doble banda</strong> emiten en ambas simultáneamente y el dispositivo elige automáticamente la más conveniente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. SEGURIDAD -->
+<section class="section" id="seguridad">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2 class="section-title">Protocolos <span>de seguridad</span></h2>
+    </div>
+
+    <div class="body-text">
+      <p>A lo largo de los años, el Wi-Fi ha pasado por distintos estándares de cifrado. Algunos han quedado obsoletos por ser vulnerables; otros son el estándar actual.</p>
+    </div>
+
+    <div class="proto-grid">
+      <div class="proto-card insecure">
+        <div class="proto-name">WEP</div>
+        <div class="proto-desc">El primer intento de cifrado. Fue roto públicamente y hoy se considera completamente inseguro. No utilizar bajo ninguna circunstancia.</div>
+      </div>
+      <div class="proto-card obsolete">
+        <div class="proto-name">WPA</div>
+        <div class="proto-desc">Mejora temporal sobre WEP usando TKIP. Resolvió algunos problemas, pero heredó vulnerabilidades. Considerado obsoleto.</div>
+      </div>
+      <div class="proto-card">
+        <div class="proto-name">WPA2</div>
+        <div class="proto-desc">Introduce AES-CCMP como cifrado robusto. Sigue siendo el estándar más extendido en routers domésticos actuales.</div>
+      </div>
+      <div class="proto-card best">
+        <div class="proto-name">WPA3</div>
+        <div class="proto-desc">Usa SAE (Dragonfly) para mayor seguridad. Protege incluso redes abiertas mediante OWE (cifrado oportunista). El estándar más seguro hoy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. AUTENTICACIÓN -->
+<section class="section" id="autenticacion">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <h2 class="section-title">Autenticación <span>y control de acceso</span></h2>
+    </div>
+
+    <div class="body-text">
+      <p>Cifrar los datos no basta: también hay que controlar <em>quién</em> puede conectarse a la red. Existen dos métodos principales según el contexto de uso.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">Para uso doméstico</div>
+        <div class="card-title">PSK — Pre-Shared Key</div>
+        <div class="card-body">Todos los dispositivos comparten la misma contraseña. Fácil de configurar y universalmente compatible. Al conectarse, el router y el cliente generan una clave de sesión temporal y única para cifrar los datos. Su debilidad: no es posible revocar el acceso a un solo dispositivo sin cambiar la clave para todos.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Para entornos empresariales</div>
+        <div class="card-title">802.1X — Enterprise</div>
+        <div class="card-body">Cada usuario tiene credenciales propias (usuario/contraseña o certificado digital). Un servidor RADIUS valida el acceso de forma centralizada. Permite activar, desactivar y auditar cuentas individuales. Más seguro, pero requiere infraestructura adicional y mayor complejidad de gestión.</div>
+      </div>
+    </div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Característica</th>
+          <th>PSK (doméstico)</th>
+          <th>802.1X (enterprise)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>¿Una clave para todos?</td>
+          <td><span class="badge badge-yes">Sí</span></td>
+          <td><span class="badge badge-no">No — individual</span></td>
+        </tr>
+        <tr>
+          <td>Gestión centralizada</td>
+          <td><span class="badge badge-no">No</span></td>
+          <td><span class="badge badge-yes">Sí</span></td>
+        </tr>
+        <tr>
+          <td>Fácil de configurar</td>
+          <td><span class="badge badge-yes">Muy fácil</span></td>
+          <td><span class="badge badge-no">Requiere infraestructura</span></td>
+        </tr>
+        <tr>
+          <td>Seguridad individual</td>
+          <td><span class="badge badge-no">Baja</span></td>
+          <td><span class="badge badge-yes">Alta</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 6. CIFRADO -->
+<section class="section" id="cifrado">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <h2 class="section-title">Negociación <span>y cifrado</span></h2>
+    </div>
+
+    <div class="body-text">
+      <p>Tras la autenticación, dispositivo y router necesitan acordar cómo van a cifrar los datos. Este proceso se llama <strong>4-Way Handshake</strong> y garantiza que cada sesión tenga su propia clave temporal única.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Nonce del punto de acceso</h4>
+          <p>El router envía un número aleatorio (ANonce) al cliente para iniciar el intercambio.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Nonce del cliente</h4>
+          <p>El dispositivo responde con su propio número aleatorio (SNonce), también aleatorio e irrepetible.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Generación de la PTK</h4>
+          <p>Ambos combinan sus nonces con la contraseña o credencial para generar la <em>Pairwise Transient Key</em>: la clave de sesión que cifrará la comunicación.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Verificación y activación</h4>
+          <p>Ambos verifican que han calculado la misma clave. Si coincide, la comunicación cifrada comienza.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>TLS y el Wi-Fi se complementan:</strong> TLS (el protocolo detrás de HTTPS) cifra el tráfico entre tus apps y los servidores externos. El Wi-Fi cifra el tramo entre tu dispositivo y el router. En una red abierta sin contraseña, TLS sigue protegiendo tus datos de punta a punta — aunque la red en sí no esté cifrada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. ACCESO AL MEDIO -->
+<section class="section" id="acceso">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <h2 class="section-title">Acceso <span>al medio — CSMA/CA</span></h2>
+    </div>
+
+    <div class="body-text">
+      <p>En Wi-Fi, todos los dispositivos comparten el mismo medio: el aire. Para evitar que hablen a la vez, se usa <strong>CSMA/CA</strong> (Carrier Sense Multiple Access with Collision Avoidance).</p>
+    </div>
+
+    <div class="flow-diagram">
+      <div class="flow-row">
+        <div class="flow-box accent-bg">
+          <h4>Escucha el canal</h4>
+          <p>El dispositivo comprueba si el aire está libre antes de transmitir.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">
+          <h4>¿Canal libre?</h4>
+          <p>Si hay tráfico, espera. Si el canal lleva libre un tiempo mínimo (DIFS), pasa al siguiente paso.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">
+          <h4>Backoff aleatorio</h4>
+          <p>Espera un tiempo aleatorio antes de transmitir para evitar colisiones si varios detectan el canal libre a la vez.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box accent-bg">
+          <h4>Transmite</h4>
+          <p>Si el canal sigue libre al terminar el backoff, el dato se envía.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <p>Para situaciones donde dos dispositivos no se ven entre sí pero comparten el mismo punto de acceso (el "problema del nodo oculto"), existe el mecanismo opcional <strong>RTS/CTS</strong>: el emisor pregunta "¿puedo enviar?" y el receptor responde "adelante", reservando el canal.</p>
+    </div>
+
+    <table class="compare-table" style="margin-top: 32px;">
+      <thead>
+        <tr>
+          <th>Característica</th>
+          <th>Wi-Fi (CSMA/CA)</th>
+          <th>Ethernet (CSMA/CD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Medio</td>
+          <td>Aire (compartido)</td>
+          <td>Cable (dedicado por segmento)</td>
+        </tr>
+        <tr>
+          <td>¿Detecta colisiones?</td>
+          <td><span class="badge badge-no">No — las evita</span></td>
+          <td><span class="badge badge-yes">Sí — y reacciona</span></td>
+        </tr>
+        <tr>
+          <td>¿Espera antes de enviar?</td>
+          <td><span class="badge badge-yes">Sí — escucha y backoff</span></td>
+          <td><span class="badge badge-no">No (en versiones modernas)</span></td>
+        </tr>
+        <tr>
+          <td>¿Usa RTS/CTS?</td>
+          <td><span class="badge badge-yes">Opcional</span></td>
+          <td><span class="badge badge-no">No</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <strong>Guía de introducción al Wi-Fi</strong> · Todos los derechos reservados
+</footer>
+
+<style>
+  html { scroll-behavior: smooth; }
+  .section { scroll-margin-top: 52px; }
+</style>
+
+<script>
+(function() {
+  var sections = ["historia","ondas","bandas","seguridad","autenticacion","cifrado","acceso"];
+  var navLinks = {};
+  sections.forEach(function(id) {
+    navLinks[id] = document.querySelector(".sticky-nav a[data-section='" + id + "']");
+  });
+  var setActive = function(id) {
+    sections.forEach(function(sid) {
+      var link = navLinks[sid];
+      if (!link) return;
+      if (sid === id) { link.classList.add("active"); }
+      else { link.classList.remove("active"); }
+    });
+  };
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) { setActive(entry.target.id); }
+    });
+  }, { rootMargin: "-10% 0px -80% 0px", threshold: 0 });
+  sections.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+  document.querySelectorAll(".sticky-nav a").forEach(function(a) {
+    a.addEventListener("click", function(e) {
+      e.preventDefault();
+      var target = document.getElementById(this.dataset.section);
+      if (target) {
+        var top = target.getBoundingClientRect().top + window.scrollY - 56;
+        window.scrollTo({ top: top, behavior: "smooth" });
+      }
+    });
+  });
+})();
+</script>
+
+
+
+</body></html>

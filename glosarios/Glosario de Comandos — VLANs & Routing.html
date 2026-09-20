@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!-- saved from url=(0104)https://moodle.elpuig.xeill.net/pluginfile.php/143217/mod_resource/content/5/glosario_comandos_vlan.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glosario de Comandos — VLANs &amp; Routing</title>
+<link href="./Glosario de Comandos — VLANs &amp; Routing_files/css2" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface-alt: #f9f8f5;
+    --border: #e2e0d8;
+    --border-light: #ede9e1;
+    --text-primary: #1a1a18;
+    --text-secondary: #6b6a64;
+    --text-muted: #9e9c95;
+    --accent-blue: #1a5fa8;
+  }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .page { max-width: 820px; margin: 0 auto; }
+
+  header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--text-primary);
+  }
+
+  .header-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  h1 span { color: var(--accent-blue); }
+
+  .subtitle {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 620px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .bloque {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .bloque.full { grid-column: 1 / -1; }
+  .bloque.full .cmd-row {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  }
+
+  .bloque-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.65rem 1rem;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .bloque-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .bloque-titulo {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    flex: 1;
+  }
+
+  /* Tags de dispositivo */
+  .tags {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .tag {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  .tag-switch {
+    background: #eef4fc;
+    color: #1a5fa8;
+    border-color: #bcd3ef;
+  }
+
+  .tag-router {
+    background: #eaf5f1;
+    color: #0d6e50;
+    border-color: #9dd4c2;
+  }
+
+  .cmd-list { padding: 0.25rem 0; }
+
+  .cmd-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 0.75rem;
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid var(--border-light);
+    align-items: start;
+  }
+
+  .cmd-row:last-child { border-bottom: none; }
+  .cmd-row:hover { background: var(--surface-alt); }
+
+  .cmd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--accent-blue);
+    word-break: break-all;
+    line-height: 1.6;
+  }
+
+  .desc {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <p class="header-label">Módulo: Redes Locales · RA3</p>
+    <h1>Glosario de <span>comandos Cisco IOS</span></h1>
+    <p class="subtitle">VLANs · Trunk · Inter-VLAN Routing · DHCP · NAT — en orden de uso</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- 1. Modos CLI -->
+    <div class="bloque">
+      <div class="bloque-header">
+        <div class="bloque-dot" style="background:#d4500a"></div>
+        <span class="bloque-titulo">Modos de la CLI</span>
+        <div class="tags">
+          <span class="tag tag-switch">Switch</span>
+          <span class="tag tag-router">Router</span>
+        </div>
+      </div>
+      <div class="cmd-list">
+        <div class="cmd-row"><span class="cmd">enable</span><span class="desc">Modo privilegiado</span></div>
+        <div class="cmd-row"><span class="cmd">configure terminal</span><span class="desc">Modo configuración global</span></div>
+        <div class="cmd-row"><span class="cmd">end</span><span class="desc">Vuelve al modo privilegiado</span></div>
+        <div class="cmd-row"><span class="cmd">exit</span><span class="desc">Vuelve al modo anterior</span></div>
+        <div class="cmd-row"><span class="cmd">write memory</span><span class="desc">Guarda la configuración</span></div>
+      </div>
+    </div>
+
+    <!-- 2. VLANs -->
+    <div class="bloque">
+      <div class="bloque-header">
+        <div class="bloque-dot" style="background:#1a5fa8"></div>
+        <span class="bloque-titulo">Creación de VLANs</span>
+        <div class="tags">
+          <span class="tag tag-switch">Switch</span>
+        </div>
+      </div>
+      <div class="cmd-list">
+        <div class="cmd-row"><span class="cmd">vlan 10</span><span class="desc">Crea la VLAN 10</span></div>
+        <div class="cmd-row"><span class="cmd">name NOMBRE</span><span class="desc">Asigna nombre a la VLAN</span></div>
+        <div class="cmd-row"><span class="cmd">show vlan brief</span><span class="desc">Lista VLANs y puertos asignados</span></div>
+      </div>
+    </div>
+
+    <!-- 3. Puertos acceso -->
+    <div class="bloque">
+      <div class="bloque-header">
+        <div class="bloque-dot" style="background:#8b44a8"></div>
+        <span class="bloque-titulo">Asignación de puertos</span>
+        <div class="tags">
+          <span class="tag tag-switch">Switch</span>
+        </div>
+      </div>
+      <div class="cmd-list">
+        <div class="cmd-row"><span class="cmd">interface fa0/1</span><span class="desc">Entra en la interfaz Fa0/1</span></div>
+        <div class="cmd-row"><span class="cmd">interface range fa0/1 - 2</span><span class="desc">Varias interfaces a la vez</span></div>
+        <div class="cmd-row"><span class="cmd">switchport mode access</span><span class="desc">Puerto de acceso (una sola VLAN)</span></div>
+        <div class="cmd-row"><span class="cmd">switchport access vlan 10</span><span class="desc">Asigna el puerto a la VLAN 10</span></div>
+      </div>
+    </div>
+
+    <!-- 4. Trunk -->
+    <div class="bloque">
+      <div class="bloque-header">
+        <div class="bloque-dot" style="background:#0d7a5f"></div>
+        <span class="bloque-titulo">Enlace trunk</span>
+        <div class="tags">
+          <span class="tag tag-switch">Switch</span>
+        </div>
+      </div>
+      <div class="cmd-list">
+        <div class="cmd-row"><span class="cmd">switchport mode trunk</span><span class="desc">Configura el puerto como trunk</span></div>
+        <div class="cmd-row"><span class="cmd">show interfaces trunk</span><span class="desc">Muestra trunks activos y sus VLANs</span></div>
+      </div>
+    </div>
+
+    <!-- 5. Inter-VLAN -->
+    <div class="bloque full">
+      <div class="bloque-header">
+        <div class="bloque-dot" style="background:#b8860b"></div>
+        <span class="bloque-titulo">Inter-VLAN Routing — router-on-a-stick</span>
+        <div class="tags">
+          <span class="tag tag-router">Router</span>
+        </div>
+      </div>
+      <div class="cmd-list">
+        <div class="cmd-row"><span class="cmd">interface g0/0</span><span class="desc">Entra en la interfaz física del router</span></div>
+        <div class="cmd-row"><span class="cmd">no shutdown</span><span class="desc">Activa la interfaz (imprescindible)</span></div>
+        <div class="cmd-row"><span class="cmd">interface g0/0.10</span><span class="desc">Crea la subinterfaz para la VLAN 10</span></div>
+        <div class="cmd-row"><span class="cmd">encapsulation dot1Q 10</span><span class="desc">Asocia la subinterfaz a la VLAN 10</span></div>
+        <div class="cmd-row"><span class="cmd">ip address 192.168.10.254 255.255.255.0</span><span class="desc">IP que actuará como gateway de la VLAN 10</span></div>
+        <div class="cmd-row"><span class="cmd">show ip route</span><span class="desc">Muestra la tabla de rutas del router</span></div>
+      </div>
+    </div>
+
+    <!-- 6. DHCP -->
+    <div class="bloque full">
+      <div class="bloque-header">
+        <div class="bloque-dot" style="background:#c0392b"></div>
+        <span class="bloque-titulo">DHCP — servidor en el router</span>
+        <div class="tags">
+          <span class="tag tag-router">Router</span>
+        </div>
+      </div>
+      <div class="cmd-list">
+        <div class="cmd-row"><span class="cmd">ip dhcp excluded-address 192.168.10.254</span><span class="desc">Reserva una IP para que el router no la reparta</span></div>
+        <div class="cmd-row"><span class="cmd">ip dhcp pool NOMBRE</span><span class="desc">Crea un pool DHCP con nombre descriptivo</span></div>
+        <div class="cmd-row"><span class="cmd">network 192.168.10.0 255.255.255.0</span><span class="desc">Define el rango de IPs a repartir</span></div>
+        <div class="cmd-row"><span class="cmd">default-router 192.168.10.254</span><span class="desc">Informa del gateway a los clientes</span></div>
+        <div class="cmd-row"><span class="cmd">dns-server 8.8.8.8</span><span class="desc">Informa del servidor DNS a los clientes</span></div>
+        <div class="cmd-row"><span class="cmd">show ip dhcp binding</span><span class="desc">IPs asignadas, MACs y fecha de expiración</span></div>
+        <div class="cmd-row"><span class="cmd">show ip dhcp pool</span><span class="desc">Pools configurados e IPs utilizadas</span></div>
+      </div>
+    </div>
+
+    <!-- 7. NAT -->
+    <div class="bloque full">
+      <div class="bloque-header">
+        <div class="bloque-dot" style="background:#2c6e49"></div>
+        <span class="bloque-titulo">NAT / PAT — salida a Internet</span>
+        <div class="tags">
+          <span class="tag tag-router">Router</span>
+        </div>
+      </div>
+      <div class="cmd-list">
+        <div class="cmd-row"><span class="cmd">ip nat inside</span><span class="desc">Marca la interfaz como interna (red privada)</span></div>
+        <div class="cmd-row"><span class="cmd">ip nat outside</span><span class="desc">Marca la interfaz como externa (Internet)</span></div>
+        <div class="cmd-row"><span class="cmd">access-list 1 permit 192.168.0.0 0.0.255.255</span><span class="desc">Define qué tráfico entra en el proceso NAT</span></div>
+        <div class="cmd-row"><span class="cmd">ip nat inside source list 1 interface g0/1 overload</span><span class="desc">Activa PAT: IPs privadas comparten la IP pública de g0/1</span></div>
+        <div class="cmd-row"><span class="cmd">show ip nat translations</span><span class="desc">Traducciones activas (IP privada ↔ IP pública)</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>A3.3 · A3.4 · A3.5 · A3.6 — Redes Locales</footer>
+</div>
+
+
+</body></html>

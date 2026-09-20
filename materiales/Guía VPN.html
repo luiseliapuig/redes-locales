@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<!-- saved from url=(0099)https://moodle.elpuig.xeill.net/pluginfile.php/143217/mod_resource/content/10/guia-vpn.html?embed=1 -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía VPN</title>
+<link href="./Guía VPN_files/css2" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F5F3EE; --surface: #FDFCF9; --ink: #1A1916; --ink-muted: #6B6862; --ink-faint: #B0ADA8;
+  --navy: #1D3557; --navy-2: #162840; --accent: #457B9D; --accent-light: #E8F1F6;
+  --red: #E63946; --red-light: #FDE8E9; --green: #2D6A4F; --green-light: #E8F4EF;
+  --orange: #E07A2F; --orange-light: #FDF0E4;
+  --border: rgba(26,25,22,0.09); --border-strong: rgba(26,25,22,0.18);
+  --radius: 6px; --radius-lg: 12px; --nav-h: 54px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.7; }
+
+/* HERO */
+.hero { background: var(--navy); color: #fff; padding: 72px 48px 64px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; }
+.hero-inner { position: relative; max-width: 960px; margin: 0 auto; }
+.hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: rgba(255,255,255,0.3); }
+.hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(38px, 6vw, 68px); font-weight: 800; line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 20px; }
+.hero h1 em { font-style: normal; color: rgba(255,255,255,0.35); }
+.hero-sub { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 540px; line-height: 1.75; margin-bottom: 40px; }
+.hero-stats { display: flex; flex-wrap: wrap; gap: 32px; }
+.hero-stat-val { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: #fff; }
+.hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+
+/* TAB NAV */
+.tab-nav { position: sticky; top: 0; z-index: 100; background: var(--navy-2); border-bottom: 1px solid rgba(255,255,255,0.07); }
+.tab-nav-inner { max-width: 960px; margin: 0 auto; padding: 0 48px; height: var(--nav-h); display: flex; align-items: center; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.tab-nav-inner::-webkit-scrollbar { display: none; }
+.tab-btn { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.45); background: none; border: 1px solid transparent; padding: 6px 16px; border-radius: 100px; cursor: pointer; white-space: nowrap; transition: all 0.18s; flex-shrink: 0; }
+.tab-btn:hover { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.06); }
+.tab-btn.active { color: #fff; background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); font-weight: 500; }
+
+/* TAB PANELS */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeIn 0.22s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+/* LAYOUT */
+.page { max-width: 960px; margin: 0 auto; padding: 0 48px; }
+.section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+.section:last-child { border-bottom: none; }
+.section-kicker { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+.section-title { font-family: 'Syne', sans-serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 14px; }
+.section-title em { font-style: normal; color: var(--ink-faint); }
+.section-desc { font-size: 14px; color: var(--ink-muted); max-width: 640px; line-height: 1.75; }
+
+/* GRIDS */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 20px 0; }
+@media (max-width: 700px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+
+/* CARDS GRID */
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin: 28px 0; }
+.card { background: var(--surface); padding: 24px 24px 28px; }
+.card-icon { font-size: 22px; margin-bottom: 14px; display: block; }
+.card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+.card-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.card-body { font-size: 13px; color: var(--ink-muted); line-height: 1.65; }
+
+/* INFO BLOCKS */
+.info-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 24px 26px; }
+.info-block h3 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--ink); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.info-block p { font-size: 13.5px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 8px; }
+.info-block p:last-child { margin-bottom: 0; }
+.info-block ul { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
+.info-block ul li { font-size: 13.5px; color: var(--ink-muted); padding-left: 16px; position: relative; line-height: 1.6; }
+.info-block ul li::before { content: '›'; position: absolute; left: 0; color: var(--ink-faint); }
+.info-block strong { color: var(--ink); font-weight: 500; }
+.info-block code { font-family: 'Courier New', monospace; font-size: 12px; background: var(--bg); color: var(--orange); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border); }
+
+/* TAGS */
+.tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; }
+.tag-blue { background: var(--accent-light); color: var(--accent); }
+.tag-green { background: var(--green-light); color: var(--green); }
+.tag-orange { background: var(--orange-light); color: var(--orange); }
+.tag-navy { background: rgba(29,53,87,0.08); color: var(--navy); }
+
+/* COMPARE TABLE */
+.compare-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 28px 0; background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); }
+.compare-table thead tr { background: var(--navy); }
+.compare-table thead th { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; color: rgba(255,255,255,0.85); padding: 13px 18px; text-align: left; }
+.compare-table tbody tr { border-bottom: 1px solid var(--border); }
+.compare-table tbody tr:last-child { border-bottom: none; }
+.compare-table tbody tr:nth-child(even) { background: rgba(26,25,22,0.015); }
+.compare-table td { padding: 12px 18px; color: var(--ink-muted); vertical-align: top; }
+.compare-table td:first-child { font-weight: 500; font-size: 12px; letter-spacing: 0.04em; }
+.badge { display: inline-block; font-size: 11px; padding: 2px 10px; border-radius: 100px; font-weight: 500; }
+.badge-yes { background: var(--green-light); color: var(--green); }
+.badge-no  { background: var(--red-light); color: var(--red); }
+
+/* CALLOUT */
+.callout { padding: 16px 20px; border-radius: var(--radius-lg); border: 1px solid; margin: 20px 0; font-size: 13.5px; line-height: 1.7; display: flex; gap: 12px; align-items: flex-start; }
+.callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.callout p { margin: 0; }
+.callout strong { font-weight: 500; }
+.callout-blue   { background: var(--accent-light);  border-color: rgba(69,123,157,0.3);  color: #2A5C7A; }
+.callout-green  { background: var(--green-light);   border-color: rgba(45,106,79,0.25);  color: var(--green); }
+.callout-orange { background: var(--orange-light);  border-color: rgba(224,122,47,0.3);  color: #9B5218; }
+.callout-red    { background: var(--red-light);     border-color: rgba(230,57,70,0.25);  color: #A42030; }
+
+/* FLOW STEPS */
+.flow-steps { display: flex; flex-direction: column; gap: 2px; margin: 24px 0; }
+.flow-step { display: flex; gap: 16px; align-items: flex-start; padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+.flow-step-num { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: #fff; background: var(--navy); min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.flow-step-content h4 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.flow-step-content p { font-size: 13px; color: var(--ink-muted); line-height: 1.65; }
+.flow-step-content code { font-family: 'Courier New', monospace; font-size: 12px; background: var(--bg); color: var(--orange); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border); }
+
+/* CODE BLOCKS */
+.code-wrap { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); margin: 16px 0; }
+.code-header { background: var(--navy); padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.code-lang { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-family: monospace; }
+.code-sublabel { font-size: 11px; color: rgba(255,255,255,0.35); flex: 1; text-align: center; }
+.copy-btn { font-size: 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.55); padding: 3px 10px; border-radius: 4px; cursor: pointer; letter-spacing: 0.06em; transition: all 0.15s; font-family: inherit; white-space: nowrap; }
+.copy-btn:hover { color: #fff; background: rgba(255,255,255,0.15); }
+.copy-btn.copied { color: #5fda8a; border-color: rgba(95,218,138,0.4); }
+pre { background: #1C2230; padding: 18px 20px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 12.5px; line-height: 1.8; color: #A0AABB; }
+pre .sec  { color: #F97583; }
+pre .key  { color: #E1C16E; }
+pre .val  { color: #79C0FF; }
+pre .cmd  { color: #85E89D; }
+pre .path { color: #FFAB70; }
+pre .pipe { color: #B392F0; }
+pre .cmt  { color: #5A6272; font-style: italic; }
+
+/* KEY DIAGRAM */
+.key-diagram { display: grid; grid-template-columns: 1fr 48px 1fr; gap: 0; margin: 24px 0; align-items: start; }
+.key-machine { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; }
+.key-machine-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 14px; }
+.key-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: var(--radius); margin-bottom: 6px; font-size: 12px; }
+.key-item.private { background: var(--red-light); color: var(--red); border: 1px solid rgba(230,57,70,0.2); }
+.key-item.public  { background: var(--green-light); color: var(--green); border: 1px solid rgba(45,106,79,0.2); }
+.key-item.recv    { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(69,123,157,0.2); }
+.key-arrows { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 56px; gap: 10px; }
+.key-arrow { font-size: 18px; color: var(--navy); }
+
+/* SW CARDS */
+.sw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0; }
+@media (max-width: 700px) { .sw-grid { grid-template-columns: 1fr; } }
+.sw-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; }
+.sw-card.best { border-color: rgba(29,53,87,0.4); }
+.sw-card-name { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--ink); margin-bottom: 14px; }
+.sw-card.best .sw-card-name { color: var(--navy); }
+.pros-label, .cons-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; margin-top: 12px; }
+.pros-label { color: var(--green); }
+.cons-label { color: var(--red); }
+.sw-card ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.sw-card ul li { font-size: 12.5px; color: var(--ink-muted); padding-left: 14px; position: relative; line-height: 1.55; }
+.pros-list li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-size: 11px; font-weight: 700; }
+.cons-list li::before { content: '−'; position: absolute; left: 0; color: var(--red); font-size: 11px; font-weight: 700; }
+
+/* TYPE HERO */
+.type-hero { background: var(--navy); color: #fff; padding: 36px 40px; border-radius: var(--radius-lg); margin: 0 0 28px; position: relative; overflow: hidden; }
+.type-hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 32px 32px; }
+.type-hero-inner { position: relative; }
+.type-hero-kicker { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
+.type-hero h2 { font-family: 'Syne', sans-serif; font-size: clamp(22px, 3.5vw, 36px); font-weight: 800; line-height: 1.1; margin-bottom: 12px; }
+.type-hero p { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 540px; line-height: 1.7; }
+.type-hero-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); padding: 4px 12px; border-radius: 100px; margin-top: 16px; }
+
+/* FOOTER */
+footer { background: var(--navy); color: rgba(255,255,255,0.3); text-align: center; padding: 32px; font-size: 12px; letter-spacing: 0.06em; }
+footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
+
+@media (max-width: 600px) {
+  .hero { padding: 48px 20px 52px; }
+  .page { padding: 0 20px; }
+  .tab-nav-inner { padding: 0 16px; }
+  .key-diagram { grid-template-columns: 1fr; }
+  .key-arrows { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Guía técnica · Redes</div>
+    <h1>VPN<br><em>Virtual Private Network</em></h1>
+    <p class="hero-sub">Qué es, cómo funciona por dentro, qué tipos existen y cómo configurar WireGuard paso a paso en servidor y cliente.</p>
+    <div class="hero-stats">
+      <div><div class="hero-stat-val">3 tipos</div><div class="hero-stat-label">de VPN</div></div>
+      <div><div class="hero-stat-val">ChaCha20</div><div class="hero-stat-label">Cifrado WireGuard</div></div>
+      <div><div class="hero-stat-val">UDP 51820</div><div class="hero-stat-label">Puerto por defecto</div></div>
+      <div><div class="hero-stat-val">10.8.0.x</div><div class="hero-stat-label">Red VPN típica</div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" onclick="showTab('inicio',this)">Inicio</button>
+    <button class="tab-btn" onclick="showTab('comercial',this)">VPN Comercial</button>
+    <button class="tab-btn" onclick="showTab('remoto',this)">Acceso Remoto</button>
+    <button class="tab-btn" onclick="showTab('sitio',this)">Sitio a Sitio</button>
+  </div>
+</nav>
+
+<!-- ══════════ TAB INICIO ══════════ -->
+<div class="tab-panel active" id="tab-inicio"><main class="page">
+
+<section class="section">
+  <div class="section-kicker">Concepto fundamental</div>
+  <h2 class="section-title">¿Qué es <em>una VPN?</em></h2>
+  <p class="section-desc">Una VPN crea un túnel cifrado entre dos o más dispositivos a través de Internet, permitiendo que se comuniquen como si estuviesen en la misma red local privada.</p>
+  <div class="two-col">
+    <div class="info-block">
+      <h3>El túnel <span class="tag tag-blue">Concepto</span></h3>
+      <p>Imagina Internet como una carretera pública. Una VPN construye un tubo opaco dentro de esa carretera: el tráfico viaja por dentro y nadie desde fuera puede ver qué contiene ni de dónde viene realmente.</p>
+    </div>
+    <div class="info-block">
+      <h3>Virtual y privada <span class="tag tag-blue">Concepto</span></h3>
+      <p><strong>Virtual</strong> porque no existe físicamente — es software emulando una interfaz de red. <strong>Privada</strong> porque el tráfico va cifrado y solo las máquinas autorizadas participan en la red.</p>
+    </div>
+  </div>
+  <div class="info-block">
+    <h3>¿Qué hace exactamente? <span class="tag tag-green">Técnico</span></h3>
+    <ul>
+      <li>Encapsula los paquetes originales dentro de nuevos paquetes cifrados (<strong>encapsulación</strong>).</li>
+      <li>Asigna a cada participante una IP dentro de la red virtual — por ejemplo <code>10.8.0.1</code>, <code>10.8.0.2</code>…</li>
+      <li>Todo el tráfico entre esas IPs viaja cifrado sobre la red real (Internet o LAN).</li>
+      <li>El receptor descifra el paquete y lo entrega al destino real de forma transparente para las apps.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Aplicaciones</div>
+  <h2 class="section-title">¿Para qué <em>sirve?</em></h2>
+  <div class="card-grid">
+    <div class="card"><span class="card-icon">🏢</span><div class="card-label">Empresas</div><div class="card-title">Acceso corporativo remoto</div><div class="card-body">Empleados conectan su portátil doméstico a la red interna de la empresa. Acceden a servidores, carpetas y recursos como si estuviesen en la oficina.</div></div>
+    <div class="card"><span class="card-icon">🔒</span><div class="card-label">Seguridad</div><div class="card-title">Proteger conexiones públicas</div><div class="card-body">En cafeterías o aeropuertos el Wi-Fi es inseguro. La VPN cifra todo el tráfico saliente, protegiendo datos aunque la red local sea hostil.</div></div>
+    <div class="card"><span class="card-icon">🌍</span><div class="card-label">Contenido</div><div class="card-title">Eludir restricciones geográficas</div><div class="card-body">Conectarse a un servidor VPN en otro país hace que tu tráfico salga con la IP de ese servidor, permitiendo acceder a contenido bloqueado regionalmente.</div></div>
+    <div class="card"><span class="card-icon">🏗️</span><div class="card-label">Infraestructura</div><div class="card-title">Interconectar sedes</div><div class="card-body">Dos oficinas en ciudades distintas comparten recursos internos de forma permanente y transparente, sin una línea dedicada costosa.</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Clasificación</div>
+  <h2 class="section-title">Los tres tipos <em>de VPN</em></h2>
+  <p class="section-desc">Las VPNs se clasifican por quién se conecta, con qué propósito y con qué permanencia. Cada pestaña del menú superior profundiza en uno de ellos.</p>
+  <div class="three-col">
+    <div class="info-block" style="border-top:3px solid var(--navy);">
+      <h3>🌐 Comercial</h3>
+      <p>Servicio de pago (NordVPN, Surfshark…) que enruta tu tráfico por sus servidores para mejorar privacidad o cambiar tu ubicación aparente.</p>
+      <p style="margin-top:8px;"><span class="tag tag-navy">Para usuarios finales</span></p>
+    </div>
+    <div class="info-block" style="border-top:3px solid var(--accent);">
+      <h3>🔑 Acceso remoto</h3>
+      <p>Un cliente individual se conecta a una red privada remota. Ideal para teletrabajo o administrar servidores propios con WireGuard u OpenVPN.</p>
+      <p style="margin-top:8px;"><span class="tag tag-blue">Para técnicos y empresas</span></p>
+    </div>
+    <div class="info-block" style="border-top:3px solid var(--orange);">
+      <h3>🏙 Sitio a sitio</h3>
+      <p>Conecta permanentemente dos redes completas. Los usuarios de cada sede acceden a recursos de la otra sin configurar nada en sus dispositivos.</p>
+      <p style="margin-top:8px;"><span class="tag tag-orange">Para infraestructura corporativa</span></p>
+    </div>
+  </div>
+  <table class="compare-table">
+    <thead><tr><th>Característica</th><th>Comercial</th><th>Acceso remoto</th><th>Sitio a sitio</th></tr></thead>
+    <tbody>
+      <tr><td>¿Quién se conecta?</td><td>Usuario individual</td><td>Usuario individual</td><td>Redes completas</td></tr>
+      <tr><td>Gestionado por</td><td>Proveedor externo</td><td>Tú mismo</td><td>Administrador de red</td></tr>
+      <tr><td>Duración</td><td>Bajo demanda</td><td>Bajo demanda</td><td>Permanente</td></tr>
+      <tr><td>Configuración</td><td>App del proveedor</td><td>Archivo .conf por cliente</td><td>Router / firewall</td></tr>
+      <tr><td>Control total</td><td><span class="badge badge-no">No</span></td><td><span class="badge badge-yes">Sí</span></td><td><span class="badge badge-yes">Sí</span></td></tr>
+      <tr><td>Ejemplo</td><td>Netflix de EE.UU. desde España</td><td>Trabajador desde casa</td><td>Oficinas Madrid ↔ Barcelona</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main></div>
+
+<!-- ══════════ TAB COMERCIAL ══════════ -->
+<div class="tab-panel" id="tab-comercial"><main class="page">
+
+<section class="section" style="padding-top:48px;">
+  <div class="type-hero"><div class="type-hero-inner">
+    <div class="type-hero-kicker">Tipo 01 · Comercial</div>
+    <h2>VPN Comercial</h2>
+    <p>Servicios de VPN ofrecidos por empresas orientados a usuarios finales que buscan privacidad, seguridad en redes públicas o acceso a contenido geobloqueado.</p>
+    <div class="type-hero-badge">🌐 Para usuarios finales · Sin configuración técnica</div>
+  </div></div>
+
+  <div class="section-kicker">Cómo funciona</div>
+  <h2 class="section-title">Funcionamiento <em>básico</em></h2>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="flow-step-num">1</div><div class="flow-step-content"><h4>Instalas la app del proveedor</h4><p>NordVPN, Surfshark, ExpressVPN… ofrecen apps para Windows, macOS, iOS, Android y Linux. Sin configuración manual de ningún tipo.</p></div></div>
+    <div class="flow-step"><div class="flow-step-num">2</div><div class="flow-step-content"><h4>Eliges un servidor y te conectas</h4><p>Puedes elegir el país o dejar que la app elija el servidor más rápido. Todo el tráfico de tu dispositivo se redirige a través de ese servidor.</p></div></div>
+    <div class="flow-step"><div class="flow-step-num">3</div><div class="flow-step-content"><h4>Tu IP cambia y el tráfico va cifrado</h4><p>Los sitios web ven la IP del servidor VPN, no la tuya. El tráfico entre tu dispositivo y el servidor viaja cifrado — tu ISP solo ve una conexión opaca hacia el servidor.</p></div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Casos de uso</div>
+  <h2 class="section-title">¿Para qué <em>se usa?</em></h2>
+  <div class="two-col">
+    <div class="info-block">
+      <h3>🔒 Seguridad en redes públicas</h3>
+      <p>En cafeterías, aeropuertos u hoteles el Wi-Fi es compartido y potencialmente inseguro. Un atacante en la misma red podría interceptar tráfico no cifrado.</p>
+      <p>Con una VPN activa, todo el tráfico viaja cifrado desde tu dispositivo hasta el servidor VPN — aunque el Wi-Fi público sea hostil, nadie puede leer tus datos.</p>
+    </div>
+    <div class="info-block">
+      <h3>🌍 Contenido geobloqueado</h3>
+      <p>Muchos servicios de streaming tienen catálogos diferentes por país. Al conectarte a un servidor VPN en EE.UU., tu IP aparece como estadounidense.</p>
+      <p>Importante: algunos servicios detectan y bloquean IPs de proveedores VPN conocidos. La eficacia varía según el proveedor y el momento.</p>
+    </div>
+    <div class="info-block">
+      <h3>🕵️ Privacidad frente al ISP</h3>
+      <p>Tu proveedor de Internet puede ver qué dominios visitas (incluso con HTTPS, el DNS lo revela). Con una VPN, el ISP solo ve tráfico cifrado hacia el servidor.</p>
+    </div>
+    <div class="info-block">
+      <h3>⚠️ Limitaciones importantes</h3>
+      <p><strong>Confías en el proveedor:</strong> si guarda logs de tu actividad, tu privacidad depende de su honestidad y jurisdicción legal.</p>
+      <p style="margin-top:8px;"><strong>No te hace anónimo:</strong> si tienes sesión en Google o Facebook, te siguen identificando independientemente de la VPN.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Comparativa</div>
+  <h2 class="section-title">Principales <em>proveedores</em></h2>
+  <table class="compare-table">
+    <thead><tr><th>Proveedor</th><th>Sede</th><th>Política de logs</th><th>Protocolos</th><th>Destacado</th></tr></thead>
+    <tbody>
+      <tr><td>NordVPN</td><td>Panamá</td><td>Sin logs (auditado)</td><td>WireGuard (NordLynx), OpenVPN</td><td>Mayor red de servidores (~6.000)</td></tr>
+      <tr><td>Surfshark</td><td>Países Bajos</td><td>Sin logs (auditado)</td><td>WireGuard, OpenVPN, IKEv2</td><td>Dispositivos ilimitados</td></tr>
+      <tr><td>ExpressVPN</td><td>Islas Vírgenes Brit.</td><td>Sin logs (auditado)</td><td>Lightway (propio), OpenVPN</td><td>Velocidad y facilidad de uso</td></tr>
+      <tr><td>Mullvad</td><td>Suecia</td><td>Sin logs, sin cuenta</td><td>WireGuard, OpenVPN</td><td>Máxima privacidad, pago anónimo</td></tr>
+      <tr><td>ProtonVPN</td><td>Suiza</td><td>Sin logs, open source</td><td>WireGuard, OpenVPN, IKEv2</td><td>Plan gratuito, código abierto</td></tr>
+    </tbody>
+  </table>
+  <div class="callout callout-orange">
+    <span class="callout-icon">⚠</span>
+    <p><strong>Atención a los VPNs gratuitos:</strong> la mayoría monetizan vendiendo datos de sus usuarios o tienen límites severos de velocidad. Si la privacidad importa, usa un proveedor de pago auditado — o monta tu propio servidor (pestaña Acceso Remoto).</p>
+  </div>
+</section>
+
+</main></div>
+
+<!-- ══════════ TAB ACCESO REMOTO ══════════ -->
+<div class="tab-panel" id="tab-remoto"><main class="page">
+
+<section class="section" style="padding-top:48px;">
+  <div class="type-hero"><div class="type-hero-inner">
+    <div class="type-hero-kicker">Tipo 02 · Acceso remoto</div>
+    <h2>VPN de acceso remoto</h2>
+    <p>Un cliente individual se conecta a una red privada remota. Es lo que configuraremos: un servidor Ubuntu ejecutando WireGuard al que nos conectamos desde un cliente Ubuntu.</p>
+    <div class="type-hero-badge">🔧 WireGuard · Ubuntu Server + Ubuntu Desktop</div>
+  </div></div>
+
+  <div class="section-kicker">Requisitos</div>
+  <h2 class="section-title">Infraestructura <em>necesaria</em></h2>
+  <div class="two-col">
+    <div class="info-block">
+      <h3>🖥 Servidor VPN</h3>
+      <ul>
+        <li>Recibe y gestiona las conexiones entrantes.</li>
+        <li>Actúa como punto central y enruta el tráfico cifrado.</li>
+        <li>Necesita una IP o hostname accesible desde el exterior.</li>
+        <li>Puede ser un físico, VM, VPS en la nube o router compatible.</li>
+        <li><strong>En nuestro caso:</strong> Ubuntu Server 22.04+</li>
+      </ul>
+    </div>
+    <div class="info-block">
+      <h3>💻 Cliente VPN</h3>
+      <ul>
+        <li>Inicia la conexión hacia el servidor.</li>
+        <li>Una vez conectado, accede a los recursos de la red privada.</li>
+        <li>WireGuard tiene apps para todas las plataformas.</li>
+        <li>La interfaz virtual <code>wg0</code> actúa como una tarjeta de red normal.</li>
+        <li><strong>En nuestro caso:</strong> Ubuntu Desktop o cualquier Linux.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Conectividad</div>
+  <h2 class="section-title">Red entre <em>las máquinas</em></h2>
+  <p class="section-desc">El cliente necesita poder llegar al servidor para establecer el túnel. Hay cuatro escenarios posibles.</p>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="flow-step-num">A</div><div class="flow-step-content"><h4>Servidor con IP pública fija</h4><p>El caso más sencillo. Habitual en VPS (Hetzner, DigitalOcean, AWS…). El cliente apunta directamente a esa IP en la configuración.</p></div></div>
+    <div class="flow-step"><div class="flow-step-num">B</div><div class="flow-step-content"><h4>Servidor con IP dinámica + DDNS</h4><p>Si la IP pública cambia (ISP doméstico), se usa un servicio DDNS (DuckDNS, No-IP…) que mantiene un hostname apuntando siempre a la IP actual. El cliente usa el hostname como endpoint.</p></div></div>
+    <div class="flow-step"><div class="flow-step-num">C</div><div class="flow-step-content"><h4>Servidor detrás de NAT → Port Forwarding</h4><p>Si el servidor está en una red doméstica, hay que configurar <strong>port forwarding</strong> en el router: redirigir el puerto <code>UDP 51820</code> a la IP privada del servidor Ubuntu.</p></div></div>
+    <div class="flow-step"><div class="flow-step-num">D</div><div class="flow-step-content"><h4>Ambos en la misma LAN (laboratorio)</h4><p>Se usa directamente la IP privada del servidor (<code>192.168.x.x</code>) como endpoint. Ideal para prácticas sin necesidad de IP pública.</p></div></div>
+  </div>
+  <div class="callout callout-orange">
+    <span class="callout-icon">⚠</span>
+    <p><strong>Firewall del servidor:</strong> abre el puerto UDP 51820 tanto en el SO (<code>sudo ufw allow 51820/udp</code>) como en cualquier firewall externo (panel del VPS, router…).</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Herramientas</div>
+  <h2 class="section-title">¿Qué software <em>podemos usar?</em></h2>
+  <div class="sw-grid">
+    <div class="sw-card best">
+      <div class="sw-card-name">WireGuard ✓</div>
+      <div class="pros-label">Ventajas</div>
+      <ul class="pros-list"><li>~4.000 líneas de código (vs ~100.000 de OpenVPN)</li><li>Integrado en el kernel Linux desde 5.6</li><li>Configuración simple con archivos .conf</li><li>Muy rápido: menos latencia, menos CPU</li><li>Cifrado moderno: ChaCha20, Curve25519, BLAKE2s</li><li>Linux, Windows, macOS, iOS, Android</li></ul>
+      <div class="cons-label">Limitaciones</div>
+      <ul class="cons-list"><li>Sin autenticación usuario/contraseña nativa</li><li>Menos opciones de routing avanzado</li></ul>
+    </div>
+    <div class="sw-card">
+      <div class="sw-card-name">OpenVPN</div>
+      <div class="pros-label">Ventajas</div>
+      <ul class="pros-list"><li>Muy maduro y ampliamente auditado</li><li>Soporta TCP y UDP</li><li>Autenticación por certificados, usuario/pass o ambos</li></ul>
+      <div class="cons-label">Limitaciones</div>
+      <ul class="cons-list"><li>Configuración compleja (CA, certificados…)</li><li>Mayor consumo de CPU y más lento</li></ul>
+    </div>
+    <div class="sw-card">
+      <div class="sw-card-name">IPSec / IKEv2</div>
+      <div class="pros-label">Ventajas</div>
+      <ul class="pros-list"><li>Estándar de la industria para empresas</li><li>Soporte nativo en routers y firewalls</li><li>IKEv2 tolera cambios de red (4G → Wi-Fi)</li></ul>
+      <div class="cons-label">Limitaciones</div>
+      <ul class="cons-list"><li>Configuración compleja</li><li>L2TP/IPSec considerado obsoleto</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Criptografía</div>
+  <h2 class="section-title">Cómo cifra <em>WireGuard</em></h2>
+  <div class="three-col">
+    <div class="info-block"><h3>Curve25519 <span class="tag tag-blue">Clave pública</span></h3><p>Curva elíptica de alto rendimiento para el intercambio de claves Diffie-Hellman. Genera el secreto compartido a partir del par de claves de cada extremo.</p></div>
+    <div class="info-block"><h3>ChaCha20-Poly1305 <span class="tag tag-blue">Cifrado</span></h3><p>Cifra el contenido del túnel. ChaCha20 da confidencialidad; Poly1305 garantiza integridad. Más rápido que AES en hardware sin aceleración dedicada.</p></div>
+    <div class="info-block"><h3>BLAKE2s <span class="tag tag-blue">Hash</span></h3><p>Función de hash para derivación de claves y autenticación de mensajes. Más rápida que SHA-256 con seguridad equivalente.</p></div>
+  </div>
+  <div class="info-block">
+    <h3>Modelo de seguridad <span class="tag tag-green">Ventajas clave</span></h3>
+    <ul>
+      <li>El handshake se repite cada <strong>3 minutos</strong>: forward secrecy garantizado — robar una clave de sesión no descifra tráfico pasado.</li>
+      <li><strong>Silence by default:</strong> WireGuard no responde a paquetes de claves no configuradas. Invisible ante escaneos de red.</li>
+      <li><strong>IP roaming:</strong> si el cliente cambia de red (4G → Wi-Fi), la sesión sobrevive sin reconectar.</li>
+      <li>Sin negociación de algoritmos: no hay cipher suite que atacar.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Criptografía asimétrica</div>
+  <h2 class="section-title">Par de claves <em>pública / privada</em></h2>
+  <p class="section-desc">Cada máquina genera su propio par. La privada nunca sale del dispositivo; la pública se intercambia manualmente con los peers.</p>
+
+  <div class="key-diagram">
+    <div class="key-machine">
+      <div class="key-machine-title" style="color:var(--accent);">Cliente (10.8.0.2)</div>
+      <div class="key-item private">🔑 Clave privada <em style="margin-left:auto;font-size:10px;opacity:.5">SECRETA</em></div>
+      <div class="key-item public">🗝 Clave pública <em style="margin-left:auto;font-size:10px;opacity:.7">comparte →</em></div>
+      <div class="key-item recv" style="margin-top:10px;">📥 PubKey servidor <em style="margin-left:auto;font-size:10px;opacity:.7">recibe ←</em></div>
+    </div>
+    <div class="key-arrows"><span class="key-arrow">→</span><span class="key-arrow">←</span></div>
+    <div class="key-machine">
+      <div class="key-machine-title" style="color:var(--navy);">Servidor (10.8.0.1)</div>
+      <div class="key-item private">🔑 Clave privada <em style="margin-left:auto;font-size:10px;opacity:.5">SECRETA</em></div>
+      <div class="key-item public">🗝 Clave pública <em style="margin-left:auto;font-size:10px;opacity:.7">comparte →</em></div>
+      <div class="key-item recv" style="margin-top:10px;">📥 PubKey cliente <em style="margin-left:auto;font-size:10px;opacity:.7">recibe ←</em></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <p style="font-size:13px;color:var(--ink-muted);margin-bottom:8px;font-weight:500;">En el servidor</p>
+      <div class="code-wrap"><div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="cmt"># Instalar WireGuard</span>
+<span class="cmd">sudo apt update</span> &amp;&amp; <span class="cmd">sudo apt install</span> wireguard -y
+
+<span class="cmt"># Generar claves</span>
+<span class="cmd">wg genkey</span> | <span class="pipe">tee</span> <span class="path">/etc/wireguard/server_private.key</span> \
+  | <span class="cmd">wg pubkey</span> &gt; <span class="path">/etc/wireguard/server_public.key</span>
+<span class="cmd">chmod</span> 600 <span class="path">/etc/wireguard/server_private.key</span>
+
+<span class="cmt"># Ver claves generadas</span>
+<span class="cmd">cat</span> <span class="path">/etc/wireguard/server_private.key</span>
+<span class="cmd">cat</span> <span class="path">/etc/wireguard/server_public.key</span></pre></div>
+    </div>
+    <div>
+      <p style="font-size:13px;color:var(--ink-muted);margin-bottom:8px;font-weight:500;">En el cliente</p>
+      <div class="code-wrap"><div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="cmt"># Instalar WireGuard</span>
+<span class="cmd">sudo apt update</span> &amp;&amp; <span class="cmd">sudo apt install</span> wireguard -y
+
+<span class="cmt"># Generar claves</span>
+<span class="cmd">wg genkey</span> | <span class="pipe">tee</span> <span class="path">/etc/wireguard/client_private.key</span> \
+  | <span class="cmd">wg pubkey</span> &gt; <span class="path">/etc/wireguard/client_public.key</span>
+<span class="cmd">chmod</span> 600 <span class="path">/etc/wireguard/client_private.key</span>
+
+<span class="cmt"># Ver claves generadas</span>
+<span class="cmd">cat</span> <span class="path">/etc/wireguard/client_private.key</span>
+<span class="cmd">cat</span> <span class="path">/etc/wireguard/client_public.key</span></pre></div>
+    </div>
+  </div>
+  <div class="callout callout-red"><span class="callout-icon">⛔</span><p><strong>La clave privada nunca se comparte ni se envía por la red.</strong> Solo compartes la clave pública. Si alguien obtiene tu clave privada, puede suplantar tu identidad en la VPN.</p></div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Configuración del servidor</div>
+  <h2 class="section-title">wg0.conf <em>— Servidor</em></h2>
+  <div class="code-wrap"><div class="code-header"><span class="code-lang">ini</span><span class="code-sublabel">/etc/wireguard/wg0.conf — Servidor</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="sec">[Interface]</span>
+<span class="key">Address</span>     = <span class="val">10.8.0.1/24</span>               <span class="cmt"># IP del servidor en la VPN</span>
+<span class="key">ListenPort</span>  = <span class="val">51820</span>                    <span class="cmt"># Puerto UDP donde escucha</span>
+<span class="key">PrivateKey</span>  = <span class="val">&lt;CLAVE_PRIVADA_SERVIDOR&gt;</span>   <span class="cmt"># cat /etc/wireguard/server_private.key</span>
+
+<span class="cmt"># NAT: permite que el cliente salga a Internet por el servidor</span>
+<span class="key">PostUp</span>      = <span class="val">iptables -A FORWARD -i wg0 -j ACCEPT; \
+               iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span>
+<span class="key">PostDown</span>    = <span class="val">iptables -D FORWARD -i wg0 -j ACCEPT; \
+               iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span>
+
+<span class="cmt"># ── Cliente autorizado ───────────────────────────────</span>
+<span class="sec">[Peer]</span>
+<span class="key">PublicKey</span>   = <span class="val">&lt;CLAVE_PUBLICA_CLIENTE&gt;</span>    <span class="cmt"># cat /etc/wireguard/client_public.key</span>
+<span class="key">AllowedIPs</span>  = <span class="val">10.8.0.2/32</span>               <span class="cmt"># IP asignada a este cliente</span></pre></div>
+
+  <div class="three-col">
+    <div class="info-block"><h3>Address <span class="tag tag-navy">Campo</span></h3><p>IP del servidor <em>dentro</em> de la red virtual. El <code>/24</code> reserva la subred <code>10.8.0.0/24</code> para la VPN. Elige un rango que no colisione con tu LAN real.</p></div>
+    <div class="info-block"><h3>PostUp / PostDown <span class="tag tag-navy">Campo</span></h3><p>Activar NAT para que el tráfico del cliente salga a Internet por la interfaz real del servidor. Reemplaza <code>eth0</code> por tu interfaz: compruébala con <code>ip route | grep default</code>.</p></div>
+    <div class="info-block"><h3>AllowedIPs peer <span class="tag tag-navy">Campo</span></h3><p>IPs aceptadas de este peer. En el servidor se usa <code>/32</code> porque cada cliente tiene una IP fija asignada. Para más clientes, repite el bloque <code>[Peer]</code>.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Configuración del cliente</div>
+  <h2 class="section-title">wg0.conf <em>— Cliente</em></h2>
+  <div class="code-wrap"><div class="code-header"><span class="code-lang">ini</span><span class="code-sublabel">/etc/wireguard/wg0.conf — Cliente</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="sec">[Interface]</span>
+<span class="key">Address</span>             = <span class="val">10.8.0.2/24</span>               <span class="cmt"># IP del cliente en la VPN</span>
+<span class="key">PrivateKey</span>          = <span class="val">&lt;CLAVE_PRIVADA_CLIENTE&gt;</span>    <span class="cmt"># cat /etc/wireguard/client_private.key</span>
+<span class="key">DNS</span>                 = <span class="val">1.1.1.1</span>                   <span class="cmt"># DNS activo con la VPN conectada</span>
+
+<span class="sec">[Peer]</span>  <span class="cmt"># El servidor</span>
+<span class="key">PublicKey</span>           = <span class="val">&lt;CLAVE_PUBLICA_SERVIDOR&gt;</span>   <span class="cmt"># cat /etc/wireguard/server_public.key</span>
+<span class="key">Endpoint</span>            = <span class="val">&lt;IP_O_HOSTNAME&gt;:51820</span>
+<span class="key">AllowedIPs</span>          = <span class="val">10.8.0.0/24</span>               <span class="cmt"># Split tunnel: solo tráfico VPN</span>
+<span class="key">PersistentKeepalive</span> = <span class="val">25</span>                        <span class="cmt"># Mantiene el túnel activo tras NAT</span></pre></div>
+
+  <div class="two-col">
+    <div class="info-block"><h3>AllowedIPs — Split vs Full tunnel</h3><p><strong>Split</strong> <code>10.8.0.0/24</code>: solo el tráfico hacia la red VPN va cifrado. El resto sale directo. Mejor rendimiento.</p><p style="margin-top:8px;"><strong>Full</strong> <code>0.0.0.0/0, ::/0</code>: todo el tráfico pasa por el servidor. Máxima privacidad.</p></div>
+    <div class="info-block"><h3>PersistentKeepalive</h3><p>Envía un paquete al servidor cada 25 segundos. Necesario cuando el cliente está detrás de NAT: mantiene la entrada en la tabla NAT del router para que el servidor pueda responder.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Puesta en marcha</div>
+  <h2 class="section-title">Arrancar <em>y verificar</em></h2>
+  <div class="two-col">
+    <div>
+      <p style="font-size:13px;color:var(--ink-muted);margin-bottom:8px;font-weight:500;">Arranque — servidor y cliente</p>
+      <div class="code-wrap"><div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="cmt"># Levantar la interfaz wg0</span>
+<span class="cmd">sudo wg-quick up</span> wg0
+
+<span class="cmt"># Habilitar inicio automático</span>
+<span class="cmd">sudo systemctl enable</span> wg-quick@wg0
+
+<span class="cmt"># Bajar la interfaz</span>
+<span class="cmd">sudo wg-quick down</span> wg0
+
+<span class="cmt"># Recargar config sin bajar la interfaz</span>
+<span class="cmd">sudo wg syncconf</span> wg0 <span class="path">/etc/wireguard/wg0.conf</span></pre></div>
+    </div>
+    <div>
+      <p style="font-size:13px;color:var(--ink-muted);margin-bottom:8px;font-weight:500;">Verificación</p>
+      <div class="code-wrap"><div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="cmt"># Estado WireGuard (handshake, tráfico, peers)</span>
+<span class="cmd">sudo wg show</span>
+
+<span class="cmt"># Ping al servidor desde el cliente</span>
+<span class="cmd">ping -c 4</span> 10.8.0.1
+
+<span class="cmt"># Activar IP forwarding (servidor)</span>
+<span class="cmd">echo</span> <span class="val">"net.ipv4.ip_forward = 1"</span> | \
+  <span class="cmd">sudo tee -a</span> <span class="path">/etc/sysctl.conf</span>
+<span class="cmd">sudo sysctl -p</span></pre></div>
+    </div>
+  </div>
+
+  <h2 class="section-title" style="margin-top:40px;">Full tunnel <em>— todo el tráfico por la VPN</em></h2>
+  <div class="code-wrap" style="margin-top:16px;"><div class="code-header"><span class="code-lang">bash + ini</span><span class="code-sublabel">Enrutar todo el tráfico por el servidor</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="cmt"># 1. Comprobar IP pública actual (antes de conectar)</span>
+<span class="cmd">curl</span> ifconfig.me
+
+<span class="cmt"># 2. Cambiar AllowedIPs en wg0.conf del cliente:</span>
+<span class="key">AllowedIPs</span> = <span class="val">0.0.0.0/0, ::/0</span>
+
+<span class="cmt"># 3. Reconectar y verificar (debe mostrar la IP del servidor)</span>
+<span class="cmd">sudo wg-quick down</span> wg0 &amp;&amp; <span class="cmd">sudo wg-quick up</span> wg0
+<span class="cmd">curl</span> ifconfig.me</pre></div>
+
+  <div class="code-wrap"><div class="code-header"><span class="code-lang">bash</span><span class="code-sublabel">Diagnóstico y troubleshooting</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="cmt"># Ver tabla de rutas</span>
+<span class="cmd">ip route show</span>
+
+<span class="cmt"># Verificar que el puerto 51820 UDP está abierto</span>
+<span class="cmd">sudo ss -ulnp</span> | <span class="cmd">grep</span> 51820
+
+<span class="cmt"># Abrir el puerto si ufw está activo</span>
+<span class="cmd">sudo ufw allow</span> 51820/udp
+
+<span class="cmt"># Logs de WireGuard en tiempo real</span>
+<span class="cmd">journalctl -u</span> wg-quick@wg0 -f
+
+<span class="cmt"># Capturar tráfico WireGuard</span>
+<span class="cmd">sudo tcpdump -i eth0 udp port</span> 51820</pre></div>
+</section>
+
+</main></div>
+
+<!-- ══════════ TAB SITIO A SITIO ══════════ -->
+<div class="tab-panel" id="tab-sitio"><main class="page">
+
+<section class="section" style="padding-top:48px;">
+  <div class="type-hero"><div class="type-hero-inner">
+    <div class="type-hero-kicker">Tipo 03 · Sitio a sitio</div>
+    <h2>VPN de sitio a sitio</h2>
+    <p>Conecta permanentemente dos redes privadas a través de Internet. Los usuarios de cada sede acceden a recursos de la otra de forma transparente, sin configurar nada en sus dispositivos.</p>
+    <div class="type-hero-badge">🏙 Para infraestructura corporativa · Conexión permanente</div>
+  </div></div>
+
+  <div class="section-kicker">Concepto</div>
+  <h2 class="section-title">Red ↔ Red, <em>no dispositivo ↔ red</em></h2>
+  <div class="info-block" style="margin-bottom:12px;">
+    <h3>La diferencia clave <span class="tag tag-orange">Importante</span></h3>
+    <p>En la VPN de acceso remoto, cada usuario configura WireGuard en su dispositivo. En la VPN sitio a sitio, la configuración está en los <strong>routers o firewalls de borde</strong> de cada sede. Los usuarios finales no saben que existe una VPN: simplemente acceden a recursos de la otra sede como si estuviesen en la misma red local.</p>
+  </div>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="flow-step-num">1</div><div class="flow-step-content"><h4>Cada sede tiene un router/firewall con WireGuard</h4><p>El router de la Sede A y el de la Sede B tienen WireGuard instalado y configurado. Cada uno actúa como peer del otro.</p></div></div>
+    <div class="flow-step"><div class="flow-step-num">2</div><div class="flow-step-content"><h4>Se establece un túnel permanente entre los routers</h4><p>El túnel se levanta al arrancar los routers y se mantiene activo indefinidamente. Si cae, se reestablece automáticamente en el siguiente keepalive.</p></div></div>
+    <div class="flow-step"><div class="flow-step-num">3</div><div class="flow-step-content"><h4>El routing propaga las subredes de cada sede</h4><p>Cada router anuncia su subred local a través del túnel. Un PC en Sede A (<code>192.168.1.x</code>) puede alcanzar servidores de Sede B (<code>192.168.2.x</code>) de forma transparente.</p></div></div>
+    <div class="flow-step"><div class="flow-step-num">4</div><div class="flow-step-content"><h4>El usuario final no nota nada</h4><p>Accede al servidor de la otra sede por su IP privada. El SO enruta el paquete al router local, que lo manda por el túnel cifrado sin que el usuario lo sepa.</p></div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Diferencias</div>
+  <h2 class="section-title">Acceso remoto <em>vs Sitio a sitio</em></h2>
+  <table class="compare-table">
+    <thead><tr><th>Característica</th><th>Acceso remoto</th><th>Sitio a sitio</th></tr></thead>
+    <tbody>
+      <tr><td>¿Quién se conecta?</td><td>Usuarios individuales</td><td>Redes completas</td></tr>
+      <tr><td>Duración</td><td>Bajo demanda</td><td>Permanente (siempre activo)</td></tr>
+      <tr><td>Configuración</td><td>En cada dispositivo cliente</td><td>En routers o firewalls de borde</td></tr>
+      <tr><td>Transparencia</td><td>El usuario activa/desactiva</td><td>Invisible para los usuarios finales</td></tr>
+      <tr><td>Escalabilidad</td><td>1 config por usuario</td><td>1 config une dos redes enteras</td></tr>
+      <tr><td>¿Requiere cliente en cada PC?</td><td><span class="badge badge-yes">Sí</span></td><td><span class="badge badge-no">No</span></td></tr>
+      <tr><td>Ejemplo</td><td>Trabajador desde casa</td><td>Madrid ↔ Barcelona</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Implementación</div>
+  <h2 class="section-title">Configuración con <em>WireGuard</em></h2>
+  <p class="section-desc">WireGuard es simétrico: no hay "servidor" y "cliente" formales. Ambos extremos son peers. El que tiene <code>Endpoint</code> configurado inicia la conexión.</p>
+  <div class="two-col">
+    <div>
+      <p style="font-size:13px;color:var(--ink-muted);margin-bottom:8px;font-weight:500;">Router Sede A — LAN: <code>192.168.1.0/24</code></p>
+      <div class="code-wrap"><div class="code-header"><span class="code-lang">ini</span><span class="code-sublabel">/etc/wireguard/wg0.conf</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="sec">[Interface]</span>
+<span class="key">Address</span>    = <span class="val">10.10.0.1/30</span>         <span class="cmt"># IP en el túnel VPN</span>
+<span class="key">ListenPort</span> = <span class="val">51820</span>
+<span class="key">PrivateKey</span> = <span class="val">&lt;PRIVKEY_SEDE_A&gt;</span>
+
+<span class="key">PostUp</span>     = <span class="val">iptables -A FORWARD -i wg0 -j ACCEPT; \
+              iptables -A FORWARD -o wg0 -j ACCEPT</span>
+<span class="key">PostDown</span>   = <span class="val">iptables -D FORWARD -i wg0 -j ACCEPT; \
+              iptables -D FORWARD -o wg0 -j ACCEPT</span>
+
+<span class="sec">[Peer]</span>  <span class="cmt"># Router Sede B</span>
+<span class="key">PublicKey</span>  = <span class="val">&lt;PUBKEY_SEDE_B&gt;</span>
+<span class="key">AllowedIPs</span> = <span class="val">10.10.0.2/32, 192.168.2.0/24</span>
+<span class="key">Endpoint</span>   = <span class="val">&lt;IP_PUBLICA_SEDE_B&gt;:51820</span>
+<span class="key">PersistentKeepalive</span> = <span class="val">25</span></pre></div>
+    </div>
+    <div>
+      <p style="font-size:13px;color:var(--ink-muted);margin-bottom:8px;font-weight:500;">Router Sede B — LAN: <code>192.168.2.0/24</code></p>
+      <div class="code-wrap"><div class="code-header"><span class="code-lang">ini</span><span class="code-sublabel">/etc/wireguard/wg0.conf</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="sec">[Interface]</span>
+<span class="key">Address</span>    = <span class="val">10.10.0.2/30</span>         <span class="cmt"># IP en el túnel VPN</span>
+<span class="key">ListenPort</span> = <span class="val">51820</span>
+<span class="key">PrivateKey</span> = <span class="val">&lt;PRIVKEY_SEDE_B&gt;</span>
+
+<span class="key">PostUp</span>     = <span class="val">iptables -A FORWARD -i wg0 -j ACCEPT; \
+              iptables -A FORWARD -o wg0 -j ACCEPT</span>
+<span class="key">PostDown</span>   = <span class="val">iptables -D FORWARD -i wg0 -j ACCEPT; \
+              iptables -D FORWARD -o wg0 -j ACCEPT</span>
+
+<span class="sec">[Peer]</span>  <span class="cmt"># Router Sede A</span>
+<span class="key">PublicKey</span>  = <span class="val">&lt;PUBKEY_SEDE_A&gt;</span>
+<span class="key">AllowedIPs</span> = <span class="val">10.10.0.1/32, 192.168.1.0/24</span>
+<span class="key">Endpoint</span>   = <span class="val">&lt;IP_PUBLICA_SEDE_A&gt;:51820</span>
+<span class="key">PersistentKeepalive</span> = <span class="val">25</span></pre></div>
+    </div>
+  </div>
+  <div class="callout callout-blue"><span class="callout-icon">ℹ</span><p><strong>Clave:</strong> el <code>AllowedIPs</code> de cada peer incluye la IP del túnel del otro router (<code>/32</code>) y la subred LAN detrás de él (<code>192.168.x.0/24</code>). Así WireGuard sabe que los paquetes hacia esa LAN deben ir cifrados por ese peer.</p></div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Routing</div>
+  <h2 class="section-title">Que los PCs <em>usen el túnel</em></h2>
+  <div class="two-col">
+    <div class="info-block">
+      <h3>Opción A — Ruta estática <span class="tag tag-navy">Manual</span></h3>
+      <p>Añadir una ruta en cada PC: "paquetes a <code>192.168.2.0/24</code>, ve por el router local <code>192.168.1.1</code>".</p>
+      <div class="code-wrap" style="margin-top:12px;"><div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="cmt"># En cada PC de Sede A</span>
+<span class="cmd">sudo ip route add</span> 192.168.2.0/24 \
+  via 192.168.1.1</pre></div>
+    </div>
+    <div class="info-block">
+      <h3>Opción B — Default gateway <span class="tag tag-green">Recomendado</span></h3>
+      <p>Si el router ya es el default gateway de la LAN (lo normal en una red doméstica o empresarial), los PCs envían todo el tráfico desconocido al router sin ninguna configuración extra.</p>
+      <p style="margin-top:8px;">Solo hay que asegurarse de que el router tenga IP forwarding activo y las rutas correctas, que WireGuard gestiona automáticamente con <code>AllowedIPs</code>.</p>
+    </div>
+  </div>
+  <div class="info-block">
+    <h3>Activar IP forwarding en los routers <span class="tag tag-orange">Obligatorio</span></h3>
+    <div class="code-wrap" style="margin-top:12px;"><div class="code-header"><span class="code-lang">bash</span><span class="code-sublabel">En ambos routers</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+<pre><span class="cmt"># Activar permanentemente</span>
+<span class="cmd">echo</span> <span class="val">"net.ipv4.ip_forward = 1"</span> | <span class="cmd">sudo tee -a</span> <span class="path">/etc/sysctl.conf</span>
+<span class="cmd">sudo sysctl -p</span>
+
+<span class="cmt"># Verificar (debe devolver 1)</span>
+<span class="cmd">cat</span> <span class="path">/proc/sys/net/ipv4/ip_forward</span>
+
+<span class="cmt"># Probar conectividad entre sedes</span>
+<span class="cmd">ping -c 4</span> 192.168.2.1   <span class="cmt"># Desde Sede A al router de Sede B</span>
+<span class="cmd">ping -c 4</span> 192.168.2.50  <span class="cmt"># Desde Sede A a un PC de Sede B</span></pre></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-kicker">Casos reales</div>
+  <h2 class="section-title">¿Cuándo <em>usarla?</em></h2>
+  <div class="three-col">
+    <div class="info-block"><h3>🏢 Empresa con varias sedes</h3><p>Madrid y Barcelona comparten servidores de ficheros, impresoras de red, bases de datos internas y herramientas de gestión sin duplicar infraestructura.</p></div>
+    <div class="info-block"><h3>☁️ Oficina + datacenter cloud</h3><p>La oficina se conecta permanentemente al VPS cloud donde están los servidores de producción. Los desarrolladores acceden por IP privada de forma transparente.</p></div>
+    <div class="info-block"><h3>🏠 Homelab distribuido</h3><p>Dos hogares con routers Linux se interconectan. Accedes a tu NAS o máquinas virtuales desde la otra casa como si estuvieses en la misma red.</p></div>
+  </div>
+  <div class="callout callout-green"><span class="callout-icon">✓</span><p><strong>WireGuard para sitio a sitio es sencillo y eficiente.</strong> Al ser simétrico, no hay un "servidor maestro" — si un extremo cae y vuelve, el otro lo detecta en el siguiente keepalive y el túnel se reestablece automáticamente.</p></div>
+</section>
+
+</main></div>
+
+<footer><strong>Guía VPN · WireGuard</strong> &nbsp;·&nbsp; Redes y Seguridad</footer>
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+  // Center active tab button in nav
+  var nav = document.querySelector('.tab-nav-inner');
+  var nr = nav.getBoundingClientRect(), br = btn.getBoundingClientRect();
+  nav.scrollTo({ left: nav.scrollLeft + br.left - nr.left - nr.width/2 + br.width/2, behavior: 'smooth' });
+  // Scroll so the sticky nav sits at the top and new content starts just below it
+  requestAnimationFrame(function() {
+    var navEl = document.querySelector('.tab-nav');
+    var panel = document.getElementById('tab-' + name);
+    // offsetTop of panel relative to document, minus nav height so nav stays visible
+    var target = panel.offsetTop - navEl.offsetHeight;
+    window.scrollTo({ top: target, behavior: 'smooth' });
+  });
+}
+function copyCode(btn) {
+  var pre = btn.closest('.code-wrap').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText||pre.textContent).then(function(){
+    var o=btn.textContent; btn.textContent='COPIADO ✓'; btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent=o; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+
+
+</body></html>

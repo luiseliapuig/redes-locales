@@ -29,6 +29,7 @@ La prioridad es que cada recurso sea:
     /
     ├── index.html
     ├── herramientas/
+    ├── glosarios/
     ├── materiales/
     ├── README.md
     └── AGENTS.md
@@ -52,11 +53,15 @@ Materiales web de apoyo y ampliación.
 
 Aquí se alojarán, entre otros, los contenidos enlazados desde los botones **Més informació** del curso.
 
+### `glosarios/`
+
+Materiales de consulta rápida y referencia, como glosarios de comandos y conceptos de Redes locales.
+
 ## Índice general
 
 `index.html` es el mapa general del repositorio.
 
-Cada nueva herramienta o material que se incorpore al proyecto deberá añadirse también al índice.
+Cada nueva herramienta, material o glosario que se incorpore al proyecto deberá añadirse también al índice.
 
 El índice debe permitir localizar y abrir fácilmente todas las piezas disponibles.
 

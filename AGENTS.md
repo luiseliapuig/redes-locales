@@ -37,6 +37,10 @@ Los materiales y páginas de apoyo se almacenan en:
 
 `/materiales/`
 
+Los materiales de consulta rápida y referencia se almacenan en:
+
+`/glosarios/`
+
 Cada pieza debe tener su propio directorio cuando necesite varios archivos.
 
 Ejemplo:
@@ -53,7 +57,7 @@ No es obligatorio separar HTML, CSS y JavaScript cuando una pieza pequeña resul
 
 La raíz contiene un `index.html` que funciona como mapa general del proyecto.
 
-Cada vez que se cree una nueva herramienta o material, debe añadirse también al índice.
+Cada vez que se cree una nueva herramienta, material o glosario, debe añadirse también al índice.
 
 Una tarea no se considera completamente integrada en el repositorio si el nuevo recurso no aparece en `index.html`.
 
