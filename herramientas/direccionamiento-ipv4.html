@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Práctica de direccionamiento IPv4</title>
+  <style>
+    html { text-size-adjust: 100%; }
+    body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f9; color: #333; max-width: 900px; margin: 0 auto; padding: 0 10px 20px; }
+    h1 { color: #2c3e50; text-align: center; }
+    li { font-size: 14px; }
+    .contentwrap { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,.1); overflow-x: auto; }
+    input { font-family: Consolas, Monaco, monospace; text-align: center; font-size: 1em; padding: 2px 5px; border: 1px solid #ccc; border-radius: 4px; }
+    input:focus { border-color: #3498db; outline: none; background: #eaf2f8; }
+    input[type=button] { background: #3498db; color: white; border: 0; padding: 6px 15px; cursor: pointer; font-weight: bold; }
+    input[type=button]:hover { background: #2980b9; }
+    input[value="Nuevo reto"] { background: #27ae60; font-size: 1.1em; }
+    input[value="Nuevo reto"]:hover { background: #219150; }
+    table { border-collapse: collapse; width: 100%; }
+    td, th { padding: 3px; border-bottom: 1px solid #f3f3f3; text-align: center; }
+    th { background: #ecf0f1; }
+    ul { line-height: 1.6; margin: 0; }
+    .long-answer { width: 120px; }
+    .show-btn { display: none; }
+    .bg-cabe th { background: #dadddd; }
+    #inputError { color: #b42318; font-weight: 600; text-align: center; min-height: 1.4em; }
+    @media (max-width: 650px) { body { padding-inline: 5px; } .contentwrap { padding: 10px 5px; } input { max-width: 45px; } input.long-answer { max-width: 110px; } td, th { font-size: .85em; } }
+  </style>
+</head>
+<body>
+  <h1>Práctica de direccionamiento IPv4</h1>
+  <ul>
+    <li><strong>Misión:</strong> Rellena los campos. Puedes introducir manualmente una IP de clase A con /8, clase B con /16 o clase C con /24.</li>
+  </ul><br>
+  <div class="contentwrap">
+    <form onsubmit="event.preventDefault()" novalidate>
+      <table style="font-size:1.2em;border:none">
+        <tr>
+          <td style="text-align:left;font-size:14px;width:114px"><input type="button" value="Nuevo reto" id="btnNewProblem"></td>
+          <td style="border:none"><strong>Dirección IP:</strong>
+            <input type="tel" name="givenOctet1" size="3" maxlength="3" class="userinput"> .
+            <input type="tel" name="givenOctet2" size="3" maxlength="3" class="userinput"> .
+            <input type="tel" name="givenOctet3" size="3" maxlength="3" class="userinput"> .
+            <input type="tel" name="givenOctet4" size="3" maxlength="3" class="userinput"> /
+            <input type="tel" name="givenMask" size="2" maxlength="2" class="userinput">
+          </td>
+          <td style="width:114px"></td>
+        </tr>
+      </table>
+      <p id="inputError" role="alert" aria-live="polite"></p>
+      <table>
+        <tr class="bg-cabe"><th width="30%">Concepto</th><th>Tu respuesta</th><th width="15%">Acción</th><th width="10%">Estado</th></tr>
+        <tr><th>Máscara decimal</th><td data-ip-input="mask"></td><td data-actions="mask"></td><td data-status="mask"></td></tr>
+        <tr><th>Hosts utilizables</th><td><input type="tel" name="hostsInput" class="userinput long-answer"></td><td data-actions="hosts"></td><td data-status="hosts"></td></tr>
+        <tr><th>Dirección de red</th><td data-ip-input="network"></td><td data-actions="network"></td><td data-status="network"></td></tr>
+        <tr><th>Primer host</th><td data-ip-input="firstHost"></td><td data-actions="firstHost"></td><td data-status="firstHost"></td></tr>
+        <tr><th>Último host</th><td data-ip-input="lastHost"></td><td data-actions="lastHost"></td><td data-status="lastHost"></td></tr>
+        <tr><th>Broadcast</th><td data-ip-input="broadcast"></td><td data-actions="broadcast"></td><td data-status="broadcast"></td></tr>
+        <tr><th>Siguiente red</th><td data-ip-input="nextNetwork"></td><td data-actions="nextNetwork"></td><td data-status="nextNetwork"></td></tr>
+      </table>
+    </form>
+  </div>
+  <script>
+    "use strict";
+    const form = document.querySelector("form");
+    const ipFields = ["mask", "network", "firstHost", "lastHost", "broadcast", "nextNetwork"];
+    const allFields = [...ipFields, "hosts"];
+
+    function buildInterface() {
+      ipFields.forEach(field => {
+        const cell = document.querySelector(`[data-ip-input="${field}"]`);
+        for (let i = 1; i <= 4; i++) {
+          const input = document.createElement("input");
+          input.type = "tel"; input.name = `${field}${i}`; input.size = 3; input.maxLength = 3; input.className = "userinput";
+          cell.append(input);
+          if (i < 4) cell.append(" . ");
+        }
+      });
+      allFields.forEach(field => {
+        document.querySelector(`[data-actions="${field}"]`).innerHTML = `<input type="button" value="Check" data-check="${field}"> <input type="button" value="Show" data-show="${field}" class="show-btn">`;
+        document.querySelector(`[data-status="${field}"]`).innerHTML = `<input type="text" name="${field}OK" size="3" disabled style="background-color:white">`;
+      });
+    }
+
+    function classInfo(first) {
+      if (first >= 1 && first <= 126) return { name: "A", prefix: 8 };
+      if (first >= 128 && first <= 191) return { name: "B", prefix: 16 };
+      if (first >= 192 && first <= 223) return { name: "C", prefix: 24 };
+      return null;
+    }
+
+    function readProblem() {
+      const raw = [form.givenOctet1, form.givenOctet2, form.givenOctet3, form.givenOctet4].map(input => input.value.trim());
+      const prefixRaw = form.givenMask.value.trim();
+      if (raw.some(value => !/^\d{1,3}$/.test(value)) || !/^\d{1,2}$/.test(prefixRaw)) throw new Error("Introduce una dirección IPv4 y un prefijo válidos.");
+      const ip = raw.map(Number); const prefix = Number(prefixRaw);
+      if (ip.some(octet => octet < 0 || octet > 255)) throw new Error("Cada octeto debe estar entre 0 y 255.");
+      const info = classInfo(ip[0]);
+      if (!info) throw new Error("La dirección debe pertenecer a las clases A, B o C.");
+      if (prefix !== info.prefix) throw new Error(`Una dirección de clase ${info.name} debe utilizar /${info.prefix} en esta práctica.`);
+      return { ip, prefix };
+    }
+
+    function toNumber(ip) { return ((ip[0] * 256 + ip[1]) * 256 + ip[2]) * 256 + ip[3]; }
+    function toIp(number) { return [Math.floor(number / 16777216), Math.floor(number / 65536) % 256, Math.floor(number / 256) % 256, number % 256]; }
+    function calculate(ip, prefix) {
+      const block = 2 ** (32 - prefix); const networkNumber = Math.floor(toNumber(ip) / block) * block; const broadcastNumber = networkNumber + block - 1;
+      return {
+        mask: toIp(2 ** 32 - block), hosts: block - 2, network: toIp(networkNumber), firstHost: toIp(networkNumber + 1),
+        lastHost: toIp(broadcastNumber - 1), broadcast: toIp(broadcastNumber), nextNetwork: toIp(broadcastNumber + 1)
+      };
+    }
+
+    function answer(field) { const problem = readProblem(); return calculate(problem.ip, problem.prefix)[field]; }
+    function inputsFor(field) { return field === "hosts" ? [form.hostsInput] : [1,2,3,4].map(i => form.elements[`${field}${i}`]); }
+    function resetFeedback() { document.getElementById("inputError").textContent = ""; allFields.forEach(field => { const status = form.elements[`${field}OK`]; status.value = ""; status.style.backgroundColor = "white"; }); }
+    function run(field, show) {
+      try {
+        const expected = answer(field); const inputs = inputsFor(field);
+        if (show) (Array.isArray(expected) ? expected : [expected]).forEach((value, i) => inputs[i].value = value);
+        const values = inputs.map(input => input.value.trim()); const correct = values.every((value, i) => /^\d+$/.test(value) && Number(value) === (Array.isArray(expected) ? expected[i] : expected));
+        const status = form.elements[`${field}OK`]; status.value = correct ? "YES" : "NO"; status.style.backgroundColor = correct ? "#90EE90" : "#FFB6C1";
+        document.getElementById("inputError").textContent = "";
+      } catch (error) { document.getElementById("inputError").textContent = error.message; }
+    }
+
+    function newProblem() {
+      const choices = [{ min:1, max:126, prefix:8 }, { min:128, max:191, prefix:16 }, { min:192, max:223, prefix:24 }];
+      const choice = choices[Math.floor(Math.random() * choices.length)];
+      const random = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
+      [form.givenOctet1.value, form.givenOctet2.value, form.givenOctet3.value, form.givenOctet4.value] = [random(choice.min, choice.max), random(0,255), random(0,255), random(0,255)];
+      form.givenMask.value = choice.prefix; document.querySelectorAll("input.userinput").forEach(input => { if (!input.name.startsWith("given")) input.value = ""; }); resetFeedback(); form.mask1.focus();
+    }
+
+    buildInterface();
+    document.addEventListener("input", event => { if (event.target.classList.contains("userinput")) resetFeedback(); });
+    document.addEventListener("keydown", event => { if ((event.key === "." || event.key === "/") && event.target.classList.contains("userinput")) { const fields = [...document.querySelectorAll(".userinput")]; const next = fields[fields.indexOf(event.target) + 1]; if (next) { event.preventDefault(); next.focus(); } } });
+    document.addEventListener("click", event => { if (event.target.dataset.check) run(event.target.dataset.check, false); if (event.target.dataset.show) run(event.target.dataset.show, true); });
+    document.getElementById("btnNewProblem").addEventListener("click", newProblem);
+    newProblem();
+  </script>
+</body>
+</html>
