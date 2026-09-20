@@ -117,7 +117,7 @@
       if (ip.some(octet => octet < 0 || octet > 255)) throw new Error("Cada octeto debe estar entre 0 y 255.");
       const info = classInfo(ip[0]);
       if (!info) throw new Error("La dirección debe pertenecer a las clases A, B o C.");
-      if (prefix !== info.prefix) throw new Error(`Una dirección de clase ${info.name} debe utilizar /${info.prefix} en esta práctica.`);
+      if (prefix < 1 || prefix > 30) throw new Error("El prefijo debe estar entre /1 y /30.");
       return { ip, prefix };
     }
 
