@@ -4,7 +4,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guía VPN</title>
-<link href="./Guía VPN_files/css2" rel="stylesheet">
+<link href="./VPN_files/css2" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -200,8 +200,8 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
   <div class="tab-nav-inner">
     <button class="tab-btn active" onclick="showTab('inicio',this)">Inicio</button>
     <button class="tab-btn" onclick="showTab('comercial',this)">VPN Comercial</button>
-    <button class="tab-btn" onclick="showTab('remoto',this)">Acceso Remoto</button>
-    <button class="tab-btn" onclick="showTab('sitio',this)">Sitio a Sitio</button>
+    <button class="tab-btn" onclick="showTab('remoto',this)">VPN de Acceso Remoto</button>
+    <button class="tab-btn" onclick="showTab('sitio',this)">VPN de Sitio a Sitio</button>
   </div>
 </nav>
 
@@ -238,7 +238,7 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
   <h2 class="section-title">¿Para qué <em>sirve?</em></h2>
   <div class="card-grid">
     <div class="card"><span class="card-icon">🏢</span><div class="card-label">Empresas</div><div class="card-title">Acceso corporativo remoto</div><div class="card-body">Empleados conectan su portátil doméstico a la red interna de la empresa. Acceden a servidores, carpetas y recursos como si estuviesen en la oficina.</div></div>
-    <div class="card"><span class="card-icon">🔒</span><div class="card-label">Seguridad</div><div class="card-title">Proteger conexiones públicas</div><div class="card-body">En cafeterías o aeropuertos el Wi-Fi es inseguro. La VPN cifra todo el tráfico saliente, protegiendo datos aunque la red local sea hostil.</div></div>
+    <div class="card"><span class="card-icon">🔒</span><div class="card-label">Seguridad</div><div class="card-title">Proteger conexiones públicas</div><div class="card-body">En cafeterías o aeropuertos el Wi-Fi es compartido y potencialmente inseguro. La VPN cifra todo el tráfico saliente, protegiendo datos aunque la red local sea hostil.</div></div>
     <div class="card"><span class="card-icon">🌍</span><div class="card-label">Contenido</div><div class="card-title">Eludir restricciones geográficas</div><div class="card-body">Conectarse a un servidor VPN en otro país hace que tu tráfico salga con la IP de ese servidor, permitiendo acceder a contenido bloqueado regionalmente.</div></div>
     <div class="card"><span class="card-icon">🏗️</span><div class="card-label">Infraestructura</div><div class="card-title">Interconectar sedes</div><div class="card-body">Dos oficinas en ciudades distintas comparten recursos internos de forma permanente y transparente, sin una línea dedicada costosa.</div></div>
   </div>
@@ -316,7 +316,7 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
     </div>
     <div class="info-block">
       <h3>🕵️ Privacidad frente al ISP</h3>
-      <p>Tu proveedor de Internet puede ver qué dominios visitas (incluso con HTTPS, el DNS lo revela). Con una VPN, el ISP solo ve tráfico cifrado hacia el servidor.</p>
+      <p>Sin VPN, el ISP puede observar metadatos de tus conexiones y, dependiendo de cómo se resuelva DNS, las consultas DNS. Con una VPN, observa principalmente la conexión cifrada hacia el servidor VPN.</p>
     </div>
     <div class="info-block">
       <h3>⚠️ Limitaciones importantes</h3>
@@ -327,21 +327,9 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
 </section>
 
 <section class="section">
-  <div class="section-kicker">Comparativa</div>
-  <h2 class="section-title">Principales <em>proveedores</em></h2>
-  <table class="compare-table">
-    <thead><tr><th>Proveedor</th><th>Sede</th><th>Política de logs</th><th>Protocolos</th><th>Destacado</th></tr></thead>
-    <tbody>
-      <tr><td>NordVPN</td><td>Panamá</td><td>Sin logs (auditado)</td><td>WireGuard (NordLynx), OpenVPN</td><td>Mayor red de servidores (~6.000)</td></tr>
-      <tr><td>Surfshark</td><td>Países Bajos</td><td>Sin logs (auditado)</td><td>WireGuard, OpenVPN, IKEv2</td><td>Dispositivos ilimitados</td></tr>
-      <tr><td>ExpressVPN</td><td>Islas Vírgenes Brit.</td><td>Sin logs (auditado)</td><td>Lightway (propio), OpenVPN</td><td>Velocidad y facilidad de uso</td></tr>
-      <tr><td>Mullvad</td><td>Suecia</td><td>Sin logs, sin cuenta</td><td>WireGuard, OpenVPN</td><td>Máxima privacidad, pago anónimo</td></tr>
-      <tr><td>ProtonVPN</td><td>Suiza</td><td>Sin logs, open source</td><td>WireGuard, OpenVPN, IKEv2</td><td>Plan gratuito, código abierto</td></tr>
-    </tbody>
-  </table>
   <div class="callout callout-orange">
     <span class="callout-icon">⚠</span>
-    <p><strong>Atención a los VPNs gratuitos:</strong> la mayoría monetizan vendiendo datos de sus usuarios o tienen límites severos de velocidad. Si la privacidad importa, usa un proveedor de pago auditado — o monta tu propio servidor (pestaña Acceso Remoto).</p>
+    <p><strong>Atención a las VPN gratuitas:</strong> Desconfía de servicios VPN gratuitos de procedencia dudosa: algunos monetizan mediante publicidad, recopilación de datos o fuertes limitaciones. Revisa siempre su modelo de negocio y su política de privacidad.</p>
   </div>
 </section>
 
@@ -353,7 +341,7 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
 <section class="section" style="padding-top:48px;">
   <div class="type-hero"><div class="type-hero-inner">
     <div class="type-hero-kicker">Tipo 02 · Acceso remoto</div>
-    <h2>VPN de acceso remoto</h2>
+    <h2>VPN de Acceso Remoto</h2>
     <p>Un cliente individual se conecta a una red privada remota. Es lo que configuraremos: un servidor Ubuntu ejecutando WireGuard al que nos conectamos desde un cliente Ubuntu.</p>
     <div class="type-hero-badge">🔧 WireGuard · Ubuntu Server + Ubuntu Desktop</div>
   </div></div>
@@ -434,13 +422,13 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
   <div class="three-col">
     <div class="info-block"><h3>Curve25519 <span class="tag tag-blue">Clave pública</span></h3><p>Curva elíptica de alto rendimiento para el intercambio de claves Diffie-Hellman. Genera el secreto compartido a partir del par de claves de cada extremo.</p></div>
     <div class="info-block"><h3>ChaCha20-Poly1305 <span class="tag tag-blue">Cifrado</span></h3><p>Cifra el contenido del túnel. ChaCha20 da confidencialidad; Poly1305 garantiza integridad. Más rápido que AES en hardware sin aceleración dedicada.</p></div>
-    <div class="info-block"><h3>BLAKE2s <span class="tag tag-blue">Hash</span></h3><p>Función de hash para derivación de claves y autenticación de mensajes. Más rápida que SHA-256 con seguridad equivalente.</p></div>
+    <div class="info-block"><h3>BLAKE2s <span class="tag tag-blue">Hash</span></h3><p>WireGuard utiliza BLAKE2s como función hash dentro de sus mecanismos criptográficos.</p></div>
   </div>
   <div class="info-block">
     <h3>Modelo de seguridad <span class="tag tag-green">Ventajas clave</span></h3>
     <ul>
-      <li>El handshake se repite cada <strong>3 minutos</strong>: forward secrecy garantizado — robar una clave de sesión no descifra tráfico pasado.</li>
-      <li><strong>Silence by default:</strong> WireGuard no responde a paquetes de claves no configuradas. Invisible ante escaneos de red.</li>
+      <li>WireGuard renueva periódicamente las claves de sesión —aproximadamente cada 2 minutos cuando hay tráfico—, proporcionando forward secrecy.</li>
+      <li><strong>Silence by default:</strong> WireGuard no responde a paquetes de claves no configuradas. No revela fácilmente su presencia ante escaneos no autenticados.</li>
       <li><strong>IP roaming:</strong> si el cliente cambia de red (4G → Wi-Fi), la sesión sobrevive sin reconectar.</li>
       <li>Sin negociación de algoritmos: no hay cipher suite que atacar.</li>
     </ul>
@@ -546,7 +534,7 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
 <span class="key">PersistentKeepalive</span> = <span class="val">25</span>                        <span class="cmt"># Mantiene el túnel activo tras NAT</span></pre></div>
 
   <div class="two-col">
-    <div class="info-block"><h3>AllowedIPs — Split vs Full tunnel</h3><p><strong>Split</strong> <code>10.8.0.0/24</code>: solo el tráfico hacia la red VPN va cifrado. El resto sale directo. Mejor rendimiento.</p><p style="margin-top:8px;"><strong>Full</strong> <code>0.0.0.0/0, ::/0</code>: todo el tráfico pasa por el servidor. Máxima privacidad.</p></div>
+    <div class="info-block"><h3>AllowedIPs — Split vs Full tunnel</h3><p><strong>Split</strong> <code>10.8.0.0/24</code>: solo el tráfico hacia la red VPN va cifrado. El resto sale directo. Mejor rendimiento.</p><p style="margin-top:8px;"><strong>Full</strong> <code>0.0.0.0/0</code>: todo el tráfico IPv4 pasa por el servidor. Máxima privacidad.</p></div>
     <div class="info-block"><h3>PersistentKeepalive</h3><p>Envía un paquete al servidor cada 25 segundos. Necesario cuando el cliente está detrás de NAT: mantiene la entrada en la tabla NAT del router para que el servidor pueda responder.</p></div>
   </div>
 </section>
@@ -568,7 +556,7 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
 <span class="cmd">sudo wg-quick down</span> wg0
 
 <span class="cmt"># Recargar config sin bajar la interfaz</span>
-<span class="cmd">sudo wg syncconf</span> wg0 <span class="path">/etc/wireguard/wg0.conf</span></pre></div>
+<span class="cmd">sudo wg syncconf</span> wg0 &lt;(<span class="cmd">sudo wg-quick strip</span> wg0)</pre></div>
     </div>
     <div>
       <p style="font-size:13px;color:var(--ink-muted);margin-bottom:8px;font-weight:500;">Verificación</p>
@@ -592,7 +580,7 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
 <span class="cmd">curl</span> ifconfig.me
 
 <span class="cmt"># 2. Cambiar AllowedIPs en wg0.conf del cliente:</span>
-<span class="key">AllowedIPs</span> = <span class="val">0.0.0.0/0, ::/0</span>
+<span class="key">AllowedIPs</span> = <span class="val">0.0.0.0/0</span>
 
 <span class="cmt"># 3. Reconectar y verificar (debe mostrar la IP del servidor)</span>
 <span class="cmd">sudo wg-quick down</span> wg0 &amp;&amp; <span class="cmd">sudo wg-quick up</span> wg0
@@ -623,7 +611,7 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
 <section class="section" style="padding-top:48px;">
   <div class="type-hero"><div class="type-hero-inner">
     <div class="type-hero-kicker">Tipo 03 · Sitio a sitio</div>
-    <h2>VPN de sitio a sitio</h2>
+    <h2>VPN de Sitio a Sitio</h2>
     <p>Conecta permanentemente dos redes privadas a través de Internet. Los usuarios de cada sede acceden a recursos de la otra de forma transparente, sin configurar nada en sus dispositivos.</p>
     <div class="type-hero-badge">🏙 Para infraestructura corporativa · Conexión permanente</div>
   </div></div>
@@ -637,7 +625,7 @@ footer strong { color: rgba(255,255,255,0.55); font-weight: 500; }
   <div class="flow-steps">
     <div class="flow-step"><div class="flow-step-num">1</div><div class="flow-step-content"><h4>Cada sede tiene un router/firewall con WireGuard</h4><p>El router de la Sede A y el de la Sede B tienen WireGuard instalado y configurado. Cada uno actúa como peer del otro.</p></div></div>
     <div class="flow-step"><div class="flow-step-num">2</div><div class="flow-step-content"><h4>Se establece un túnel permanente entre los routers</h4><p>El túnel se levanta al arrancar los routers y se mantiene activo indefinidamente. Si cae, se reestablece automáticamente en el siguiente keepalive.</p></div></div>
-    <div class="flow-step"><div class="flow-step-num">3</div><div class="flow-step-content"><h4>El routing propaga las subredes de cada sede</h4><p>Cada router anuncia su subred local a través del túnel. Un PC en Sede A (<code>192.168.1.x</code>) puede alcanzar servidores de Sede B (<code>192.168.2.x</code>) de forma transparente.</p></div></div>
+    <div class="flow-step"><div class="flow-step-num">3</div><div class="flow-step-content"><h4>El routing propaga las subredes de cada sede</h4><p>Cada router tiene configurada la ruta hacia la subred remota a través del túnel mediante la configuración correspondiente de WireGuard (<code>AllowedIPs</code>). Un PC en Sede A (<code>192.168.1.x</code>) puede alcanzar servidores de Sede B (<code>192.168.2.x</code>) de forma transparente.</p></div></div>
     <div class="flow-step"><div class="flow-step-num">4</div><div class="flow-step-content"><h4>El usuario final no nota nada</h4><p>Accede al servidor de la otra sede por su IP privada. El SO enruta el paquete al router local, que lo manda por el túnel cifrado sin que el usuario lo sepa.</p></div></div>
   </div>
 </section>

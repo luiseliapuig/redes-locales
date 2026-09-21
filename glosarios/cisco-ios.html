@@ -4,7 +4,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Glosario de Comandos — VLANs &amp; Routing</title>
-<link href="./Glosario de Comandos — VLANs &amp; Routing_files/css2" rel="stylesheet">
+<link href="./cisco-ios_files/css2" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -282,7 +282,7 @@
       <div class="cmd-list">
         <div class="cmd-row"><span class="cmd">ip dhcp excluded-address 192.168.10.254</span><span class="desc">Reserva una IP para que el router no la reparta</span></div>
         <div class="cmd-row"><span class="cmd">ip dhcp pool NOMBRE</span><span class="desc">Crea un pool DHCP con nombre descriptivo</span></div>
-        <div class="cmd-row"><span class="cmd">network 192.168.10.0 255.255.255.0</span><span class="desc">Define el rango de IPs a repartir</span></div>
+        <div class="cmd-row"><span class="cmd">network 192.168.10.0 255.255.255.0</span><span class="desc">Define la subred y máscara del pool DHCP</span></div>
         <div class="cmd-row"><span class="cmd">default-router 192.168.10.254</span><span class="desc">Informa del gateway a los clientes</span></div>
         <div class="cmd-row"><span class="cmd">dns-server 8.8.8.8</span><span class="desc">Informa del servidor DNS a los clientes</span></div>
         <div class="cmd-row"><span class="cmd">show ip dhcp binding</span><span class="desc">IPs asignadas, MACs y fecha de expiración</span></div>
@@ -302,7 +302,7 @@
       <div class="cmd-list">
         <div class="cmd-row"><span class="cmd">ip nat inside</span><span class="desc">Marca la interfaz como interna (red privada)</span></div>
         <div class="cmd-row"><span class="cmd">ip nat outside</span><span class="desc">Marca la interfaz como externa (Internet)</span></div>
-        <div class="cmd-row"><span class="cmd">access-list 1 permit 192.168.0.0 0.0.255.255</span><span class="desc">Define qué tráfico entra en el proceso NAT</span></div>
+        <div class="cmd-row"><span class="cmd">access-list 1 permit 192.168.0.0 0.0.255.255</span><span class="desc">Define qué direcciones internas serán traducidas</span></div>
         <div class="cmd-row"><span class="cmd">ip nat inside source list 1 interface g0/1 overload</span><span class="desc">Activa PAT: IPs privadas comparten la IP pública de g0/1</span></div>
         <div class="cmd-row"><span class="cmd">show ip nat translations</span><span class="desc">Traducciones activas (IP privada ↔ IP pública)</span></div>
       </div>

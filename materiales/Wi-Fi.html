@@ -4,7 +4,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guía de Wi-Fi</title>
-<link href="./Guía de Wi-Fi_files/css2" rel="stylesheet">
+<link href="./Wi-Fi_files/css2" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -561,8 +561,8 @@
 <!-- HERO -->
 <header class="hero">
   <div class="hero-label">Guía técnica · Wi-Fi</div>
-  <h1>Todo sobre<br><em>el</em> Wi-Fi</h1>
-  <p class="hero-sub">Desde Hedy Lamarr y los torpedos de la Segunda Guerra Mundial hasta el handshake de 4 pasos que protege tu red.</p>
+  <h1>Wi-Fi</h1>
+  <p class="hero-sub">Fundamentos de las redes inalámbricas: ondas, bandas, seguridad y acceso al medio.</p>
 </header>
 
 <!-- STICKY NAV -->
@@ -587,34 +587,34 @@
     </div>
 
     <div class="body-text">
-      <p>El Wi-Fi no fue obra de una sola persona ni nació en un laboratorio. Surgió de la confluencia de ciencia, guerra, música y matemáticas a lo largo de varias décadas.</p>
+      <p>El Wi-Fi es el resultado de décadas de avances en comunicaciones por radio, procesamiento de señales y estandarización de redes inalámbricas.</p>
     </div>
 
     <div class="timeline">
       <div class="timeline-item">
         <h3>Siglo XIX — Joseph Fourier</h3>
-        <p>El matemático Fourier descubre que cualquier señal compleja puede descomponerse en ondas simples. Su <em>transformada de Fourier</em> hace posible la técnica OFDM, que permite enviar muchos datos simultáneamente por diferentes frecuencias sin interferencias.</p>
+        <p>El trabajo de Joseph Fourier permitió describir señales complejas como combinaciones de componentes de distintas frecuencias. Las <em>transformadas de Fourier</em>, desarrolladas a partir de estas ideas, permiten analizar una señal en función de las frecuencias que la componen y son una herramienta fundamental en el procesamiento digital de señales y las comunicaciones modernas.</p>
       </div>
       <div class="timeline-item">
         <h3>1942 — Hedy Lamarr y George Antheil</h3>
-        <p>La actriz Hedy Lamarr y el compositor George Antheil patentan el <em>salto de frecuencia</em>: emisor y receptor cambian de frecuencia de forma sincronizada para evitar que los enemigos intercepten señales de torpedos. Demasiado avanzado para su época, se convertiría décadas después en la base del Bluetooth y el Wi-Fi.</p>
+        <p>Hedy Lamarr y George Antheil patentan un sistema de comunicación para torpedos basado en el <em>salto sincronizado de frecuencia</em>, que buscaba dificultar la detección y la interferencia de la señal. Esta técnica tuvo después aplicaciones en las comunicaciones inalámbricas: el salto de frecuencia se utiliza, por ejemplo, en Bluetooth y también estuvo presente como una de las opciones de transmisión del estándar Wi-Fi 802.11 original.</p>
       </div>
       <div class="timeline-item">
-        <h3>Años 80 — El espectro libre</h3>
-        <p>El gobierno de EE. UU. abre ciertas bandas de radio (incluida la de 2,4 GHz) sin necesidad de licencia. Esto permite que cualquier ingeniero pueda experimentar con redes inalámbricas. Nacen las condiciones para el Wi-Fi.</p>
+        <h3>1985 — Espectro sin licencia</h3>
+        <p>En Estados Unidos, la FCC autoriza determinados usos sin licencia individual en varias bandas ISM, incluida la de 2,4 GHz. Esto facilita el desarrollo posterior de tecnologías inalámbricas.</p>
       </div>
       <div class="timeline-item">
         <h3>Años 90 — El estándar 802.11</h3>
-        <p>El IEEE (el mismo grupo que definió Ethernet) trabaja para llevar las redes "al aire". La Universidad de Waikato, NCR, Lucent y Apple participan en los primeros desarrollos. Las primeras versiones son lentas, pero funcionan.</p>
+        <p>Durante los años 90, el IEEE desarrolla el estándar 802.11 para redes locales inalámbricas. La primera versión del estándar se publica en 1997.</p>
       </div>
       <div class="timeline-item">
         <h3>1999 — Nace el nombre "Wi-Fi"</h3>
-        <p>Para hacer comercial el árido nombre técnico "IEEE 802.11b", se acuña <strong>Wi-Fi</strong>, imitando el término Hi-Fi de los equipos de sonido de alta fidelidad. El resto es historia.</p>
+        <p>La Wi-Fi Alliance adopta <strong>Wi-Fi</strong> como una denominación comercial más sencilla para la tecnología basada en IEEE 802.11.</p>
       </div>
     </div>
 
     <div class="callout">
-      <p><strong>En resumen:</strong> El Wi-Fi no surgió de la nada. Surgió de los cables (Ethernet), del espectro libre, de las matemáticas de Fourier y de la creatividad bélica de Hedy Lamarr. Hoy nos parece tan normal como respirar.</p>
+      <p><strong>En resumen:</strong> El Wi-Fi es el resultado de décadas de avances en matemáticas, radio, espectro sin licencia y estandarización de redes inalámbricas.</p>
     </div>
   </div>
 </section>
@@ -628,7 +628,7 @@
     </div>
 
     <div class="body-text">
-      <p>Las ondas electromagnéticas son vibraciones invisibles que transportan información a través del aire sin necesidad de cables. Cada onda tiene tres características clave:</p>
+      <p>El Wi-Fi transmite información mediante ondas electromagnéticas. Para entender su funcionamiento básico nos interesan tres características:</p>
     </div>
 
     <div class="card-grid" style="margin-top: 32px;">
@@ -636,7 +636,7 @@
         <span class="card-icon">〰</span>
         <div class="card-label">Característica</div>
         <div class="card-title">Frecuencia</div>
-        <div class="card-body">Cuántas veces vibra la onda por segundo. Se mide en hercios (Hz). A mayor frecuencia, más datos puede transportar, pero menos distancia recorre.</div>
+        <div class="card-body">Indica cuántos ciclos realiza la onda por segundo y se mide en hercios (Hz). En Wi-Fi se utilizan principalmente las bandas de 2,4, 5 y 6 GHz, cada una con diferentes características de propagación y disponibilidad de canales.</div>
       </div>
       <div class="card">
         <span class="card-icon">↕</span>
@@ -648,12 +648,12 @@
         <span class="card-icon">◎</span>
         <div class="card-label">Característica</div>
         <div class="card-title">Fase</div>
-        <div class="card-body">En qué punto del ciclo se encuentra la onda en un momento dado. Fundamental para que varias señales no colisionen.</div>
+        <div class="card-body">Indica la posición de una onda dentro de su ciclo respecto a una referencia. Es relevante en técnicas de modulación y en la combinación de señales.</div>
       </div>
     </div>
 
     <div class="body-text" style="margin-top: 32px;">
-      <p>Las ondas Wi-Fi no viajan en línea recta perfecta: se <strong>reflejan</strong> en paredes, se <strong>atenúan</strong> con obstáculos como ladrillos o agua, y se <strong>interfieren</strong> unas con otras. Por eso a veces una señal buena se corta al moverte unos metros.</p>
+      <p>Al propagarse por un entorno, la señal Wi-Fi puede reflejarse, atenuarse al atravesar obstáculos y sufrir interferencias. Por eso la calidad de la conexión puede variar incluso entre puntos cercanos.</p>
     </div>
   </div>
 </section>
@@ -671,39 +671,39 @@
         <div class="band-freq">2,4 GHz</div>
         <div class="band-name">Banda clásica</div>
         <div class="band-pills">
-          <span class="band-pill pro">Mayor alcance</span>
-          <span class="band-pill pro">Traspasa paredes</span>
+          <span class="band-pill pro">Mejor cobertura habitual</span>
+          <span class="band-pill pro">Mejor penetración</span>
           <span class="band-pill con">Más interferencias</span>
-          <span class="band-pill con">Solo 3 canales libres</span>
-          <span class="band-pill con">Menor velocidad</span>
+          <span class="band-pill con">Más saturada</span>
+          <span class="band-pill con">Menor capacidad habitual</span>
         </div>
       </div>
       <div class="band-cell">
         <div class="band-freq">5 GHz</div>
         <div class="band-name">Banda rápida</div>
         <div class="band-pills">
-          <span class="band-pill pro">Mayor velocidad</span>
-          <span class="band-pill pro">20+ canales</span>
+          <span class="band-pill pro">Mayor capacidad habitual</span>
+          <span class="band-pill pro">Más canales disponibles</span>
           <span class="band-pill pro">Menos saturación</span>
-          <span class="band-pill con">Menor alcance</span>
+          <span class="band-pill con">Menor cobertura práctica</span>
           <span class="band-pill con">Peor en obstáculos</span>
         </div>
       </div>
       <div class="band-cell">
         <div class="band-freq">6 GHz</div>
-        <div class="band-name">Wi-Fi 6E</div>
+        <div class="band-name">Banda de 6 GHz</div>
         <div class="band-pills">
-          <span class="band-pill pro">Más limpia</span>
-          <span class="band-pill pro">Máxima velocidad</span>
-          <span class="band-pill pro">Menos dispositivos</span>
-          <span class="band-pill con">Alcance reducido</span>
-          <span class="band-pill con">Hardware nuevo</span>
+          <span class="band-pill pro">Más espectro disponible</span>
+          <span class="band-pill pro">Canales más anchos</span>
+          <span class="band-pill pro">Menos saturación</span>
+          <span class="band-pill con">Menor cobertura práctica</span>
+          <span class="band-pill con">Requiere hardware compatible</span>
         </div>
       </div>
     </div>
 
     <div class="callout">
-      <p>Los <strong>canales</strong> son microbandas dentro de una banda mayor. En 2,4 GHz existen 13 canales en Europa, pero solo 3 no se solapan entre sí (1, 6 y 11). En 5 GHz hay más de 20 canales no solapados, lo que reduce las interferencias enormemente. Los routers modernos de <strong>doble banda</strong> emiten en ambas simultáneamente y el dispositivo elige automáticamente la más conveniente.</p>
+      <p>Los <strong>canales</strong> son microbandas dentro de una banda mayor. En 2,4 GHz existen 13 canales disponibles en Europa. Como referencia práctica, 1, 6 y 11 forman el esquema clásico de tres canales separados para reducir el solapamiento entre redes cercanas. En 5 GHz hay muchos más canales disponibles que en 2,4 GHz, aunque su número depende del país y del ancho de canal utilizado. Muchos puntos de acceso trabajan simultáneamente en 2,4 y 5 GHz, permitiendo que los dispositivos compatibles utilicen una u otra banda.</p>
     </div>
   </div>
 </section>
@@ -717,7 +717,7 @@
     </div>
 
     <div class="body-text">
-      <p>A lo largo de los años, el Wi-Fi ha pasado por distintos estándares de cifrado. Algunos han quedado obsoletos por ser vulnerables; otros son el estándar actual.</p>
+      <p>A lo largo de los años han aparecido distintos mecanismos de seguridad para proteger las redes Wi-Fi. Algunos han quedado obsoletos por sus vulnerabilidades y otros continúan utilizándose actualmente.</p>
     </div>
 
     <div class="proto-grid">
@@ -731,11 +731,11 @@
       </div>
       <div class="proto-card">
         <div class="proto-name">WPA2</div>
-        <div class="proto-desc">Introduce AES-CCMP como cifrado robusto. Sigue siendo el estándar más extendido en routers domésticos actuales.</div>
+        <div class="proto-desc">Introduce AES-CCMP como mecanismo de cifrado robusto y ha sido durante años uno de los sistemas de seguridad más utilizados en redes Wi-Fi.</div>
       </div>
       <div class="proto-card best">
         <div class="proto-name">WPA3</div>
-        <div class="proto-desc">Usa SAE (Dragonfly) para mayor seguridad. Protege incluso redes abiertas mediante OWE (cifrado oportunista). El estándar más seguro hoy.</div>
+        <div class="proto-desc">WPA3 utiliza SAE en redes personales y mejora la protección frente a ataques sobre contraseñas. Por otra parte, Wi-Fi Enhanced Open utiliza OWE para cifrar el tráfico de redes abiertas sin necesidad de una contraseña compartida.</div>
       </div>
     </div>
   </div>
@@ -757,12 +757,12 @@
       <div class="card">
         <div class="card-label">Para uso doméstico</div>
         <div class="card-title">PSK — Pre-Shared Key</div>
-        <div class="card-body">Todos los dispositivos comparten la misma contraseña. Fácil de configurar y universalmente compatible. Al conectarse, el router y el cliente generan una clave de sesión temporal y única para cifrar los datos. Su debilidad: no es posible revocar el acceso a un solo dispositivo sin cambiar la clave para todos.</div>
+        <div class="card-body">Todos los dispositivos comparten la misma contraseña. Fácil de configurar y ampliamente compatible. A partir de esa clave compartida se generan claves temporales para proteger la comunicación. Su debilidad: no es posible revocar el acceso a un solo dispositivo sin cambiar la clave para todos.</div>
       </div>
       <div class="card">
         <div class="card-label">Para entornos empresariales</div>
         <div class="card-title">802.1X — Enterprise</div>
-        <div class="card-body">Cada usuario tiene credenciales propias (usuario/contraseña o certificado digital). Un servidor RADIUS valida el acceso de forma centralizada. Permite activar, desactivar y auditar cuentas individuales. Más seguro, pero requiere infraestructura adicional y mayor complejidad de gestión.</div>
+        <div class="card-body">Cada usuario tiene credenciales propias (usuario/contraseña o certificado digital). Un servidor RADIUS valida el acceso de forma centralizada. Permite activar, desactivar y auditar cuentas individuales, ofreciendo un control individualizado del acceso, aunque requiere infraestructura adicional y mayor complejidad de gestión.</div>
       </div>
     </div>
 
@@ -791,9 +791,9 @@
           <td><span class="badge badge-no">Requiere infraestructura</span></td>
         </tr>
         <tr>
-          <td>Seguridad individual</td>
-          <td><span class="badge badge-no">Baja</span></td>
-          <td><span class="badge badge-yes">Alta</span></td>
+          <td>Credenciales individuales</td>
+          <td><span class="badge badge-no">No</span></td>
+          <td><span class="badge badge-yes">Sí</span></td>
         </tr>
       </tbody>
     </table>
@@ -809,42 +809,42 @@
     </div>
 
     <div class="body-text">
-      <p>Tras la autenticación, dispositivo y router necesitan acordar cómo van a cifrar los datos. Este proceso se llama <strong>4-Way Handshake</strong> y garantiza que cada sesión tenga su propia clave temporal única.</p>
+      <p>Tras la autenticación, el dispositivo y el punto de acceso disponen de una clave maestra establecida mediante el mecanismo de autenticación correspondiente. El <strong>4-Way Handshake</strong> les permite derivar las claves temporales que protegerán la comunicación.</p>
     </div>
 
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-content">
-          <h4>Nonce del punto de acceso</h4>
-          <p>El router envía un número aleatorio (ANonce) al cliente para iniciar el intercambio.</p>
+          <h4>Valor del punto de acceso</h4>
+          <p>El punto de acceso envía al cliente un valor generado para iniciar el intercambio.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-content">
-          <h4>Nonce del cliente</h4>
-          <p>El dispositivo responde con su propio número aleatorio (SNonce), también aleatorio e irrepetible.</p>
+          <h4>Valor del cliente</h4>
+          <p>El cliente responde con su propio valor para completar la información necesaria.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
-          <h4>Generación de la PTK</h4>
-          <p>Ambos combinan sus nonces con la contraseña o credencial para generar la <em>Pairwise Transient Key</em>: la clave de sesión que cifrará la comunicación.</p>
+          <h4>Generación de claves temporales</h4>
+          <p>Ambas partes utilizan la clave maestra y los valores intercambiados para derivar las claves temporales de la sesión.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
         <div class="step-content">
           <h4>Verificación y activación</h4>
-          <p>Ambos verifican que han calculado la misma clave. Si coincide, la comunicación cifrada comienza.</p>
+          <p>El proceso comprueba que ambas partes disponen del material de claves correcto sin transmitir directamente la contraseña. Después comienza la comunicación cifrada.</p>
         </div>
       </div>
     </div>
 
     <div class="callout">
-      <p><strong>TLS y el Wi-Fi se complementan:</strong> TLS (el protocolo detrás de HTTPS) cifra el tráfico entre tus apps y los servidores externos. El Wi-Fi cifra el tramo entre tu dispositivo y el router. En una red abierta sin contraseña, TLS sigue protegiendo tus datos de punta a punta — aunque la red en sí no esté cifrada.</p>
+      <p><strong>TLS y el Wi-Fi se complementan:</strong> TLS (el protocolo detrás de HTTPS) cifra el tráfico entre tus apps y los servidores externos. El Wi-Fi cifra el tramo entre tu dispositivo y el router. En una red abierta sin contraseña, TLS sigue protegiendo el tráfico entre tu dispositivo y el servicio con el que establece la conexión segura, aunque la red Wi-Fi en sí no esté cifrada.</p>
     </div>
   </div>
 </section>
@@ -858,7 +858,7 @@
     </div>
 
     <div class="body-text">
-      <p>En Wi-Fi, todos los dispositivos comparten el mismo medio: el aire. Para evitar que hablen a la vez, se usa <strong>CSMA/CA</strong> (Carrier Sense Multiple Access with Collision Avoidance).</p>
+      <p>En Wi-Fi, todos los dispositivos comparten el mismo medio: el aire. Para coordinar el acceso al canal y reducir la probabilidad de colisiones, se utiliza <strong>CSMA/CA</strong> (Carrier Sense Multiple Access with Collision Avoidance).</p>
     </div>
 
     <div class="flow-diagram">
@@ -894,24 +894,24 @@
         <tr>
           <th>Característica</th>
           <th>Wi-Fi (CSMA/CA)</th>
-          <th>Ethernet (CSMA/CD)</th>
+          <th>Ethernet clásico (CSMA/CD)</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>Medio</td>
           <td>Aire (compartido)</td>
-          <td>Cable (dedicado por segmento)</td>
+          <td>Cable compartido</td>
         </tr>
         <tr>
           <td>¿Detecta colisiones?</td>
-          <td><span class="badge badge-no">No — las evita</span></td>
+          <td><span class="badge badge-no">No directamente — intenta evitarlas</span></td>
           <td><span class="badge badge-yes">Sí — y reacciona</span></td>
         </tr>
         <tr>
           <td>¿Espera antes de enviar?</td>
           <td><span class="badge badge-yes">Sí — escucha y backoff</span></td>
-          <td><span class="badge badge-no">No (en versiones modernas)</span></td>
+          <td><span class="badge badge-yes">Sí — escucha antes de transmitir</span></td>
         </tr>
         <tr>
           <td>¿Usa RTS/CTS?</td>
@@ -920,6 +920,7 @@
         </tr>
       </tbody>
     </table>
+    <p>En las redes Ethernet conmutadas y full-duplex actuales, CSMA/CD ya no es necesario porque cada enlace no comparte el medio de la misma forma.</p>
   </div>
 </section>
 
