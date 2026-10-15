@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Primeros pasos con la terminal. Biblioteca de consulta de comandos para Redes Locales de 1.º de SMX.">
+    <title>Primeros pasos con la terminal · Biblioteca de comandos</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <aside class='sidebar'>
+      <a class='brand' href='../index.html'>Biblioteca<br>
+      <strong>de comandos<span>.</span>
+      </strong>
+      </a>
+      <p class='course'>Redes Locales · 1.º SMX</p>
+      <nav aria-label='Navegación de la biblioteca'>
+        <h2>Inicio</h2>
+        <a href='../index.html'>Índice general</a>
+        <h2>Nivel 1 <span>Descubrir la terminal</span>
+        </h2>
+        <a href='../nivel-1/primeros-pasos.html' aria-current="page">
+        <span class='nav-number'>1.</span> Primeros pasos</a>
+        <a href='../nivel-1/configuracion-red.html'>
+        <span class='nav-number'>2.</span> Mi ordenador en la red<small>Próximamente</small>
+        </a>
+        <h2>Nivel 2 <span>Investigar la red</span>
+        </h2>
+        <a href='../nivel-2/conectividad.html'>
+        <span class='nav-number'>3.</span> Conectividad y diagnóstico<small>Próximamente</small>
+        </a>
+        <a href='../nivel-2/dns-rutas.html'>
+        <span class='nav-number'>4.</span> DNS, conexiones y rutas<small>Próximamente</small>
+        </a>
+        <h2>Nivel 3 <span>Administrar redes</span>
+        </h2>
+        <a href='../nivel-3/switches-vlans.html'>
+        <span class='nav-number'>5.</span> Switches y segmentación<small>Próximamente</small>
+        </a>
+        <a href='../nivel-3/routing-servicios.html'>
+        <span class='nav-number'>6.</span> Routing y servicios<small>Próximamente</small>
+        </a>
+      </nav>
+      <a class='repo-link' href='../../../index.html'>← Recursos de Redes locales</a>
+    </aside>
+    <main id="contenido">
+      <header class="page-header">
+        <p class="eyebrow">Nivel 1 · Etapa 1 — Descubrir la terminal</p>
+        <h1>Primeros pasos con la terminal</h1>
+      </header>
+      <p class="intro">En Linux y en Windows, una terminal es una ventana desde la que puedes dar instrucciones al ordenador escribiendo comandos. Sirve para consultar información, recorrer carpetas y administrar el sistema. Escribe una orden y pulsa <kbd>Intro</kbd> para ejecutarla.</p>
+      <div class="environment">
+        <div>
+          <h2>
+          <span class="tag linux">Linux</span>
+          </h2>
+          <p>Abre la aplicación <strong>Terminal</strong>. Los ejemplos se orientan a una consola habitual con Bash y utilidades GNU. Respeta mayúsculas y minúsculas en los nombres.</p>
+        </div>
+        <div>
+          <h2>
+          <span class="tag windows">Windows CMD</span>
+          </h2>
+          <p>Abre <strong>Símbolo del sistema</strong> buscando <code>cmd</code> en Inicio. Windows Terminal puede alojar varias consolas: selecciona el perfil Símbolo del sistema para estos ejemplos.</p>
+        </div>
+      </div>
+      <p class="hint">Consulta primero los ejemplos de Linux y después los de Windows CMD. Las etiquetas indican dónde usar cada orden. PowerShell tiene sus propios comandos y no se trata en esta etapa.</p>
+      <nav class="block-nav" aria-label="Bloques de esta etapa">
+        <a href="#entorno">A. Identificar</a>
+        <a href="#navegar">B. Navegar</a>
+        <a href="#organizar">C. Organizar</a>
+        <a href="#ayuda">D. Consultar ayuda</a>
+      </nav>
+      <section class="block" id="entorno" aria-labelledby="entorno-title">
+        <header class="block-header">
+          <span class="dot dot-A"></span>
+          <h2 id="entorno-title">A. Identificar el entorno</h2>
+          <div class="tags">
+            <span class="tag linux">Linux</span>
+            <span class="tag windows">Windows CMD</span>
+          </div>
+        </header>
+        
+        <div class="function-list">
+          <div class="function-row">
+            <h3>Identificar al usuario</h3>
+            <div class="function-commands single-command">
+              <div class="system-command">
+                <span class="tag both">Ambos</span>
+                <code class="cmd">whoami</code>
+                
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Muestra el usuario con el que se ejecuta el comando.</p>
+              <p><strong>Fíjate en:</strong> en Linux aparece el nombre del usuario efectivo; en CMD suele aparecer equipo\usuario o dominio\usuario.</p>
+              
+            </div>
+          </div>
+          <div class="function-row">
+            <h3>Identificar el equipo</h3>
+            <div class="function-commands single-command">
+              <div class="system-command">
+                <span class="tag both">Ambos</span>
+                <code class="cmd">hostname</code>
+                
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Muestra el nombre del equipo.</p>
+              <p><strong>Fíjate en:</strong> es el nombre del ordenador, no el del usuario ni su dirección IP.</p>
+              
+            </div>
+          </div>
+          <div class="function-row">
+            <h3>Consultar información del sistema</h3>
+            <div class="function-commands">
+              <div class="system-command">
+                <span class="tag linux">Linux</span>
+                <code class="cmd">uname -a</code>
+                
+              </div>              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <code class="cmd">ver</code>
+                
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Consulta información básica del sistema que estás utilizando.</p>
+              <p><strong>Fíjate en:</strong> el nombre y la versión que aparecen en la salida.</p>
+              <p><strong>Diferencias:</strong> <code>uname -a</code> informa sobre el kernel y la máquina; <code>ver</code> muestra la versión de Windows. No ofrecen los mismos datos; la versión del kernel tampoco es la de la distribución.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class='block' id='navegar' aria-labelledby='navegar-title'>
+        <header class='block-header'>
+          <span class='dot dot-B'></span>
+          <h2 id='navegar-title'>B. Saber dónde estamos y movernos</h2>
+          <div class='tags'>
+            <span class='tag linux'>Linux</span>
+            <span class='tag windows'>Windows CMD</span>
+          </div>
+        </header>
+        <p class="block-intro">Primero localiza dónde estás; después elige qué quieres hacer. En Linux las rutas usan <code>/</code>; en CMD, <code>\</code>. Para nombres con espacios, usa comillas: <code>cd "Mis apuntes"</code>.</p>
+        <div class="function-list">
+          <div class="function-row">
+            <h3>Consultar el directorio actual</h3>
+            <div class="function-commands">
+              <div class="system-command">
+                <span class="tag linux">Linux</span>
+                <code class="cmd">pwd</code>
+              </div>
+              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <code class="cmd">cd</code>
+                <span class="command-note">Sin argumentos</span>
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Muestra la ruta del directorio en el que estás trabajando.</p>
+              <p><strong>Fíjate en:</strong> la ruta completa, por ejemplo <code>/home/alumno/Documentos</code> o <code>C:\Users\alumno\Documentos</code>.</p>
+              <p><strong>Diferencias:</strong> en Bash, <code>cd</code> sin argumentos te lleva a tu carpeta personal; en CMD muestra la ruta sin cambiar de carpeta.</p>
+            </div>
+          </div>
+          <div class="function-row">
+            <h3>Listar archivos y carpetas</h3>
+            <div class="function-commands">
+              <div class="system-command">
+                <span class="tag linux">Linux</span>
+                <code class="cmd">ls</code>
+              </div>
+              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <code class="cmd">dir</code>
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Lista el contenido del directorio actual.</p>
+              <p><strong>Fíjate en:</strong> los nombres que aparecen; en CMD, <code>&lt;DIR&gt;</code> identifica las carpetas.</p>
+              <p><strong>Diferencias:</strong> <code>ls</code> muestra normalmente los nombres y omite los que empiezan por punto. <code>dir</code> añade fechas y tamaños, y omite por defecto archivos ocultos y de sistema.</p>
+            </div>
+          </div>
+          <div class="function-row">
+            <h3>Cambiar de directorio</h3>
+            <div class="function-commands single-command">
+              <div class="system-command">
+                <span class="tag both">Ambos</span>
+                <code class="cmd">cd Documentos</code>
+                <span class="command-note">Ejemplo de <code>cd</code> con una carpeta</span>
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Entra en la carpeta indicada. En este ejemplo, <code>Documentos</code> debe existir dentro del directorio actual.</p>
+              <p><strong>Fíjate en:</strong> la nueva ubicación; consúltala con <code>pwd</code> en Linux o <code>cd</code> sin argumentos en CMD.</p>
+              <p><strong>Diferencias:</strong> Linux distingue mayúsculas y minúsculas; CMD normalmente no. En CMD, <code>cd /d D:\Practicas</code> cambia también de unidad si esa ruta existe.</p>
+            </div>
+          </div>
+          <div class="function-row">
+            <h3>Subir al directorio superior</h3>
+            <div class="function-commands single-command">
+              <div class="system-command">
+                <span class="tag both">Ambos</span>
+                <code class="cmd">cd ..</code>
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Sube un nivel en la estructura de carpetas.</p>
+              <p><strong>Fíjate en:</strong> cómo cambia la ruta: de <code>Documentos</code> pasas a la carpeta que la contiene. Compruébalo con <code>pwd</code> en Linux o <code>cd</code> en CMD.</p>
+            </div>
+          </div>
+          <div class="function-row">
+            <h3>Ir al directorio raíz</h3>
+            <div class="function-commands">
+              <div class="system-command">
+                <span class="tag linux">Linux</span>
+                <code class="cmd">cd /</code>
+              </div>
+              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <code class="cmd">cd \</code>
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Va al inicio de la jerarquía de directorios correspondiente.</p>
+              <p><strong>Fíjate en:</strong> la ruta resultante: <code>/</code> en Linux; por ejemplo, <code>C:\</code> en CMD si trabajabas en esa unidad.</p>
+              <p><strong>Diferencias:</strong> Linux tiene una raíz común del sistema de archivos. En CMD vas a la raíz de la unidad actual; no cambias de unidad.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="block" id="organizar" aria-labelledby="organizar-title">
+        <header class="block-header">
+          <span class="dot dot-C"></span>
+          <h2 id="organizar-title">C. Crear y organizar carpetas</h2>
+          <div class="tags">
+            <span class="tag linux">Linux</span>
+            <span class="tag windows">Windows CMD</span>
+          </div>
+        </header>
+        <p class='block-intro'>Son ejemplos independientes con nombres ficticios. Para copiar o mover, <code>notas.txt</code> y la subcarpeta <code>Practicas</code> deben existir en el directorio actual. Usa nombres de destino nuevos para conservar los archivos existentes.</p>
+        <div class="function-list">
+          <div class="function-row">
+            <h3>Crear una carpeta</h3>
+            <div class="function-commands single-command">
+              <div class="system-command">
+                <span class="tag both">Ambos</span>
+                <code class="cmd">mkdir Practicas</code>
+                <span class='command-note'>Ejemplo de <code>mkdir</code></span>
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Crea una carpeta llamada Practicas en el directorio actual.</p>
+              <p><strong>Fíjate en:</strong> comprueba que aparece con <code>ls</code> en Linux o <code>dir</code> en CMD.</p>
+              
+            </div>
+          </div>
+          <div class="function-row">
+            <h3>Eliminar una carpeta vacía</h3>
+            <div class="function-commands single-command">
+              <div class="system-command">
+                <span class="tag both">Ambos</span>
+                <code class="cmd">rmdir Temporal</code>
+                <span class='command-note'>Ejemplo de <code>rmdir</code> sin opciones</span>
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Elimina la carpeta Temporal. En estos ejemplos solo funciona si está vacía.</p>
+              <p><strong>Fíjate en:</strong> Temporal debe existir, estar vacía y no ser tu directorio actual. Después dejará de aparecer en el listado.</p>
+              
+            </div>
+          </div>
+          <div class="function-row">
+            <h3>Copiar un archivo</h3>
+            <div class="function-commands">
+              <div class="system-command">
+                <span class="tag linux">Linux</span>
+                <code class="cmd">cp -i notas.txt Practicas/notas-copia.txt</code>
+                
+              </div>              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <code class="cmd">copy notas.txt Practicas\notas-copia.txt</code>
+                
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Crea una copia del archivo; el original permanece en su ubicación.</p>
+              <p><strong>Fíjate en:</strong> en el origen notas.txt y en la nueva copia dentro de Practicas.</p>
+              <p><strong>Diferencias:</strong> En Linux, <code>-i</code> solicita confirmación antes de sobrescribir. En CMD, <code>copy</code> normalmente pregunta en uso interactivo, pero depende de la configuración y de si se ejecuta en un script.</p>
+            </div>
+          </div>
+          <div class="function-row">
+            <h3>Mover un archivo</h3>
+            <div class="function-commands">
+              <div class="system-command">
+                <span class="tag linux">Linux</span>
+                <code class="cmd">mv -i notas.txt Practicas/</code>
+                
+              </div>              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <code class="cmd">move notas.txt Practicas\</code>
+                
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Traslada el archivo a Practicas; deja de estar en su ubicación original.</p>
+              <p><strong>Fíjate en:</strong> comprueba que notas.txt aparece en Practicas y ya no en la carpeta de origen.</p>
+              <p><strong>Diferencias:</strong> En Linux, <code>-i</code> pregunta antes de sobrescribir. En CMD, <code>move</code> normalmente pregunta en uso interactivo; la configuración o un script pueden cambiarlo. Usa un destino nuevo.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="block" id="ayuda" aria-labelledby="ayuda-title">
+        <header class="block-header">
+          <span class="dot dot-D"></span>
+          <h2 id="ayuda-title">D. Ayuda y limpieza de pantalla</h2>
+          <div class="tags">
+            <span class="tag linux">Linux</span>
+            <span class="tag windows">Windows CMD</span>
+          </div>
+        </header>
+        
+        <div class="function-list">
+          <div class="function-row">
+            <h3>Limpiar la pantalla</h3>
+            <div class="function-commands">
+              <div class="system-command">
+                <span class="tag linux">Linux</span>
+                <code class="cmd">clear</code>
+                
+              </div>              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <code class="cmd">cls</code>
+                
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Limpia la información visible de la terminal, sin eliminar archivos.</p>
+              <p><strong>Fíjate en:</strong> la pantalla queda despejada; los archivos y el directorio actual no cambian.</p>
+              
+            </div>
+          </div>
+          <div class="function-row">
+            <h3>Consultar ayuda</h3>
+            <div class="function-commands">
+              <div class="system-command">
+                <span class="tag linux">Linux</span>
+                <code class="cmd">man ls</code>
+                <span class='command-note'>Ejemplo de <code>man</code></span>
+              </div>              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <code class="cmd">help dir</code>
+                <span class='command-note'>Ejemplo de <code>help</code></span>
+              </div>
+            </div>
+            <div class="function-description">
+              <p>Consulta documentación para conocer la sintaxis y las opciones de un comando.</p>
+              <p><strong>Fíjate en:</strong> la descripción y los argumentos. Leer la ayuda es más útil que memorizar todas las opciones.</p>
+              <p><strong>Diferencias:</strong> En Linux, <code>man</code> abre el manual si está instalado: usa las flechas y pulsa <code>q</code> para salir. Para comandos internos de Bash, como <code>cd</code>, usa <code>help cd</code>. En CMD, <code>help</code> muestra ayuda de comandos internos; muchos comandos admiten <code>/?</code>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <aside class="notice">
+        <h2>No necesitas memorizarlo todo</h2>
+        <p>Aprender a consultar la ayuda es más importante que recordar todos los comandos. Identifica primero el entorno, revisa la ruta actual y consulta la sintaxis cuando tengas dudas.</p>
+      </aside>
+      <details class="sources">
+        <summary>Documentación de referencia</summary>
+        <ul>
+          <li>
+          <a href="https://www.gnu.org/software/coreutils/manual/coreutils.html">GNU Coreutils: archivos e información del sistema</a>
+          </li>
+          <li>
+          <a href="https://www.gnu.org/software/bash/manual/bash.html">GNU Bash: navegación y comandos internos</a>
+          </li>
+          <li>
+          <a href="https://man7.org/linux/man-pages/man1/hostname.1.html">Manual de hostname en Linux</a>
+          </li>
+          <li>
+          <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands">Microsoft Learn: comandos de Windows</a>
+          </li>
+        </ul>
+      </details>
+      <p class="back-link">
+      <a href="../index.html">← Volver al índice general</a>
+      </p>
+      <footer>Biblioteca de comandos · Redes Locales · 1.º SMX</footer>
+    </main>
+  </body>
+</html>
