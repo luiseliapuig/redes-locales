@@ -57,10 +57,12 @@ h1 { font-size: clamp(28px,3vw,40px); line-height: 1.2; letter-spacing: -.035em;
 .windows { color: #1a5fa8; background: #eef4fc; border-color: #bcd3ef; }
 .linux { color: #0d6e50; background: #eaf5f1; border-color: #9dd4c2; }
 .both { color: #67508c; background: #f5f0fc; border-color: #d9cbed; }
+.purpose { display:inline-block; margin-left:8px; padding:0 6px; border:1px solid #e6c47b; border-radius:20px; background:#fff7e6; color:#805000; font-size:10px; font-weight:600; vertical-align:middle; white-space:nowrap; }
 .environment { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; border-block: 1px solid var(--border); padding: 18px 0; margin: 24px 0 12px; }
 .environment h2 { margin-bottom: 6px; font-size: 15px; }
 .environment p { font-size: 13px; margin-bottom: 0; color: var(--secondary); }
 .hint { color: var(--secondary); font-size: 12px; }
+#configurar > .hint { margin: 0; padding: 14px 18px 0; }
 .block-nav { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 26px 0; font-size: 13px; }
 .block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 24px 0; }
 .block-header { display: flex; align-items: center; gap: 10px; padding: 13px 18px; background: var(--surface-alt); border-bottom: 1px solid var(--border-light); flex-wrap: wrap; }
@@ -132,6 +134,9 @@ footer { border-top: 1px solid var(--border); margin-top: 38px; padding-top: 18p
 }
 .function-list .function-commands.single-command { grid-template-columns: 1fr; }
 .function-list .system-command .cmd { margin: 7px 0 0; }
+#configurar .variant-label { display: block; margin-top: 8px; color: var(--secondary); font-size: 12px; font-weight: 600; }
+#configurar .apply-profile { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 10px 22px; padding: 14px 18px; color: var(--secondary); font-size: 12px; }
+#configurar .apply-profile h3 { margin: 0 0 6px; color: var(--text); font-size: 14px; }
 .function-list .command-note {
   display: block;
   margin-top: 4px;
@@ -143,6 +148,64 @@ footer { border-top: 1px solid var(--border); margin-top: 38px; padding-top: 18p
 .function-list .function-description p { margin: 0; }
 .function-list .function-description p + p { margin-top: 6px; font-size: 12px; }
 .function-list .function-description strong { color: #42443e; font-weight: 600; }
+/* Solo las filas de configuración con comandos largos de la etapa 2. */
+@media (min-width: 761px) {
+  .function-list .fila-comandos-largos { grid-template-columns: minmax(0, 65fr) minmax(0, 35fr); }
+}
+@media (max-width: 760px) {
+  .function-list .fila-comandos-largos { grid-template-columns: 1fr; }
+  #configurar .apply-profile { grid-template-columns: 1fr; }
+}
 @media (max-width: 560px) {
   .function-list .function-row { grid-template-columns: 1fr; }
+  .function-list .fila-comandos-largos .function-commands { grid-template-columns: 1fr; }
+}
+
+/* Demostraciones de terminal. */
+#entorno .demo-command, #navegar .demo-command, #organizar .demo-command, #ayuda .demo-command, #direcciones .demo-command, #enlace .demo-command, #dns .demo-command, #configurar .demo-command, #dhcp .demo-command, #conectividad .demo-command, #recorrido .demo-command, #vecinos .demo-command, #conexiones .demo-command, #puertos .demo-command {
+  padding: 0; border: 0; background: transparent; color: var(--blue);
+  font: inherit; font-size: 15px; text-align: left; cursor: pointer;
+}
+#entorno .demo-command:hover, #navegar .demo-command:hover, #organizar .demo-command:hover, #ayuda .demo-command:hover, #direcciones .demo-command:hover, #enlace .demo-command:hover, #dns .demo-command:hover, #configurar .demo-command:hover, #dhcp .demo-command:hover, #conectividad .demo-command:hover, #recorrido .demo-command:hover, #vecinos .demo-command:hover, #conexiones .demo-command:hover, #puertos .demo-command:hover { text-decoration: underline; }
+#entorno .demo-command:focus-visible, #navegar .demo-command:focus-visible, #organizar .demo-command:focus-visible, #ayuda .demo-command:focus-visible, #direcciones .demo-command:focus-visible, #enlace .demo-command:focus-visible, #dns .demo-command:focus-visible, #configurar .demo-command:focus-visible, #dhcp .demo-command:focus-visible, #conectividad .demo-command:focus-visible, #recorrido .demo-command:focus-visible, #vecinos .demo-command:focus-visible, #conexiones .demo-command:focus-visible, #puertos .demo-command:focus-visible, .demo-close:focus-visible {
+  outline: 3px solid #a34b10; outline-offset: 3px;
+}
+.demo-dialog {
+  width: min(900px, calc(100% - 32px), max(620px, var(--ancho-terminal, 620px))); max-width: calc(100% - 32px); max-height: calc(100% - 32px);
+  padding: 0; border: 1px solid var(--border); border-radius: 12px;
+  color: var(--text); background: var(--surface);
+  box-shadow: 0 12px 36px #0003;
+}
+.demo-dialog::backdrop { background: #0009; }
+.demo-content { padding: 20px; }
+.demo-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.demo-header h2 { margin: 0; color: var(--blue); font-size: 18px; }
+.demo-tags { margin-top: 8px; align-items: center; }
+.demo-close { padding: 0 6px; border: 0; background: transparent; color: var(--text); font-size: 28px; line-height: 1; cursor: pointer; }
+.demo-caption { margin: 8px 0 12px; color: var(--secondary); font-size: 12px; }
+.demo-terminal {
+  min-height: 115px; padding: 14px; border-radius: 6px;
+  background: #20252b; color: #f0f2f4; font: 13px/1.55 Consolas, "Liberation Mono", monospace;
+  white-space: pre; overflow-x: auto;
+}
+.demo-terminal.windows-terminal { background: #080808; }
+.demo-dialog-red .demo-terminal { max-height: min(360px, 45vh); overflow-y: auto; }
+.demo-typed { position: relative; }
+.demo-typed.cursor-visible::after { content: "_"; position: absolute; left: 100%; top: 0; }
+.demo-output, .demo-final-prompt { display: block; }
+.demo-description { margin: 14px 0 0; color: var(--secondary); font-size: 13px; }
+.demo-description strong { display: block; color: var(--blue); font-size: 12px; }
+.demo-description span { display: block; margin-top: 4px; }
+.demo-description-text { margin-top: 4px; }
+.demo-description-text ul { margin: 4px 0 0; padding-left: 20px; }
+.demo-description-text li + li { margin-top: 3px; }
+.demo-dialog-red.demo-description-expanded { overflow-y: auto; }
+.demo-description:not([hidden]) { animation: demo-description-entrance 250ms ease-out; }
+@keyframes demo-description-entrance { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .demo-description:not([hidden]) { animation: none; }
+}
+@media (max-width: 560px) {
+  .demo-content { padding: 16px; }
+  .demo-terminal { padding: 12px; }
 }

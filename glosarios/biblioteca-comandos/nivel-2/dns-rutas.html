@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="DNS, conexiones y rutas. Biblioteca de consulta de comandos para Redes Locales de 1.º de SMX.">
-    <title>DNS, conexiones y rutas · Biblioteca de comandos</title>
+    <meta name="description" content="DNS, conexiones y puertos. Biblioteca de consulta de comandos para Redes Locales de 1.º de SMX.">
+    <title>DNS, conexiones y puertos · Biblioteca de comandos</title>
     <link rel="stylesheet" href="../css/estilos.css">
   </head>
   <body>
@@ -23,23 +23,23 @@
         <a href='../nivel-1/primeros-pasos.html'>
         <span class='nav-number'>1.</span> Primeros pasos</a>
         <a href='../nivel-1/configuracion-red.html'>
-        <span class='nav-number'>2.</span> Mi ordenador en la red<small>Próximamente</small>
+        <span class='nav-number'>2.</span> Mi ordenador en la red
         </a>
         <h2>Nivel 2 <span>Investigar la red</span>
         </h2>
         <a href='../nivel-2/conectividad.html'>
-        <span class='nav-number'>3.</span> Conectividad y diagnóstico<small>Próximamente</small>
+        <span class='nav-number'>3.</span> Conectividad y diagnóstico
         </a>
         <a href='../nivel-2/dns-rutas.html' aria-current="page">
-        <span class='nav-number'>4.</span> DNS, conexiones y rutas<small>Próximamente</small>
+        <span class='nav-number'>4.</span> DNS, conexiones y puertos
         </a>
         <h2>Nivel 3 <span>Administrar redes</span>
         </h2>
         <a href='../nivel-3/switches-vlans.html'>
-        <span class='nav-number'>5.</span> Switches y segmentación<small>Próximamente</small>
+        <span class='nav-number'>5.</span> Switches y VLAN
         </a>
         <a href='../nivel-3/routing-servicios.html'>
-        <span class='nav-number'>6.</span> Routing y servicios<small>Próximamente</small>
+        <span class='nav-number'>6.</span> Routing y servicios
         </a>
       </nav>
       <a class='repo-link' href='../../../index.html'>← Recursos de Redes locales</a>
@@ -47,16 +47,59 @@
     <main id="contenido">
       <header class="page-header">
         <p class="eyebrow">Nivel 2 · Etapa 4 — Investigar la red</p>
-        <h1>DNS, conexiones y rutas</h1>
+        <h1>DNS, conexiones y puertos</h1>
       </header>
-      <section class='notice'>
-        <span class='tag'>Próximamente</span>
-        <h2>Esta etapa está en preparación</h2>
-        <p>Resolución de nombres, conexiones y tablas de rutas.</p>
-        <p>El contenido se incorporará más adelante.</p>
-        <a class='button' href='../index.html'>Volver al índice general</a>
+      <p class="intro">Aprenderás a consultar registros DNS, observar comunicaciones del equipo e identificar puertos utilizados por servicios.</p>
+      <p class="hint">Ejecuta los comandos en la terminal de Linux o en el Símbolo del sistema de Windows. <code>ejemplo.com</code> es un nombre de ejemplo: sustitúyelo por un dominio adecuado para la práctica; no todos los dominios tienen todos los tipos de registro.</p>
+      <nav class="block-nav" aria-label="Bloques de esta etapa"><a href="#dns">A. Resolución de nombres DNS</a><a href="#conexiones">B. Conexiones de red</a><a href="#puertos">C. Puertos y servicios</a></nav>
+      <section class="block" id="dns" aria-labelledby="dns-title">
+        <header class="block-header"><span class="dot dot-A"></span><h2 id="dns-title">A. Resolución de nombres DNS</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <div class="function-list">
+          <div class="function-row">
+            <h3>Resolver un nombre de dominio <span class="purpose diagnosticar">Diagnosticar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-dig" aria-label="Ver dig ejemplo.com en Linux"><code>dig ejemplo.com</code></button><span class="command-note">Consulta la resolución DNS del dominio</span><button type="button" class="cmd demo-command" data-demo="linux-nslookup-stage4" aria-label="Ver nslookup ejemplo.com en Linux"><code>nslookup ejemplo.com</code></button><span class="command-note">Consulta las direcciones asociadas al nombre</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-nslookup-stage4" aria-label="Ver nslookup ejemplo.com en Windows CMD"><code>nslookup ejemplo.com</code></button><span class="command-note">Consulta las direcciones asociadas al nombre</span></div></div>
+            <div class="function-description"><p>DNS permite relacionar nombres de dominio con direcciones IP mediante consultas a servidores DNS.</p><p><strong>Fíjate en:</strong> las direcciones devueltas y el servidor consultado: en <code>dig</code>, busca la sección de respuestas y la línea <code>SERVER</code>; en <code>nslookup</code>, el servidor aparece al inicio.</p><p><strong>Diferencias:</strong> las herramientas presentan resultados en formatos diferentes y pueden consultar distintos tipos de registro por defecto; <code>dig</code> consulta A si no se indica otro tipo. En algunas distribuciones Linux ninguna de las dos viene instalada por defecto.</p></div>
+          </div>
+          <div class="function-row">
+            <h3>Consultar un tipo de registro DNS <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-dig-mx" aria-label="Ver dig ejemplo.com MX en Linux"><code>dig ejemplo.com MX</code></button><span class="command-note">Consulta los servidores de correo del dominio</span><button type="button" class="cmd demo-command" data-demo="linux-dig-a" aria-label="Ver dig ejemplo.com A en Linux"><code>dig ejemplo.com A</code></button><span class="command-note">Consulta registros de direcciones IPv4</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-nslookup-mx" aria-label="Ver nslookup -type=MX ejemplo.com en Windows CMD"><code>nslookup -type=MX ejemplo.com</code></button><span class="command-note">Consulta los registros de correo MX</span><button type="button" class="cmd demo-command" data-demo="windows-nslookup-a" aria-label="Ver nslookup -type=A ejemplo.com en Windows CMD"><code>nslookup -type=A ejemplo.com</code></button><span class="command-note">Consulta registros de direcciones IPv4</span></div></div>
+            <div class="function-description"><p>DNS almacena distintos tipos de registros: <strong>A</strong> relaciona un nombre con una dirección IPv4; <strong>AAAA</strong>, con una IPv6; <strong>MX</strong> indica servidores de correo y <strong>CNAME</strong> identifica un alias de otro nombre DNS.</p><p><strong>Fíjate en:</strong> el tipo y el valor de cada respuesta. Un dominio válido puede no tener registros del tipo solicitado.</p></div>
+          </div>
+        </div>
       </section>
+      <section class="block" id="conexiones" aria-labelledby="conexiones-title">
+        <header class="block-header"><span class="dot dot-B"></span><h2 id="conexiones-title">B. Conexiones de red</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <div class="function-list"><div class="function-row">
+          <h3>Consultar conexiones activas <span class="purpose consultar">Consultar</span></h3>
+          <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-ss-conexiones" aria-label="Ver ss -tun en Linux"><code>ss -tun</code></button><span class="command-note">Muestra sockets TCP y UDP sin resolver nombres</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-netstat-stage4" aria-label="Ver netstat -ano en Windows CMD"><code>netstat -ano</code></button><span class="command-note">Muestra conexiones, puertos y sus PID</span></div></div>
+          <div class="function-description"><p>Estas herramientas permiten observar comunicaciones de red y sus extremos en el equipo.</p><p><strong>Fíjate en:</strong> la dirección y el puerto local, la dirección y el puerto remoto y, en TCP, estados como <code>ESTABLISHED</code> (conexión establecida). UDP no utiliza los mismos estados de conexión que TCP.</p><p><strong>Diferencias:</strong> <code>ss -tun</code> muestra sockets TCP y UDP no situados en escucha; <code>netstat -ano</code> incluye también puertos en escucha e identificadores de proceso (PID). Sus salidas y opciones no son idénticas.</p></div>
+        </div></div>
+      </section>
+      <section class="block" id="puertos" aria-labelledby="puertos-title">
+        <header class="block-header"><span class="dot dot-C"></span><h2 id="puertos-title">C. Puertos y servicios</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <div class="function-list"><div class="function-row">
+          <h3>Consultar los puertos en escucha <span class="purpose consultar">Consultar</span></h3>
+          <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-ss-puertos" aria-label="Ver ss -tuln en Linux"><code>ss -tuln</code></button><span class="command-note">Muestra TCP en escucha y UDP enlazados</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-netstat-stage4" data-contexto="puertos-windows" aria-label="Ver netstat -ano en Windows CMD"><code>netstat -ano</code></button><span class="command-note">Muestra puertos y conexiones con sus PID</span></div></div>
+          <div class="function-description"><p>Un servicio puede abrir un puerto para recibir comunicaciones. En TCP, busca el estado <code>LISTEN</code> en Linux o <code>LISTENING</code> en CMD; en UDP se muestran sockets enlazados, sin un estado de escucha equivalente al de TCP.</p><p><strong>Fíjate en:</strong> el puerto local. Por ejemplo, 22 suele asociarse a SSH, 53 a DNS, 80 a HTTP y 443 a HTTPS.</p><p><strong>Importante:</strong> el número orienta, pero no garantiza qué aplicación lo utiliza. Algunas herramientas necesitan permisos adicionales para mostrar información completa de procesos.</p></div>
+        </div></div>
+      </section>
+      <details class="sources"><summary>Documentación de referencia</summary><ul><li><a href="https://bind9.readthedocs.io/en/v9.16.38/manpages.html">BIND 9: manuales de dig y nslookup</a></li><li><a href="https://man7.org/linux/man-pages/man8/ss.8.html">Manual de ss en Linux</a></li><li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/nslookup">Microsoft Learn: nslookup</a></li><li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netstat">Microsoft Learn: netstat</a></li></ul></details>
+      <p class="back-link"><a href="../index.html">← Volver al índice general</a></p>
       <footer>Biblioteca de comandos · Redes Locales · 1.º SMX</footer>
     </main>
+    <dialog class="demo-dialog demo-dialog-red" aria-labelledby="demo-title" aria-describedby="demo-description demo-accessible-output">
+      <div class="demo-content">
+        <header class="demo-header">
+          <h2 id="demo-title"></h2>
+          <button type="button" class="demo-close" aria-label="Cerrar demostración">×</button>
+        </header>
+        <div class="tags demo-tags" aria-label="Sistema y finalidad"></div>
+        <p class="demo-caption"></p>
+        <div class="demo-terminal" aria-hidden="true"><span class="demo-prompt"></span><span class="demo-typed"></span><span class="demo-output"></span><span class="demo-final-prompt"></span></div>
+        <p class="sr-only" id="demo-accessible-output"></p>
+        <div class="demo-description" id="demo-description" hidden><strong>Fíjate en:</strong><div class="demo-description-text"></div></div>
+      </div>
+    </dialog>
+    <script src="../js/demostraciones.js" defer></script>
   </body>
 </html>

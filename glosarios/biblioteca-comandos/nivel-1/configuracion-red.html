@@ -23,23 +23,23 @@
         <a href='../nivel-1/primeros-pasos.html'>
         <span class='nav-number'>1.</span> Primeros pasos</a>
         <a href='../nivel-1/configuracion-red.html' aria-current="page">
-        <span class='nav-number'>2.</span> Mi ordenador en la red<small>Próximamente</small>
+        <span class='nav-number'>2.</span> Mi ordenador en la red
         </a>
         <h2>Nivel 2 <span>Investigar la red</span>
         </h2>
         <a href='../nivel-2/conectividad.html'>
-        <span class='nav-number'>3.</span> Conectividad y diagnóstico<small>Próximamente</small>
+        <span class='nav-number'>3.</span> Conectividad y diagnóstico
         </a>
         <a href='../nivel-2/dns-rutas.html'>
-        <span class='nav-number'>4.</span> DNS, conexiones y rutas<small>Próximamente</small>
+        <span class='nav-number'>4.</span> DNS, conexiones y puertos
         </a>
         <h2>Nivel 3 <span>Administrar redes</span>
         </h2>
         <a href='../nivel-3/switches-vlans.html'>
-        <span class='nav-number'>5.</span> Switches y segmentación<small>Próximamente</small>
+        <span class='nav-number'>5.</span> Switches y VLAN
         </a>
         <a href='../nivel-3/routing-servicios.html'>
-        <span class='nav-number'>6.</span> Routing y servicios<small>Próximamente</small>
+        <span class='nav-number'>6.</span> Routing y servicios
         </a>
       </nav>
       <a class='repo-link' href='../../../index.html'>← Recursos de Redes locales</a>
@@ -49,14 +49,128 @@
         <p class="eyebrow">Nivel 1 · Etapa 2 — Descubrir la terminal</p>
         <h1>Mi ordenador en la red</h1>
       </header>
-      <section class='notice'>
-        <span class='tag'>Próximamente</span>
-        <h2>Esta etapa está en preparación</h2>
-        <p>Direcciones, interfaces y configuración de red del equipo.</p>
-        <p>El contenido se incorporará más adelante.</p>
-        <a class='button' href='../index.html'>Volver al índice general</a>
+      <p class="intro">Aprenderás a consultar las interfaces de red de tu ordenador, identificar sus direcciones IP y MAC, localizar la puerta de enlace, consultar los DNS y configurar los parámetros básicos de red.</p>
+      <p class="hint">Ejecuta los comandos en la terminal de Linux o en el Símbolo del sistema de Windows. Las salidas dependen del equipo y de su conexión. Para modificar la configuración necesitarás permisos de administrador y conocer el nombre real de tu interfaz o conexión. Practica preferentemente en una máquina virtual: algunos cambios pueden cortar la conexión.</p>
+      <nav class="block-nav" aria-label="Bloques de esta etapa"><a href="#direcciones">A. Direcciones e interfaces</a><a href="#enlace">B. Enlace y rutas</a><a href="#dns">C. Servidores DNS</a><a href="#configurar">D. Configuración estática</a><a href="#dhcp">E. DHCP y mantenimiento</a></nav>
+      <section class="block" id="direcciones" aria-labelledby="direcciones-title">
+        <header class="block-header"><span class="dot dot-A"></span><h2 id="direcciones-title">A. Direcciones e interfaces</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <div class="function-list">
+          <div class="function-row">
+            <h3>Consultar las direcciones IP <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-ip-addr" aria-label="Ver ip addr en Linux"><code>ip addr</code></button><span class="command-note">Muestra interfaces y direcciones IP</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-ipconfig" aria-label="Ver ipconfig en Windows CMD"><code>ipconfig</code></button><span class="command-note">Muestra direcciones y configuración básica</span><button type="button" class="cmd demo-command" data-demo="windows-ipconfig-all" aria-label="Ver ipconfig /all en Windows CMD"><code>ipconfig /all</code></button><span class="command-note">Muestra la configuración detallada</span></div></div>
+            <div class="function-description"><p>Muestra las direcciones asignadas a las interfaces. Una interfaz puede tener direcciones IPv4 e IPv6.</p><p><strong>Fíjate en:</strong> en Linux, <code>inet 192.168.1.25/24</code> es IPv4 y <code>inet6</code> señala IPv6; el número tras <code>/</code> es el prefijo. En CMD, busca «Dirección IPv4», «Dirección IPv6» y «Máscara de subred», por ejemplo <code>255.255.255.0</code>.</p><p><strong>Diferencias:</strong> <code>ipconfig /all</code> añade datos como servidores DNS y DHCP e información del adaptador; no es una salida idéntica a <code>ip addr</code>.</p></div>
+          </div>
+          <div class="function-row">
+            <h3>Identificar las interfaces de red <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-ip-link" aria-label="Ver ip link en Linux"><code>ip link</code></button><span class="command-note">Muestra las interfaces y su estado</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-netsh-interfaces" aria-label="Ver netsh interface show interface en Windows CMD"><code>netsh interface show interface</code></button><span class="command-note">Muestra las interfaces y su estado</span></div></div>
+            <div class="function-description"><p>Una interfaz es el punto mediante el que el equipo se conecta a una red. Puede corresponder a un dispositivo físico, como Ethernet o Wi-Fi, o ser virtual.</p><p><strong>Fíjate en:</strong> el nombre y el estado de cada interfaz: por ejemplo, <code>enp0s3</code> y <code>state UP</code> en Linux, o «Ethernet» y su estado en CMD. El estado no garantiza por sí solo que haya acceso a Internet.</p><p><strong>Diferencias:</strong> Linux muestra indicadores de enlace; CMD distingue el estado administrativo del estado de conexión.</p></div>
+          </div>
+        </div>
       </section>
+      <section class="block" id="enlace" aria-labelledby="enlace-title">
+        <header class="block-header"><span class="dot dot-B"></span><h2 id="enlace-title">B. Enlace y rutas</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <div class="function-list">
+          <div class="function-row">
+            <h3>Consultar la dirección MAC <span class="purpose consultar">Consultar</span></h3>
+<div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-ip-link" data-contexto="mac-linux" aria-label="Ver ip link para consultar la MAC en Linux"><code>ip link</code></button><span class="command-note">Muestra las direcciones de enlace</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-getmac" aria-label="Ver getmac en Windows CMD"><code>getmac</code></button><span class="command-note">Muestra las direcciones MAC</span><button type="button" class="cmd demo-command" data-demo="windows-getmac-v" aria-label="Ver getmac /v en Windows CMD"><code>getmac /v</code></button><span class="command-note">Añade los nombres de conexión y adaptador</span></div></div>
+            <div class="function-description"><p>Consulta la dirección de enlace asociada a cada interfaz. Una MAC suele representarse con seis pares hexadecimales, por ejemplo <code>02:11:22:33:44:55</code>.</p><p><strong>Fíjate en:</strong> en Linux, la línea <code>link/ether</code> bajo el nombre de la interfaz; en CMD, «Dirección física» y, con <code>/v</code>, el nombre de conexión para relacionarla con el adaptador.</p><p><strong>Importante:</strong> la dirección MAC suele venir asignada de fábrica a la interfaz de red y normalmente es fija. En determinadas situaciones, el sistema operativo puede utilizar temporalmente una MAC diferente.</p></div>
+          </div>
+          <div class="function-row">
+            <h3>Identificar la puerta de enlace <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-ip-route" data-contexto="puerta-linux" aria-label="Ver ip route para identificar la puerta de enlace"><code>ip route</code></button><span class="command-note">Muestra las rutas IPv4, incluida la predeterminada</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-ipconfig" data-contexto="puerta-windows" aria-label="Ver ipconfig para identificar la puerta de enlace"><code>ipconfig</code></button><span class="command-note">Muestra la puerta de enlace de cada adaptador</span></div></div>
+            <div class="function-description"><p>La puerta de enlace es normalmente el dispositivo al que se envía el tráfico destinado a otras redes.</p><p><strong>Fíjate en:</strong> en Linux, una línea como <code>default via 192.168.1.1 dev enp0s3</code>; la dirección tras <code>via</code> es la puerta de enlace. En CMD, busca «Puerta de enlace predeterminada» en el adaptador usado.</p><p><strong>Diferencias:</strong> <code>ip route</code> muestra rutas IPv4; <code>ipconfig</code> presenta la información agrupada por adaptador.</p></div>
+          </div>
+          <div class="function-row">
+            <h3>Consultar la tabla de rutas <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-ip-route" aria-label="Ver la tabla de rutas con ip route en Linux"><code>ip route</code></button><span class="command-note">Muestra las rutas IPv4</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-route-print" aria-label="Ver route print en Windows CMD"><code>route print</code></button><span class="command-note">Muestra las tablas de rutas IPv4 e IPv6</span></div></div>
+            <div class="function-description"><p>La tabla de rutas indica por dónde puede enviar el equipo los paquetes hacia distintas redes. Un equipo puede conocer varias rutas.</p><p><strong>Fíjate en:</strong> la ruta por defecto: <code>default</code> en Linux y, en la tabla IPv4 de CMD, el destino <code>0.0.0.0</code> con máscara <code>0.0.0.0</code>. Observa también las rutas de redes conectadas.</p><p><strong>Diferencias:</strong> <code>ip route</code> muestra por defecto rutas IPv4; <code>route print</code> presenta tablas IPv4 e IPv6.</p></div>
+          </div>
+        </div>
+      </section>
+      <section class="block" id="dns" aria-labelledby="dns-title">
+        <header class="block-header"><span class="dot dot-C"></span><h2 id="dns-title">C. Servidores DNS</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <div class="function-list">
+          <div class="function-row">
+            <h3>Consultar los servidores DNS <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-resolvectl-status" aria-label="Ver resolvectl status en Linux"><code>resolvectl status</code></button><span class="command-note">Muestra la configuración DNS de systemd-resolved</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-ipconfig-all" data-contexto="dns-windows" aria-label="Ver ipconfig /all para consultar los DNS en Windows CMD"><code>ipconfig /all</code></button><span class="command-note">Muestra la configuración detallada, incluidos los DNS</span></div></div>
+            <div class="function-description"><p>Los servidores DNS ayudan a traducir nombres como <code>ejemplo.com</code> a direcciones IP.</p><p><strong>Fíjate en:</strong> «DNS Servers» en la información global o de cada interfaz de Linux y «Servidores DNS» en el adaptador de CMD. Puede aparecer más de una dirección.</p><p><strong>Diferencias:</strong> <code>resolvectl</code> no está disponible en todas las distribuciones; depende de <code>systemd-resolved</code>. <code>ipconfig /all</code> incluye además otros datos del adaptador.</p></div>
+          </div>
+        </div>
+      </section>
+      <section class="block" id="configurar" aria-labelledby="configurar-title">
+        <header class="block-header"><span class="dot dot-D"></span><h2 id="configurar-title">D. Configuración estática</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <p class="hint"><code>enp0s3</code> y <code>Ethernet</code> son nombres de interfaz de ejemplo; <code>Conexión cableada 1</code> es un nombre de perfil. Adáptalos a tu equipo. En Linux, los comandos temporales cambian el sistema en ejecución; los permanentes guardan los datos en un perfil de NetworkManager. Son alternativas, no pasos obligatorios de una misma operación. Necesitas permisos de administrador. Cambiar la configuración puede interrumpir la conexión; practica preferentemente en una máquina virtual.</p>
+        <div class="function-list">
+          <div class="function-row fila-comandos-largos">
+            <h3>Asignar una dirección IPv4 estática <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><span class="variant-label">Temporal</span><button type="button" class="cmd demo-command" data-demo="linux-ip-addr-add" aria-label="Ver asignación IPv4 en Linux"><code>sudo ip addr add 192.168.1.50/24 dev enp0s3</code></button><span class="command-note">Añade temporalmente una dirección IPv4</span><span class="variant-label">Permanente</span><button type="button" class="cmd demo-command" data-demo="linux-nmcli-ipv4" aria-label="Ver configuración permanente en Linux"><code>sudo nmcli con mod "Conexión cableada 1" ipv4.method manual ipv4.addresses 192.168.1.50/24</code></button><span class="command-note">Guarda una dirección IPv4 estática en el perfil de conexión</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-netsh-ip-static" aria-label="Ver asignación IPv4 en Windows CMD"><code>netsh interface ip set address "Ethernet" static 192.168.1.50 255.255.255.0 192.168.1.1</code></button><span class="command-note">Establece IP, máscara y puerta de enlace</span></div></div>
+            <div class="function-description"><p>Usa una dirección adecuada para la red que no esté asignada a otro equipo.</p><p><strong>Fíjate en:</strong> <code>/24</code> equivale a <code>255.255.255.0</code>. En Linux se añade la dirección y pueden permanecer otras anteriores; en Windows se sustituye la configuración IPv4 estática.</p></div>
+          </div>
+          <div class="function-row fila-comandos-largos">
+            <h3>Configurar la puerta de enlace <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><span class="variant-label">Temporal</span><button type="button" class="cmd demo-command" data-demo="linux-ip-route-replace" aria-label="Ver configuración de puerta de enlace en Linux"><code>sudo ip route replace default via 192.168.1.1 dev enp0s3</code></button><span class="command-note">Cambia temporalmente la ruta predeterminada</span><span class="variant-label">Permanente</span><button type="button" class="cmd demo-command" data-demo="linux-nmcli-gateway" aria-label="Ver configuración permanente en Linux"><code>sudo nmcli con mod "Conexión cableada 1" ipv4.gateway 192.168.1.1</code></button><span class="command-note">Guarda la puerta de enlace en el perfil de conexión</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><span class="command-note">La puerta de enlace está incluida en el comando de IPv4 anterior.</span></div></div>
+            <div class="function-description"><p>La puerta de enlace permite enviar tráfico hacia otras redes. Debe ser alcanzable desde la interfaz configurada.</p><p><strong>Importante:</strong> cambiarla puede cortar la conexión. Comprueba el resultado con <code>ip route</code> o <code>ipconfig</code>.</p></div>
+          </div>
+          <div class="function-row fila-comandos-largos">
+            <h3>Configurar servidores DNS <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><span class="variant-label">Temporal</span><button type="button" class="cmd demo-command" data-demo="linux-resolvectl-dns" aria-label="Ver configuración DNS en Linux"><code>sudo resolvectl dns enp0s3 1.1.1.1</code></button><span class="command-note">Asigna temporalmente un servidor DNS a la interfaz</span><span class="variant-label">Permanente</span><button type="button" class="cmd demo-command" data-demo="linux-nmcli-dns" aria-label="Ver configuración permanente en Linux"><code>sudo nmcli con mod "Conexión cableada 1" ipv4.dns "1.1.1.1" ipv4.ignore-auto-dns yes</code></button><span class="command-note">Guarda un servidor DNS manual en el perfil de conexión</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-netsh-dns" aria-label="Ver configuración DNS en Windows CMD"><code>netsh interface ip set dns "Ethernet" static 1.1.1.1</code></button><span class="command-note">Establece un servidor DNS manual</span></div></div>
+            <div class="function-description"><p>El servidor DNS ayuda a traducir nombres a direcciones IP. En Linux, el comando requiere <code>systemd-resolved</code> y su configuración puede cambiar al reconectar.</p><p><strong>Fíjate en:</strong> verifica los servidores con <code>resolvectl status</code> o <code>ipconfig /all</code>; consulta la etapa 4 para comprobar la resolución.</p></div>
+          </div>
+        </div>
+        <div class="apply-profile">
+          <div>
+            <h3>Aplicar los cambios guardados</h3>
+            <div class="system-command function-list">
+              <span class="tag linux">Linux</span>
+              <button type="button" class="cmd demo-command" data-demo="linux-nmcli-up" aria-label="Ver activación del perfil en Linux"><code>sudo nmcli con up "Conexión cableada 1"</code></button>
+              <span class="command-note">Reactiva la conexión para aplicar los cambios guardados</span>
+            </div>
+          </div>
+          <div class="function-list"><div class="function-description"><p>Los comandos <code>nmcli con mod</code> guardan los parámetros en el perfil. Para aplicarlos, activa de nuevo la conexión. Esto puede interrumpir temporalmente la red.</p></div></div>
+        </div>
+      </section>
+      <section class="block" id="dhcp" aria-labelledby="dhcp-title">
+        <header class="block-header"><span class="dot dot-A"></span><h2 id="dhcp-title">E. DHCP y mantenimiento</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <div class="function-list">
+          <div class="function-row fila-comandos-largos">
+            <h3>Volver a obtener IPv4 automáticamente <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-nmcli-auto" aria-label="Ver demostración de sudo nmcli con mod &quot;Conexión cableada 1&quot; ipv4.method auto"><code>sudo nmcli con mod "Conexión cableada 1" ipv4.method auto</code></button><span class="command-note">Activa IPv4 automática en el perfil</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-netsh-dhcp" aria-label="Ver demostración de netsh interface ip set address &quot;Ethernet&quot; dhcp"><code>netsh interface ip set address "Ethernet" dhcp</code></button><span class="command-note">Activa la obtención automática de IPv4</span></div></div>
+            <div class="function-description"><p>DHCP permite recibir una dirección IPv4 automáticamente. En Linux se necesita NetworkManager: sustituye <code>Conexión cableada 1</code> por el nombre del perfil y reactívalo como se indica en «Renovar una concesión DHCP».</p><p><strong>Importante:</strong> el comando de Linux no elimina necesariamente direcciones o ajustes manuales previos del perfil. En ambos sistemas, activar DHCP para IPv4 no garantiza que los DNS manuales vuelvan a ser automáticos; comprueba la configuración por separado.</p></div>
+          </div>
+          <div class="function-row fila-comandos-largos">
+            <h3>Activar o desactivar una interfaz <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-link-up" aria-label="Ver demostración de sudo ip link set enp0s3 up"><code>sudo ip link set enp0s3 up</code></button><span class="command-note">Activa la interfaz</span><button type="button" class="cmd demo-command" data-demo="linux-link-down" aria-label="Ver demostración de sudo ip link set enp0s3 down"><code>sudo ip link set enp0s3 down</code></button><span class="command-note">Desactiva temporalmente la interfaz</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-link-up" aria-label="Ver demostración de netsh interface set interface &quot;Ethernet&quot; enabled"><code>netsh interface set interface "Ethernet" enabled</code></button><span class="command-note">Activa la interfaz</span><button type="button" class="cmd demo-command" data-demo="windows-link-down" aria-label="Ver demostración de netsh interface set interface &quot;Ethernet&quot; disabled"><code>netsh interface set interface "Ethernet" disabled</code></button><span class="command-note">Desactiva la interfaz</span></div></div>
+            <div class="function-description"><p>Permite cambiar el estado administrativo de una interfaz, sin modificar por sí solo la IP configurada.</p><p><strong>Importante:</strong> al desactivar la interfaz perderás la conexión por ella. Haz la prueba en un equipo o máquina virtual donde puedas recuperarla localmente.</p></div>
+          </div>
+          <div class="function-row fila-comandos-largos">
+            <h3>Renovar una concesión DHCP <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-nmcli-down" aria-label="Ver demostración de sudo nmcli con down &quot;Conexión cableada 1&quot;"><code>sudo nmcli con down "Conexión cableada 1"</code></button><span class="command-note">Desconecta el perfil de NetworkManager</span><button type="button" class="cmd demo-command" data-demo="linux-nmcli-up" data-contexto="dhcp-linux" aria-label="Ver demostración de sudo nmcli con up &quot;Conexión cableada 1&quot;"><code>sudo nmcli con up "Conexión cableada 1"</code></button><span class="command-note">Reconecta y solicita configuración automática si usa DHCP</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-ipconfig-release" aria-label="Ver demostración de ipconfig /release &quot;Ethernet&quot;"><code>ipconfig /release "Ethernet"</code></button><span class="command-note">Libera la concesión IPv4 del adaptador</span><button type="button" class="cmd demo-command" data-demo="windows-ipconfig-renew" aria-label="Ver demostración de ipconfig /renew &quot;Ethernet&quot;"><code>ipconfig /renew "Ethernet"</code></button><span class="command-note">Solicita una nueva concesión IPv4</span></div></div>
+            <div class="function-description"><p>Permite solicitar de nuevo parámetros automáticos cuando el perfil o adaptador utiliza DHCP.</p><p><strong>Diferencias:</strong> desconectar y reconectar un perfil con <code>nmcli</code> no es exactamente lo mismo que liberar y renovar una concesión con <code>ipconfig</code>. Ambas operaciones pueden cortar la conexión; el nombre que acepta <code>ipconfig</code> debe coincidir con el adaptador.</p></div>
+          </div>
+          <div class="function-row fila-comandos-largos">
+            <h3>Vaciar la caché de resolución DNS <span class="purpose diagnosticar">Diagnosticar</span></h3>
+            <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-flush-dns" aria-label="Ver demostración de sudo resolvectl flush-caches"><code>sudo resolvectl flush-caches</code></button><span class="command-note">Vacía la caché de systemd-resolved, si está instalado</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-flush-dns" aria-label="Ver demostración de ipconfig /flushdns"><code>ipconfig /flushdns</code></button><span class="command-note">Vacía la caché del cliente DNS de Windows</span></div></div>
+            <div class="function-description"><p>Elimina respuestas DNS guardadas localmente para que las próximas consultas puedan obtener información actualizada.</p><p><strong>Importante:</strong> no cambia los servidores DNS configurados ni garantiza que se resuelva un problema de conectividad. En Linux depende del servicio de resolución utilizado.</p></div>
+          </div>
+        </div>
+      </section>
+      <details class="sources"><summary>Documentación de referencia</summary><ul><li><a href="https://man7.org/linux/man-pages/man8/ip.8.html">Manual de ip en Linux</a></li><li><a href="https://www.freedesktop.org/software/systemd/man/latest/resolvectl.html">Documentación de resolvectl</a></li><li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands">Microsoft Learn: comandos de Windows</a></li><li><a href="https://networkmanager.dev/docs/api/latest/nmcli.html">Manual de nmcli (NetworkManager)</a></li></ul></details>
+      <p class="back-link"><a href="../index.html">← Volver al índice general</a></p>
       <footer>Biblioteca de comandos · Redes Locales · 1.º SMX</footer>
     </main>
+    <dialog class="demo-dialog demo-dialog-red" aria-labelledby="demo-title" aria-describedby="demo-description demo-accessible-output">
+      <div class="demo-content">
+        <header class="demo-header">
+          <h2 id="demo-title"></h2>
+          <button type="button" class="demo-close" aria-label="Cerrar demostración">×</button>
+        </header>
+        <div class="tags demo-tags" aria-label="Sistema y finalidad"></div>
+        <p class="demo-caption"></p>
+        <div class="demo-terminal" aria-hidden="true"><span class="demo-prompt"></span><span class="demo-typed"></span><span class="demo-output"></span><span class="demo-final-prompt"></span></div>
+        <p class="sr-only" id="demo-accessible-output"></p>
+        <div class="demo-description" id="demo-description" hidden><strong>Fíjate en:</strong><div class="demo-description-text"></div></div>
+      </div>
+    </dialog>
+    <script src="../js/demostraciones.js" defer></script>
   </body>
 </html>

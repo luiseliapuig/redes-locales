@@ -6,6 +6,7 @@
     <meta name="description" content="Primeros pasos con la terminal. Biblioteca de consulta de comandos para Redes Locales de 1.º de SMX.">
     <title>Primeros pasos con la terminal · Biblioteca de comandos</title>
     <link rel="stylesheet" href="../css/estilos.css">
+    <script src="../js/demostraciones.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -23,23 +24,23 @@
         <a href='../nivel-1/primeros-pasos.html' aria-current="page">
         <span class='nav-number'>1.</span> Primeros pasos</a>
         <a href='../nivel-1/configuracion-red.html'>
-        <span class='nav-number'>2.</span> Mi ordenador en la red<small>Próximamente</small>
+        <span class='nav-number'>2.</span> Mi ordenador en la red
         </a>
         <h2>Nivel 2 <span>Investigar la red</span>
         </h2>
         <a href='../nivel-2/conectividad.html'>
-        <span class='nav-number'>3.</span> Conectividad y diagnóstico<small>Próximamente</small>
+        <span class='nav-number'>3.</span> Conectividad y diagnóstico
         </a>
         <a href='../nivel-2/dns-rutas.html'>
-        <span class='nav-number'>4.</span> DNS, conexiones y rutas<small>Próximamente</small>
+        <span class='nav-number'>4.</span> DNS, conexiones y puertos
         </a>
         <h2>Nivel 3 <span>Administrar redes</span>
         </h2>
         <a href='../nivel-3/switches-vlans.html'>
-        <span class='nav-number'>5.</span> Switches y segmentación<small>Próximamente</small>
+        <span class='nav-number'>5.</span> Switches y VLAN
         </a>
         <a href='../nivel-3/routing-servicios.html'>
-        <span class='nav-number'>6.</span> Routing y servicios<small>Próximamente</small>
+        <span class='nav-number'>6.</span> Routing y servicios
         </a>
       </nav>
       <a class='repo-link' href='../../../index.html'>← Recursos de Redes locales</a>
@@ -83,12 +84,17 @@
         
         <div class="function-list">
           <div class="function-row">
-            <h3>Identificar al usuario</h3>
-            <div class="function-commands single-command">
+            <h3>Identificar al usuario <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands">
               <div class="system-command">
-                <span class="tag both">Ambos</span>
-                <code class="cmd">whoami</code>
-                
+                <span class="tag linux">Linux</span>
+                <button type="button" class="cmd demo-command" data-demo="linux-whoami" aria-label="Ver whoami en Linux"><code>whoami</code></button>
+                <span class="command-note">Muestra el usuario actual</span>
+              </div>
+              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <button type="button" class="cmd demo-command" data-demo="windows-whoami" aria-label="Ver whoami en Windows CMD"><code>whoami</code></button>
+                <span class="command-note">Muestra el usuario actual</span>
               </div>
             </div>
             <div class="function-description">
@@ -98,12 +104,17 @@
             </div>
           </div>
           <div class="function-row">
-            <h3>Identificar el equipo</h3>
-            <div class="function-commands single-command">
+            <h3>Identificar el equipo <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands">
               <div class="system-command">
-                <span class="tag both">Ambos</span>
-                <code class="cmd">hostname</code>
-                
+                <span class="tag linux">Linux</span>
+                <button type="button" class="cmd demo-command" data-demo="linux-hostname" aria-label="Ver hostname en Linux"><code>hostname</code></button>
+                <span class="command-note">Muestra el nombre del equipo</span>
+              </div>
+              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <button type="button" class="cmd demo-command" data-demo="windows-hostname" aria-label="Ver hostname en Windows CMD"><code>hostname</code></button>
+                <span class="command-note">Muestra el nombre del equipo</span>
               </div>
             </div>
             <div class="function-description">
@@ -113,15 +124,17 @@
             </div>
           </div>
           <div class="function-row">
-            <h3>Consultar información del sistema</h3>
+            <h3>Consultar información del sistema <span class="purpose consultar">Consultar</span></h3>
             <div class="function-commands">
               <div class="system-command">
                 <span class="tag linux">Linux</span>
-                <code class="cmd">uname -a</code>
+                <button type="button" class="cmd demo-command" data-demo="linux-uname" aria-label="Ver uname -a en Linux"><code>uname -a</code></button>
+                <span class="command-note">Muestra información del kernel y la máquina</span>
                 
               </div>              <div class="system-command">
                 <span class="tag windows">Windows CMD</span>
-                <code class="cmd">ver</code>
+                <button type="button" class="cmd demo-command" data-demo="windows-ver" aria-label="Ver ver en Windows CMD"><code>ver</code></button>
+                <span class="command-note">Muestra la versión de Windows</span>
                 
               </div>
             </div>
@@ -145,16 +158,17 @@
         <p class="block-intro">Primero localiza dónde estás; después elige qué quieres hacer. En Linux las rutas usan <code>/</code>; en CMD, <code>\</code>. Para nombres con espacios, usa comillas: <code>cd "Mis apuntes"</code>.</p>
         <div class="function-list">
           <div class="function-row">
-            <h3>Consultar el directorio actual</h3>
+            <h3>Consultar el directorio actual <span class="purpose consultar">Consultar</span></h3>
             <div class="function-commands">
               <div class="system-command">
                 <span class="tag linux">Linux</span>
-                <code class="cmd">pwd</code>
+                <button type="button" class="cmd demo-command" data-demo="linux-pwd" aria-label="Ver pwd en Linux"><code>pwd</code></button>
+                <span class="command-note">Muestra el directorio actual</span>
               </div>
               <div class="system-command">
                 <span class="tag windows">Windows CMD</span>
-                <code class="cmd">cd</code>
-                <span class="command-note">Sin argumentos</span>
+                <button type="button" class="cmd demo-command" data-demo="windows-cd-actual" aria-label="Ver cd sin argumentos en Windows CMD"><code>cd</code></button>
+                <span class="command-note">Sin argumentos, muestra el directorio actual</span>
               </div>
             </div>
             <div class="function-description">
@@ -164,15 +178,21 @@
             </div>
           </div>
           <div class="function-row">
-            <h3>Listar archivos y carpetas</h3>
+            <h3>Listar archivos y carpetas <span class="purpose consultar">Consultar</span></h3>
             <div class="function-commands">
               <div class="system-command">
                 <span class="tag linux">Linux</span>
-                <code class="cmd">ls</code>
+                <button type="button" class="cmd demo-command" data-demo="linux-ls" aria-label="Ver ls en Linux"><code>ls</code></button>
+                <span class="command-note">Lista archivos y carpetas</span>
+                <button type="button" class="cmd demo-command" data-demo="linux-ls-la" aria-label="Ver ls -la en Linux"><code>ls -la</code></button>
+                <span class="command-note">Incluye ocultos y muestra detalles</span>
               </div>
               <div class="system-command">
                 <span class="tag windows">Windows CMD</span>
-                <code class="cmd">dir</code>
+                <button type="button" class="cmd demo-command" data-demo="windows-dir" aria-label="Ver dir en Windows CMD"><code>dir</code></button>
+                <span class="command-note">Lista archivos y carpetas</span>
+                <button type="button" class="cmd demo-command" data-demo="windows-dir-a" aria-label="Ver dir /a en Windows CMD"><code>dir /a</code></button>
+                <span class="command-note">Incluye archivos ocultos y de sistema</span>
               </div>
             </div>
             <div class="function-description">
@@ -183,11 +203,16 @@
           </div>
           <div class="function-row">
             <h3>Cambiar de directorio</h3>
-            <div class="function-commands single-command">
+            <div class="function-commands">
               <div class="system-command">
-                <span class="tag both">Ambos</span>
-                <code class="cmd">cd Documentos</code>
-                <span class="command-note">Ejemplo de <code>cd</code> con una carpeta</span>
+                <span class="tag linux">Linux</span>
+                <button type="button" class="cmd demo-command" data-demo="linux-cd-documentos" aria-label="Ver cd Documentos en Linux"><code>cd Documentos</code></button>
+                <span class="command-note">Entra en la carpeta Documentos</span>
+              </div>
+              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <button type="button" class="cmd demo-command" data-demo="windows-cd-documentos" aria-label="Ver cd Documentos en Windows CMD"><code>cd Documentos</code></button>
+                <span class="command-note">Entra en la carpeta Documentos</span>
               </div>
             </div>
             <div class="function-description">
@@ -198,10 +223,16 @@
           </div>
           <div class="function-row">
             <h3>Subir al directorio superior</h3>
-            <div class="function-commands single-command">
+            <div class="function-commands">
               <div class="system-command">
-                <span class="tag both">Ambos</span>
-                <code class="cmd">cd ..</code>
+                <span class="tag linux">Linux</span>
+                <button type="button" class="cmd demo-command" data-demo="linux-cd-superior" aria-label="Ver cd .. en Linux"><code>cd ..</code></button>
+                <span class="command-note">Sube al directorio superior</span>
+              </div>
+              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <button type="button" class="cmd demo-command" data-demo="windows-cd-superior" aria-label="Ver cd .. en Windows CMD"><code>cd ..</code></button>
+                <span class="command-note">Sube al directorio superior</span>
               </div>
             </div>
             <div class="function-description">
@@ -214,11 +245,13 @@
             <div class="function-commands">
               <div class="system-command">
                 <span class="tag linux">Linux</span>
-                <code class="cmd">cd /</code>
+                <button type="button" class="cmd demo-command" data-demo="linux-cd-raiz" aria-label="Ver cd raíz en Linux"><code>cd /</code></button>
+                <span class="command-note">Va a la raíz del sistema de archivos</span>
               </div>
               <div class="system-command">
                 <span class="tag windows">Windows CMD</span>
-                <code class="cmd">cd \</code>
+                <button type="button" class="cmd demo-command" data-demo="windows-cd-raiz" aria-label="Ver cd raíz en Windows CMD"><code>cd \</code></button>
+                <span class="command-note">Va a la raíz de la unidad actual</span>
               </div>
             </div>
             <div class="function-description">
@@ -243,11 +276,16 @@
         <div class="function-list">
           <div class="function-row">
             <h3>Crear una carpeta</h3>
-            <div class="function-commands single-command">
+            <div class="function-commands">
               <div class="system-command">
-                <span class="tag both">Ambos</span>
-                <code class="cmd">mkdir Practicas</code>
-                <span class='command-note'>Ejemplo de <code>mkdir</code></span>
+                <span class="tag linux">Linux</span>
+                <button type="button" class="cmd demo-command" data-demo="linux-mkdir" aria-label="Ver mkdir Practicas en Linux"><code>mkdir Practicas</code></button>
+                <span class='command-note'>Crea la carpeta Practicas</span>
+              </div>
+              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <button type="button" class="cmd demo-command" data-demo="windows-mkdir" aria-label="Ver mkdir Practicas en Windows CMD"><code>mkdir Practicas</code></button>
+                <span class='command-note'>Crea la carpeta Practicas</span>
               </div>
             </div>
             <div class="function-description">
@@ -258,11 +296,16 @@
           </div>
           <div class="function-row">
             <h3>Eliminar una carpeta vacía</h3>
-            <div class="function-commands single-command">
+            <div class="function-commands">
               <div class="system-command">
-                <span class="tag both">Ambos</span>
-                <code class="cmd">rmdir Temporal</code>
-                <span class='command-note'>Ejemplo de <code>rmdir</code> sin opciones</span>
+                <span class="tag linux">Linux</span>
+                <button type="button" class="cmd demo-command" data-demo="linux-rmdir" aria-label="Ver rmdir Temporal en Linux"><code>rmdir Temporal</code></button>
+                <span class='command-note'>Elimina la carpeta Temporal si está vacía</span>
+              </div>
+              <div class="system-command">
+                <span class="tag windows">Windows CMD</span>
+                <button type="button" class="cmd demo-command" data-demo="windows-rmdir" aria-label="Ver rmdir Temporal en Windows CMD"><code>rmdir Temporal</code></button>
+                <span class='command-note'>Elimina la carpeta Temporal si está vacía</span>
               </div>
             </div>
             <div class="function-description">
@@ -276,11 +319,13 @@
             <div class="function-commands">
               <div class="system-command">
                 <span class="tag linux">Linux</span>
-                <code class="cmd">cp -i notas.txt Practicas/notas-copia.txt</code>
+                <button type="button" class="cmd demo-command" data-demo="linux-cp" aria-label="Ver copia de archivo en Linux"><code>cp -i notas.txt Practicas/notas-copia.txt</code></button>
+                <span class="command-note">Copia el archivo y pregunta antes de sobrescribir</span>
                 
               </div>              <div class="system-command">
                 <span class="tag windows">Windows CMD</span>
-                <code class="cmd">copy notas.txt Practicas\notas-copia.txt</code>
+                <button type="button" class="cmd demo-command" data-demo="windows-copy" aria-label="Ver copia de archivo en Windows CMD"><code>copy notas.txt Practicas\notas-copia.txt</code></button>
+                <span class="command-note">Copia el archivo en Practicas</span>
                 
               </div>
             </div>
@@ -295,11 +340,13 @@
             <div class="function-commands">
               <div class="system-command">
                 <span class="tag linux">Linux</span>
-                <code class="cmd">mv -i notas.txt Practicas/</code>
+                <button type="button" class="cmd demo-command" data-demo="linux-mv" aria-label="Ver movimiento de archivo en Linux"><code>mv -i notas.txt Practicas/</code></button>
+                <span class="command-note">Mueve el archivo y pregunta antes de sobrescribir</span>
                 
               </div>              <div class="system-command">
                 <span class="tag windows">Windows CMD</span>
-                <code class="cmd">move notas.txt Practicas\</code>
+                <button type="button" class="cmd demo-command" data-demo="windows-move" aria-label="Ver movimiento de archivo en Windows CMD"><code>move notas.txt Practicas\</code></button>
+                <span class="command-note">Mueve el archivo a Practicas</span>
                 
               </div>
             </div>
@@ -327,11 +374,13 @@
             <div class="function-commands">
               <div class="system-command">
                 <span class="tag linux">Linux</span>
-                <code class="cmd">clear</code>
+                <button type="button" class="cmd demo-command" data-demo="linux-clear" aria-label="Ver clear en Linux"><code>clear</code></button>
+                <span class="command-note">Limpia la pantalla de la terminal</span>
                 
               </div>              <div class="system-command">
                 <span class="tag windows">Windows CMD</span>
-                <code class="cmd">cls</code>
+                <button type="button" class="cmd demo-command" data-demo="windows-cls" aria-label="Ver cls en Windows CMD"><code>cls</code></button>
+                <span class="command-note">Limpia la pantalla de CMD</span>
                 
               </div>
             </div>
@@ -342,16 +391,18 @@
             </div>
           </div>
           <div class="function-row">
-            <h3>Consultar ayuda</h3>
+            <h3>Consultar ayuda <span class="purpose consultar">Consultar</span></h3>
             <div class="function-commands">
               <div class="system-command">
                 <span class="tag linux">Linux</span>
-                <code class="cmd">man ls</code>
-                <span class='command-note'>Ejemplo de <code>man</code></span>
+                <button type="button" class="cmd demo-command" data-demo="linux-man-ls" aria-label="Ver man ls en Linux"><code>man ls</code></button>
+                <span class='command-note'>Abre el manual de ls</span>
               </div>              <div class="system-command">
                 <span class="tag windows">Windows CMD</span>
-                <code class="cmd">help dir</code>
-                <span class='command-note'>Ejemplo de <code>help</code></span>
+                <button type="button" class="cmd demo-command" data-demo="windows-help" aria-label="Ver help en Windows CMD"><code>help</code></button>
+                <span class='command-note'>Muestra la lista de comandos disponibles</span>
+                <button type="button" class="cmd demo-command" data-demo="windows-help-dir" aria-label="Ver help dir en Windows CMD"><code>help dir</code></button>
+                <span class='command-note'>Muestra la ayuda de dir</span>
               </div>
             </div>
             <div class="function-description">
@@ -388,5 +439,18 @@
       </p>
       <footer>Biblioteca de comandos · Redes Locales · 1.º SMX</footer>
     </main>
+    <dialog class="demo-dialog" aria-labelledby="demo-title" aria-describedby="demo-description demo-accessible-output">
+      <div class="demo-content">
+        <header class="demo-header">
+          <h2 id="demo-title"></h2>
+          <button type="button" class="demo-close" aria-label="Cerrar demostración">×</button>
+        </header>
+        <div class="tags demo-tags" aria-label="Sistema y finalidad"></div>
+        <p class="demo-caption"></p>
+        <div class="demo-terminal" aria-hidden="true"><span class="demo-prompt"></span><span class="demo-typed"></span><span class="demo-output"></span><span class="demo-final-prompt"></span></div>
+        <p class="sr-only" id="demo-accessible-output"></p>
+        <p class="demo-description" id="demo-description" hidden><strong>Fíjate en:</strong><span></span></p>
+      </div>
+    </dialog>
   </body>
 </html>

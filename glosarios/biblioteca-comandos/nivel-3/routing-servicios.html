@@ -23,23 +23,23 @@
         <a href='../nivel-1/primeros-pasos.html'>
         <span class='nav-number'>1.</span> Primeros pasos</a>
         <a href='../nivel-1/configuracion-red.html'>
-        <span class='nav-number'>2.</span> Mi ordenador en la red<small>Próximamente</small>
+        <span class='nav-number'>2.</span> Mi ordenador en la red
         </a>
         <h2>Nivel 2 <span>Investigar la red</span>
         </h2>
         <a href='../nivel-2/conectividad.html'>
-        <span class='nav-number'>3.</span> Conectividad y diagnóstico<small>Próximamente</small>
+        <span class='nav-number'>3.</span> Conectividad y diagnóstico
         </a>
         <a href='../nivel-2/dns-rutas.html'>
-        <span class='nav-number'>4.</span> DNS, conexiones y rutas<small>Próximamente</small>
+        <span class='nav-number'>4.</span> DNS, conexiones y puertos
         </a>
         <h2>Nivel 3 <span>Administrar redes</span>
         </h2>
         <a href='../nivel-3/switches-vlans.html'>
-        <span class='nav-number'>5.</span> Switches y segmentación<small>Próximamente</small>
+        <span class='nav-number'>5.</span> Switches y VLAN
         </a>
         <a href='../nivel-3/routing-servicios.html' aria-current="page">
-        <span class='nav-number'>6.</span> Routing y servicios<small>Próximamente</small>
+        <span class='nav-number'>6.</span> Routing y servicios
         </a>
       </nav>
       <a class='repo-link' href='../../../index.html'>← Recursos de Redes locales</a>
@@ -49,13 +49,90 @@
         <p class="eyebrow">Nivel 3 · Etapa 6 — Administrar redes</p>
         <h1>Routing y servicios</h1>
       </header>
-      <section class='notice'>
-        <span class='tag'>Próximamente</span>
-        <h2>Esta etapa está en preparación</h2>
-        <p>Routing inter-VLAN, DHCP, NAT y verificación.</p>
-        <p>El contenido se incorporará más adelante.</p>
-        <a class='button' href='../index.html'>Volver al índice general</a>
+      <p class="intro">Aprenderás a configurar interfaces y routing entre VLAN, consultar rutas y preparar servicios DHCP y NAT/PAT en un router Cisco IOS.</p>
+      <p class="hint">Escenario de laboratorio aislado: VLAN 10 ALUMNOS (<code>192.168.10.0/24</code>, puerta de enlace <code>192.168.10.254</code>) y VLAN 20 PROFESORES (<code>192.168.20.0/24</code>, puerta de enlace <code>192.168.20.254</code>), mediante subinterfaces de <code>g0/0</code>. La salida utiliza <code>g0/1</code>. Los nombres de interfaces y funciones dependen del modelo y la versión. Los ejemplos modifican la configuración y pueden interrumpir conexiones: úsalos solo en equipos de prácticas preparados para ello.</p>
+      <p class="hint">¿Ya conoces los comandos? <a href="../../cisco-ios.html">Consulta el glosario rápido Cisco IOS</a>. Los indicadores de terminal muestran el modo y no se escriben; el acceso privilegiado puede pedir contraseña.</p>
+      <nav class="block-nav" aria-label="Bloques de esta etapa"><a href="#interfaces">A. Interfaces e IP</a><a href="#vlan">B. Routing entre VLAN</a><a href="#rutas">C. Rutas y verificación</a><a href="#dhcp">D. DHCP</a><a href="#nat">E. NAT/PAT</a></nav>
+      <section class="block" id="interfaces" aria-labelledby="interfaces-title">
+        <header class="block-header"><span class="dot dot-A"></span><h2 id="interfaces-title">A. Interfaces y direccionamiento IP</h2><div class="tags"><span class="tag">Cisco IOS</span><span class="tag">Router</span></div></header>
+        <div class="function-list">
+          <div class="function-row"><h3>Configurar una interfaz del router <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración global</span><code class="cmd">interface g0/0</code><span class="command-note">Selecciona la interfaz física</span><span class="tag">Configuración de interfaz</span><code class="cmd">ip address 192.168.1.1 255.255.255.0</code><span class="command-note">Asigna IPv4 y máscara a la interfaz</span><code class="cmd">no shutdown</code><span class="command-note">Habilita administrativamente la interfaz</span></div></div>
+            <div class="function-description"><p>Ejemplo independiente para una red directamente conectada <code>192.168.1.0/24</code>. Al seleccionar la interfaz aparece <code>Router(config-if)#</code>.</p><p><strong>Importante:</strong> no combines esta IP en <code>g0/0</code> con el montaje de subinterfaces siguiente; en aquel escenario la interfaz física no lleva dirección IP.</p>
+              <div class="example"><span>Secuencia completa · red directa independiente</span><code>Router&gt; enable<br>Router# configure terminal<br>Router(config)# interface g0/0<br>Router(config-if)# ip address 192.168.1.1 255.255.255.0<br>Router(config-if)# no shutdown<br>Router(config-if)# end<br>Router# show ip interface brief</code></div>
+            </div>
+          </div>
+          <div class="function-row"><h3>Consultar el estado de las interfaces <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Router#</span><code class="cmd">show ip interface brief</code><span class="command-note">Resume direcciones y estados de interfaces</span><code class="cmd">show interfaces g0/0</code><span class="command-note">Muestra información detallada de g0/0</span></div></div>
+            <div class="function-description"><p><strong>Fíjate en:</strong> <code>Status</code> refleja el estado físico o administrativo y <code>Protocol</code> el protocolo de línea. Una interfaz administrativamente habilitada puede seguir caída por falta de enlace u otros problemas.</p></div>
+          </div>
+        </div>
       </section>
+      <section class="block" id="vlan" aria-labelledby="vlan-title">
+        <header class="block-header"><span class="dot dot-B"></span><h2 id="vlan-title">B. Routing entre VLAN</h2><div class="tags"><span class="tag">Cisco IOS</span><span class="tag">Router</span></div></header>
+        <div class="function-list"><div class="function-row"><h3>Configurar subinterfaces para varias VLAN <span class="purpose configurar">Configurar</span></h3>
+          <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración global</span><code class="cmd">interface g0/0.10</code><span class="command-note">Crea o selecciona la subinterfaz para la VLAN 10</span><span class="tag">Configuración de subinterfaz</span><code class="cmd">encapsulation dot1Q 10</code><span class="command-note">Asocia la subinterfaz a la VLAN 10</span><code class="cmd">ip address 192.168.10.254 255.255.255.0</code><span class="command-note">Define la puerta de enlace de la VLAN 10</span></div></div>
+          <div class="function-description"><p>En router-on-a-stick, el switch debe tener las VLAN 10 y 20 y un puerto trunk operativo hacia <code>g0/0</code>, que permita ambas VLAN. La interfaz física se habilita y las direcciones se asignan a las subinterfaces. Si se usó el ejemplo independiente anterior, retira antes la IP de <code>g0/0</code>.</p><p><strong>Fíjate en:</strong> IOS utiliza habitualmente <code>Router(config-subif)#</code> para las subinterfaces; el indicador y los nombres pueden variar según la plataforma.</p>
+            <div class="example"><span>Secuencia completa · trunk y VLAN ya preparados en el switch</span><code>Router&gt; enable<br>Router# configure terminal<br>Router(config)# interface g0/0<br>Router(config-if)# no ip address<br>Router(config-if)# no shutdown<br>Router(config-if)# exit<br>Router(config)# interface g0/0.10<br>Router(config-subif)# encapsulation dot1Q 10<br>Router(config-subif)# ip address 192.168.10.254 255.255.255.0<br>Router(config-subif)# exit<br>Router(config)# interface g0/0.20<br>Router(config-subif)# encapsulation dot1Q 20<br>Router(config-subif)# ip address 192.168.20.254 255.255.255.0<br>Router(config-subif)# end<br>Router# show ip interface brief<br>Router# show ip route connected</code></div>
+          </div>
+        </div></div>
+      </section>
+      <section class="block" id="rutas" aria-labelledby="rutas-title">
+        <header class="block-header"><span class="dot dot-C"></span><h2 id="rutas-title">C. Rutas y verificación</h2><div class="tags"><span class="tag">Cisco IOS</span><span class="tag">Router</span></div></header>
+        <div class="function-list">
+          <div class="function-row"><h3>Consultar la tabla de rutas <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Router#</span><code class="cmd">show ip route</code><span class="command-note">Muestra la tabla de rutas IPv4</span><code class="cmd">show ip route connected</code><span class="command-note">Filtra las rutas conectadas directamente</span></div></div>
+            <div class="function-description"><p><strong>Fíjate en:</strong> <code>C</code> identifica redes conectadas, <code>L</code> direcciones locales de interfaces y <code>S</code> rutas estáticas, cuando aparecen. Las rutas instaladas dependen del estado y la configuración.</p></div>
+          </div>
+          <div class="function-row"><h3>Configurar una ruta estática <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración global</span><code class="cmd">ip route 192.168.30.0 255.255.255.0 192.168.20.1</code><span class="command-note">Envía el tráfico hacia esa red al siguiente salto</span></div></div>
+            <div class="function-description"><p>En este ejemplo, otro router conectado a VLAN 20 tiene la IP <code>192.168.20.1</code> y acceso a <code>192.168.30.0/24</code>. La subinterfaz <code>g0/0.20</code> debe estar operativa para alcanzar ese siguiente salto. El router vecino también necesita rutas de retorno.</p>
+              <div class="example"><span>Secuencia completa · VLAN 20 y vecino ya operativos</span><code>Router&gt; enable<br>Router# configure terminal<br>Router(config)# ip route 192.168.30.0 255.255.255.0 192.168.20.1<br>Router(config)# end<br>Router# show ip route</code></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="block" id="dhcp" aria-labelledby="dhcp-title">
+        <header class="block-header"><span class="dot dot-D"></span><h2 id="dhcp-title">D. DHCP — Asignación automática</h2><div class="tags"><span class="tag">Cisco IOS</span><span class="tag">Router</span></div></header>
+        <div class="function-list">
+          <div class="function-row"><h3>Reservar direcciones fuera del reparto <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración global</span><code class="cmd">ip dhcp excluded-address 192.168.10.254</code><span class="command-note">Excluye la puerta de enlace del reparto DHCP</span></div></div>
+            <div class="function-description"><p>Evita que el servidor entregue esa dirección a un cliente. Excluye también otras direcciones estáticas que existan en la red antes de activar el reparto.</p></div>
+          </div>
+          <div class="function-row"><h3>Crear un pool DHCP <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración global</span><code class="cmd">ip dhcp pool ALUMNOS</code><span class="command-note">Crea o selecciona el pool y abre su configuración</span><span class="tag">Configuración DHCP</span><code class="cmd">network 192.168.10.0 255.255.255.0</code><span class="command-note">Define la red de direcciones del pool</span><code class="cmd">default-router 192.168.10.254</code><span class="command-note">Indica la puerta de enlace para los clientes</span><code class="cmd">dns-server 8.8.8.8</code><span class="command-note">Indica el servidor DNS para los clientes</span></div></div>
+            <div class="function-description"><p>La exclusión y la selección del pool se hacen en configuración global; sus parámetros se introducen en <code>Router(dhcp-config)#</code>. El DNS del ejemplo debe ser accesible desde los clientes.</p>
+              <div class="example"><span>Secuencia completa · VLAN 10 operativa y sin otro DHCP conflictivo</span><code>Router&gt; enable<br>Router# configure terminal<br>Router(config)# ip dhcp excluded-address 192.168.10.254<br>Router(config)# ip dhcp pool ALUMNOS<br>Router(dhcp-config)# network 192.168.10.0 255.255.255.0<br>Router(dhcp-config)# default-router 192.168.10.254<br>Router(dhcp-config)# dns-server 8.8.8.8<br>Router(dhcp-config)# end<br>Router# show ip dhcp pool<br>Router# show ip dhcp binding</code></div>
+            </div>
+          </div>
+          <div class="function-row"><h3>Consultar las asignaciones DHCP <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Router#</span><code class="cmd">show ip dhcp binding</code><span class="command-note">Muestra las concesiones de direcciones</span><code class="cmd">show ip dhcp pool</code><span class="command-note">Muestra los pools y su utilización</span></div></div>
+            <div class="function-description"><p><strong>Fíjate en:</strong> las direcciones concedidas y los identificadores de cliente; el pool muestra la red y el número de direcciones asignadas. Puede no haber concesiones hasta que un cliente solicite una dirección.</p></div>
+          </div>
+        </div>
+      </section>
+      <section class="block" id="nat" aria-labelledby="nat-title">
+        <header class="block-header"><span class="dot dot-A"></span><h2 id="nat-title">E. NAT/PAT — Salida a otras redes</h2><div class="tags"><span class="tag">Cisco IOS</span><span class="tag">Router</span></div></header>
+        <p class="block-intro">Ejemplo de laboratorio: VLAN 10 en <code>g0/0.10</code>; red exterior <code>203.0.113.0/30</code>, con <code>g0/1</code> en <code>203.0.113.2</code> y router vecino en <code>203.0.113.1</code>. Estas direcciones son de documentación, no una asignación pública para uso real.</p>
+        <div class="function-list">
+          <div class="function-row"><h3>Identificar interfaces internas y externas <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración de interfaz</span><code class="cmd">ip nat inside</code><span class="command-note">Marca la interfaz o subinterfaz interna</span><code class="cmd">ip nat outside</code><span class="command-note">Marca la interfaz exterior</span></div></div>
+            <div class="function-description"><p>Aplica <code>inside</code> en <code>g0/0.10</code> y <code>outside</code> en <code>g0/1</code>, cada uno desde el modo de configuración correspondiente. La secuencia completa aparece en la siguiente función.</p></div>
+          </div>
+          <div class="function-row"><h3>Configurar PAT <span class="purpose configurar">Configurar</span></h3>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración global</span><code class="cmd">access-list 1 permit 192.168.10.0 0.0.0.255</code><span class="command-note">Selecciona la red interna que se traducirá</span><code class="cmd">ip nat inside source list 1 interface g0/1 overload</code><span class="command-note">Comparte la dirección de salida mediante PAT</span></div></div>
+            <div class="function-description"><p>La lista 1 identifica la VLAN 10; <code>g0/1</code> proporciona la dirección traducida. <code>overload</code> permite que varios equipos compartan esa IPv4 distinguiendo comunicaciones mediante puertos.</p><p><strong>Importante:</strong> el ejemplo presupone que la lista 1 está libre y no existen reglas NAT o rutas predeterminadas incompatibles. PAT no sustituye a las rutas. El vecino <code>203.0.113.1</code> debe estar operativo y alcanzar las redes de destino; los clientes deben usar su puerta de enlace. Para acceso real se necesita una dirección y conectividad proporcionadas por la red exterior.</p>
+              <div class="example"><span>Secuencia completa · subinterfaz VLAN 10 ya configurada y enlace exterior conectado</span><code>Router&gt; enable<br>Router# configure terminal<br>Router(config)# interface g0/0.10<br>Router(config-subif)# ip nat inside<br>Router(config-subif)# exit<br>Router(config)# interface g0/1<br>Router(config-if)# ip address 203.0.113.2 255.255.255.252<br>Router(config-if)# ip nat outside<br>Router(config-if)# no shutdown<br>Router(config-if)# exit<br>Router(config)# access-list 1 permit 192.168.10.0 0.0.0.255<br>Router(config)# ip nat inside source list 1 interface g0/1 overload<br>Router(config)# ip route 0.0.0.0 0.0.0.0 203.0.113.1<br>Router(config)# end<br>Router# show ip interface brief<br>Router# show ip route<br>Router# show ip nat translations</code></div>
+            </div>
+          </div>
+          <div class="function-row"><h3>Consultar las traducciones NAT <span class="purpose consultar">Consultar</span></h3>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Router#</span><code class="cmd">show ip nat translations</code><span class="command-note">Muestra las traducciones NAT activas</span></div></div>
+            <div class="function-description"><p><strong>Fíjate en:</strong> <code>Inside local</code> identifica la dirección interna original y <code>Inside global</code> su dirección traducida; <code>Outside local</code> y <code>Outside global</code> describen el extremo exterior. En PAT también aparecen puertos.</p><p>La tabla puede estar vacía hasta que exista tráfico que cumpla la regla.</p></div>
+          </div>
+        </div>
+      </section>
+      <details class="sources"><summary>Documentación de referencia</summary><ul><li><a href="https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/lanswitch/configuration/xe-16-9/lanswitch-xe-16-9-book/lnsw-conf-vlan-ieee.html">Cisco: routing entre VLAN con IEEE 802.1Q</a></li><li><a href="https://www.cisco.com/c/en/us/td/docs/routers/access/800/software/configuration/guide/SCG800Guide/SCG800_Guide_BookMap_chapter_01001.html">Cisco: configuración de DHCP</a></li><li><a href="https://www.cisco.com/c/en/us/support/docs/ip/network-address-translation-nat/13772-12.html">Cisco: configuración básica de NAT</a></li></ul></details>
+      <p class="back-link"><a href="../index.html">← Volver al índice general</a></p>
       <footer>Biblioteca de comandos · Redes Locales · 1.º SMX</footer>
     </main>
   </body>

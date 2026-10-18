@@ -23,23 +23,23 @@
         <a href='../nivel-1/primeros-pasos.html'>
         <span class='nav-number'>1.</span> Primeros pasos</a>
         <a href='../nivel-1/configuracion-red.html'>
-        <span class='nav-number'>2.</span> Mi ordenador en la red<small>Próximamente</small>
+        <span class='nav-number'>2.</span> Mi ordenador en la red
         </a>
         <h2>Nivel 2 <span>Investigar la red</span>
         </h2>
         <a href='../nivel-2/conectividad.html' aria-current="page">
-        <span class='nav-number'>3.</span> Conectividad y diagnóstico<small>Próximamente</small>
+        <span class='nav-number'>3.</span> Conectividad y diagnóstico
         </a>
         <a href='../nivel-2/dns-rutas.html'>
-        <span class='nav-number'>4.</span> DNS, conexiones y rutas<small>Próximamente</small>
+        <span class='nav-number'>4.</span> DNS, conexiones y puertos
         </a>
         <h2>Nivel 3 <span>Administrar redes</span>
         </h2>
         <a href='../nivel-3/switches-vlans.html'>
-        <span class='nav-number'>5.</span> Switches y segmentación<small>Próximamente</small>
+        <span class='nav-number'>5.</span> Switches y VLAN
         </a>
         <a href='../nivel-3/routing-servicios.html'>
-        <span class='nav-number'>6.</span> Routing y servicios<small>Próximamente</small>
+        <span class='nav-number'>6.</span> Routing y servicios
         </a>
       </nav>
       <a class='repo-link' href='../../../index.html'>← Recursos de Redes locales</a>
@@ -49,14 +49,50 @@
         <p class="eyebrow">Nivel 2 · Etapa 3 — Investigar la red</p>
         <h1>Conectividad y diagnóstico</h1>
       </header>
-      <section class='notice'>
-        <span class='tag'>Próximamente</span>
-        <h2>Esta etapa está en preparación</h2>
-        <p>Comprobación de conectividad y recorrido de los paquetes.</p>
-        <p>El contenido se incorporará más adelante.</p>
-        <a class='button' href='../index.html'>Volver al índice general</a>
+      <p class="intro">Aprenderás a comprobar si otro equipo responde, observar los saltos hacia un destino y consultar los vecinos conocidos de tu red local.</p>
+      <p class="hint">Ejecuta los comandos en la terminal de Linux o en el Símbolo del sistema de Windows. Sustituye las direcciones y nombres de ejemplo por destinos adecuados para tu red.</p>
+      <nav class="block-nav" aria-label="Bloques de esta etapa"><a href="#conectividad">A. Comprobar la conectividad</a><a href="#recorrido">B. Descubrir el recorrido</a><a href="#vecinos">C. Identificar vecinos de la red local</a></nav>
+      <section class="block" id="conectividad" aria-labelledby="conectividad-title">
+        <header class="block-header"><span class="dot dot-A"></span><h2 id="conectividad-title">A. Comprobar la conectividad</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <div class="function-list"><div class="function-row">
+          <h3>Comprobar si un equipo responde <span class="purpose diagnosticar">Diagnosticar</span></h3>
+          <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-ping" aria-label="Ver ping 192.168.1.1 en Linux"><code>ping 192.168.1.1</code></button><span class="command-note">Comprueba la respuesta; Ctrl+C para detenerlo</span><button type="button" class="cmd demo-command" data-demo="linux-ping-count" aria-label="Ver ping -c 4 192.168.1.1 en Linux"><code>ping -c 4 192.168.1.1</code></button><span class="command-note">Envía 4 solicitudes y termina</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-ping" aria-label="Ver ping 192.168.1.1 en Windows CMD"><code>ping 192.168.1.1</code></button><span class="command-note">Envía cuatro solicitudes por defecto</span></div></div>
+          <div class="function-description"><p><code>ping</code> utiliza mensajes ICMP de solicitud y respuesta de eco para comprobar si un destino responde.</p><p><strong>Fíjate en:</strong> los paquetes enviados y recibidos, el tiempo de ida y vuelta y el porcentaje de pérdida de paquetes.</p><p><strong>Diferencias:</strong> en Linux, <code>-c 4</code> limita el envío a cuatro solicitudes; sin ese límite, normalmente continúa hasta interrumpirlo con <code>Ctrl+C</code>. Windows CMD envía cuatro solicitudes por defecto.</p><p><strong>Importante:</strong> si no hay respuesta, el equipo no tiene por qué estar apagado o desconectado: el tráfico ICMP puede estar filtrado.</p></div>
+        </div></div>
       </section>
+      <section class="block" id="recorrido" aria-labelledby="recorrido-title">
+        <header class="block-header"><span class="dot dot-B"></span><h2 id="recorrido-title">B. Descubrir el recorrido</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <div class="function-list"><div class="function-row">
+          <h3>Mostrar los saltos hasta un destino <span class="purpose diagnosticar">Diagnosticar</span></h3>
+          <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-traceroute" aria-label="Ver traceroute ejemplo.com en Linux"><code>traceroute ejemplo.com</code></button><span class="command-note">Muestra los saltos; puede no estar instalado</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-tracert" aria-label="Ver tracert ejemplo.com en Windows CMD"><code>tracert ejemplo.com</code></button><span class="command-note">Muestra los saltos hacia el destino</span></div></div>
+          <div class="function-description"><p>Estos comandos intentan mostrar el recorrido hacia un destino mediante respuestas de dispositivos intermedios. Cada salto representa una etapa del recorrido; suelen aparecer routers que encaminan paquetes entre redes.</p><p><strong>Fíjate en:</strong> las direcciones de los saltos y los tiempos de ida y vuelta de las sondas. Un asterisco <code>*</code> indica que una sonda no recibió respuesta dentro del plazo.</p><p><strong>Importante:</strong> un asterisco no demuestra necesariamente una avería: algunos dispositivos filtran o no responden a estas sondas. El recorrido mostrado puede estar incompleto.</p><p><strong>Diferencias:</strong> los métodos de sondeo predeterminados pueden variar: habitualmente <code>traceroute</code> usa UDP y <code>tracert</code> usa solicitudes de eco ICMP.</p></div>
+        </div></div>
+      </section>
+      <section class="block" id="vecinos" aria-labelledby="vecinos-title">
+        <header class="block-header"><span class="dot dot-C"></span><h2 id="vecinos-title">C. Identificar vecinos de la red local</h2><div class="tags"><span class="tag linux">Linux</span><span class="tag windows">Windows CMD</span></div></header>
+        <div class="function-list"><div class="function-row">
+          <h3>Consultar los vecinos conocidos <span class="purpose consultar">Consultar</span></h3>
+          <div class="function-commands"><div class="system-command"><span class="tag linux">Linux</span><button type="button" class="cmd demo-command" data-demo="linux-ip-neigh" aria-label="Ver ip neigh en Linux"><code>ip neigh</code></button><span class="command-note">Muestra los vecinos conocidos y su estado</span></div><div class="system-command"><span class="tag windows">Windows CMD</span><button type="button" class="cmd demo-command" data-demo="windows-arp" aria-label="Ver arp -a en Windows CMD"><code>arp -a</code></button><span class="command-note">Muestra las asociaciones ARP almacenadas</span></div></div>
+          <div class="function-description"><p>Consulta la información almacenada sobre vecinos de red. En IPv4, permite observar asociaciones conocidas entre direcciones IP y direcciones de enlace, como las MAC.</p><p><strong>Fíjate en:</strong> la dirección IP y, cuando esté disponible, la MAC asociada. Linux también muestra estados como <code>REACHABLE</code> (accesible recientemente), <code>STALE</code> (información pendiente de confirmación) o <code>FAILED</code> (resolución fallida).</p><p><strong>Diferencias:</strong> <code>ip neigh</code> puede incluir vecinos IPv6; <code>arp -a</code> muestra asociaciones ARP de IPv4. La caché no es un inventario completo de todos los dispositivos conectados.</p></div>
+        </div></div>
+      </section>
+      <details class="sources"><summary>Documentación de referencia</summary><ul><li><a href="https://man7.org/linux/man-pages/man8/ping.8.html">Manual de ping en Linux</a></li><li><a href="https://man7.org/linux/man-pages/man8/traceroute.8.html">Manual de traceroute en Linux</a></li><li><a href="https://man7.org/linux/man-pages/man8/ip-neighbour.8.html">Manual de vecinos IP en Linux</a></li><li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/ping">Microsoft Learn: ping</a></li><li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tracert">Microsoft Learn: tracert</a></li><li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/arp">Microsoft Learn: arp</a></li></ul></details>
+      <p class="back-link"><a href="../index.html">← Volver al índice general</a></p>
       <footer>Biblioteca de comandos · Redes Locales · 1.º SMX</footer>
     </main>
+    <dialog class="demo-dialog demo-dialog-red" aria-labelledby="demo-title" aria-describedby="demo-description demo-accessible-output">
+      <div class="demo-content">
+        <header class="demo-header">
+          <h2 id="demo-title"></h2>
+          <button type="button" class="demo-close" aria-label="Cerrar demostración">×</button>
+        </header>
+        <div class="tags demo-tags" aria-label="Sistema y finalidad"></div>
+        <p class="demo-caption"></p>
+        <div class="demo-terminal" aria-hidden="true"><span class="demo-prompt"></span><span class="demo-typed"></span><span class="demo-output"></span><span class="demo-final-prompt"></span></div>
+        <p class="sr-only" id="demo-accessible-output"></p>
+        <div class="demo-description" id="demo-description" hidden><strong>Fíjate en:</strong><div class="demo-description-text"></div></div>
+      </div>
+    </dialog>
+    <script src="../js/demostraciones.js" defer></script>
   </body>
 </html>
