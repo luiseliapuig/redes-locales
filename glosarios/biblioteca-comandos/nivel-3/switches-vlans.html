@@ -42,9 +42,8 @@
         <span class='nav-number'>6.</span> Routing y servicios
         </a>
       </nav>
-      <a class='repo-link' href='../../../index.html'>← Recursos de Redes locales</a>
     </aside>
-    <main id="contenido">
+    <main id="contenido" class="cisco-demos">
       <header class="page-header">
         <p class="eyebrow">Nivel 3 · Etapa 5 — Administrar redes</p>
         <h1>Switches y VLAN</h1>
@@ -60,10 +59,10 @@
         <div class="function-list"><div class="function-row">
           <h3>Cambiar de modo</h3>
           <div class="function-commands single-command"><div class="system-command"><span class="tag">Cisco IOS</span>
-            <code class="cmd">enable</code><span class="command-note">Desde EXEC usuario, entra en EXEC privilegiado</span>
-            <code class="cmd">configure terminal</code><span class="command-note">Desde EXEC privilegiado, entra en configuración global</span>
-            <code class="cmd">exit</code><span class="command-note">Desde un modo de configuración, retrocede un nivel</span>
-            <code class="cmd">end</code><span class="command-note">Desde configuración, vuelve a EXEC privilegiado</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-enable" aria-label="Ver enable en Cisco IOS"><code>enable</code></button><span class="command-note">Desde EXEC usuario, entra en EXEC privilegiado</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-configure" aria-label="Ver configure terminal en Cisco IOS"><code>configure terminal</code></button><span class="command-note">Desde EXEC privilegiado, entra en configuración global</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-exit" aria-label="Ver exit en Cisco IOS"><code>exit</code></button><span class="command-note">Desde un modo de configuración, retrocede un nivel</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-end" aria-label="Ver end en Cisco IOS"><code>end</code></button><span class="command-note">Desde configuración, vuelve a EXEC privilegiado</span>
           </div></div>
           <div class="function-description"><p>El indicador cambia al entrar o salir de cada contexto. El acceso privilegiado puede requerir contraseña.</p><p><strong>Fíjate en:</strong> <code>(config-if)</code> indica que las órdenes afectan a una interfaz; <code>(config-vlan)</code>, a una VLAN.</p>
             <div class="example"><span>Secuencia de modos · el indicador no se escribe</span><code>Switch&gt; enable<br>Switch# configure terminal<br>Switch(config)# interface fa0/1<br>Switch(config-if)# exit<br>Switch(config)# vlan 10<br>Switch(config-vlan)# end<br>Switch#</code></div>
@@ -76,15 +75,15 @@
         <div class="function-list">
           <div class="function-row"><h3>Consultar la configuración <span class="purpose consultar">Consultar</span></h3>
             <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Switch#</span>
-              <code class="cmd">show running-config</code><span class="command-note">Muestra la configuración activa</span>
-              <code class="cmd">show startup-config</code><span class="command-note">Muestra la configuración guardada para el arranque</span>
+              <button type="button" class="cmd demo-command" data-demo="switch-running" aria-label="Ver show running-config en Cisco IOS"><code>show running-config</code></button><span class="command-note">Muestra la configuración activa</span>
+              <button type="button" class="cmd demo-command" data-demo="switch-startup" aria-label="Ver show startup-config en Cisco IOS"><code>show startup-config</code></button><span class="command-note">Muestra la configuración guardada para el arranque</span>
             </div></div>
             <div class="function-description"><p>La configuración activa está en uso; la guardada se utiliza al iniciar el dispositivo. Pueden ser distintas si hay cambios sin guardar.</p><p><strong>Fíjate en:</strong> el nombre del equipo, las interfaces y los cambios de configuración.</p></div>
           </div>
           <div class="function-row"><h3>Guardar los cambios <span class="purpose configurar">Configurar</span></h3>
             <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Switch#</span>
-              <code class="cmd">copy running-config startup-config</code><span class="command-note">Guarda la configuración activa para el siguiente arranque</span>
-              <code class="cmd">write memory</code><span class="command-note">Alternativa habitual para guardar</span>
+              <button type="button" class="cmd demo-command" data-demo="switch-copy" aria-label="Ver copy running-config startup-config en Cisco IOS"><code>copy running-config startup-config</code></button><span class="command-note">Guarda la configuración activa para el siguiente arranque</span>
+              <button type="button" class="cmd demo-command" data-demo="switch-write" aria-label="Ver write memory en Cisco IOS"><code>write memory</code></button><span class="command-note">Alternativa habitual para guardar</span>
             </div></div>
             <div class="function-description"><p>Guardar evita perder los cambios de configuración activa al reiniciar. Si se solicita confirmar el nombre de destino, pulsa <kbd>Intro</kbd> para aceptar el propuesto.</p><p><strong>Importante:</strong> en switches Catalyst, las VLAN normales pueden almacenarse por separado en <code>vlan.dat</code>; la conservación y propagación dependen del modelo y del modo VTP.</p></div>
           </div>
@@ -96,16 +95,16 @@
         <div class="function-list">
           <div class="function-row"><h3>Crear y nombrar una VLAN <span class="purpose configurar">Configurar</span></h3>
             <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración global · Switch(config)#</span>
-              <code class="cmd">vlan 10</code><span class="command-note">Crea o selecciona la VLAN 10 y abre su configuración</span>
+              <button type="button" class="cmd demo-command" data-demo="switch-vlan" aria-label="Ver vlan 10 en Cisco IOS"><code>vlan 10</code></button><span class="command-note">Crea o selecciona la VLAN 10 y abre su configuración</span>
               <span class="tag">Configuración VLAN · Switch(config-vlan)#</span>
-              <code class="cmd">name ALUMNOS</code><span class="command-note">Asigna el nombre ALUMNOS a la VLAN seleccionada</span>
+              <button type="button" class="cmd demo-command" data-demo="switch-name" aria-label="Ver name ALUMNOS en Cisco IOS"><code>name ALUMNOS</code></button><span class="command-note">Asigna el nombre ALUMNOS a la VLAN seleccionada</span>
             </div></div>
             <div class="function-description"><p>Una VLAN separa lógicamente dispositivos en la red local. El número identifica la VLAN y el nombre ayuda a reconocer su finalidad.</p>
               <div class="example"><span>Secuencia completa · creación y consulta</span><code>Switch&gt; enable<br>Switch# configure terminal<br>Switch(config)# vlan 10<br>Switch(config-vlan)# name ALUMNOS<br>Switch(config-vlan)# end<br>Switch# show vlan brief</code></div>
             </div>
           </div>
           <div class="function-row"><h3>Consultar las VLAN <span class="purpose consultar">Consultar</span></h3>
-            <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Switch#</span><code class="cmd">show vlan brief</code><span class="command-note">Lista VLAN y puertos de acceso asociados</span></div></div>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Switch#</span><button type="button" class="cmd demo-command" data-demo="switch-vlan-show" aria-label="Ver show vlan brief en Cisco IOS"><code>show vlan brief</code></button><span class="command-note">Lista VLAN y puertos de acceso asociados</span></div></div>
             <div class="function-description"><p><strong>Fíjate en:</strong> el número 10, su nombre y los puertos de acceso asociados. Los puertos trunk no se interpretan como puertos de acceso de una única VLAN en esta lista.</p></div>
           </div>
         </div>
@@ -115,11 +114,11 @@
         <header class="block-header"><span class="dot dot-D"></span><h2 id="acceso-title">D. Configurar puertos de acceso</h2><div class="tags"><span class="tag">Cisco IOS</span><span class="tag">Switch</span></div></header>
         <div class="function-list"><div class="function-row"><h3>Asignar puertos de acceso a una VLAN <span class="purpose configurar">Configurar</span></h3>
           <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración global · Switch(config)#</span>
-            <code class="cmd">interface fa0/1</code><span class="command-note">Selecciona la interfaz FastEthernet 0/1</span>
-            <code class="cmd">interface range fa0/1 - 2</code><span class="command-note">Selecciona las interfaces FastEthernet 0/1 y 0/2</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-interface" aria-label="Ver interface fa0/1 en Cisco IOS"><code>interface fa0/1</code></button><span class="command-note">Selecciona la interfaz FastEthernet 0/1</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-range" aria-label="Ver interface range fa0/1 - 2 en Cisco IOS"><code>interface range fa0/1 - 2</code></button><span class="command-note">Selecciona las interfaces FastEthernet 0/1 y 0/2</span>
             <span class="tag">Configuración de interfaz o rango</span>
-            <code class="cmd">switchport mode access</code><span class="command-note">Establece el modo de acceso</span>
-            <code class="cmd">switchport access vlan 10</code><span class="command-note">Asigna el puerto o rango a la VLAN 10</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-access-mode" aria-label="Ver switchport mode access en Cisco IOS"><code>switchport mode access</code></button><span class="command-note">Establece el modo de acceso</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-access-vlan" aria-label="Ver switchport access vlan 10 en Cisco IOS"><code>switchport access vlan 10</code></button><span class="command-note">Asigna el puerto o rango a la VLAN 10</span>
           </div></div>
           <div class="function-description"><p>Un puerto de acceso conecta normalmente un equipo final y transporta su tráfico de datos sin etiquetar en la VLAN de acceso asignada. Crea primero la VLAN y selecciona la interfaz o el rango adecuado.</p><p><strong>Fíjate en:</strong> al seleccionar un rango, el indicador es <code>Switch(config-if-range)#</code> y las órdenes se aplican a todas las interfaces seleccionadas.</p>
             <div class="example"><span>Secuencia completa · la VLAN 10 debe existir</span><code>Switch&gt; enable<br>Switch# configure terminal<br>Switch(config)# interface range fa0/1 - 2<br>Switch(config-if-range)# switchport mode access<br>Switch(config-if-range)# switchport access vlan 10<br>Switch(config-if-range)# end<br>Switch# show vlan brief</code></div>
@@ -131,13 +130,13 @@
         <header class="block-header"><span class="dot dot-A"></span><h2 id="trunk-title">E. Configurar enlaces trunk</h2><div class="tags"><span class="tag">Cisco IOS</span><span class="tag">Switch</span></div></header>
         <div class="function-list">
           <div class="function-row"><h3>Configurar un puerto trunk <span class="purpose configurar">Configurar</span></h3>
-            <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración de interfaz · Switch(config-if)#</span><code class="cmd">switchport mode trunk</code><span class="command-note">Configura la interfaz seleccionada como trunk</span></div></div>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">Configuración de interfaz · Switch(config-if)#</span><button type="button" class="cmd demo-command" data-demo="switch-trunk-mode" aria-label="Ver switchport mode trunk en Cisco IOS"><code>switchport mode trunk</code></button><span class="command-note">Configura la interfaz seleccionada como trunk</span></div></div>
             <div class="function-description"><p>Un trunk puede transportar tráfico de varias VLAN por un enlace, normalmente con etiquetas IEEE 802.1Q. La VLAN nativa normalmente viaja sin etiqueta.</p><p><strong>Fíjate en:</strong> el puerto debe conectarse a un equipo configurado de forma compatible; los requisitos pueden variar según el modelo.</p>
               <div class="example"><span>Secuencia completa · configuración y consulta</span><code>Switch&gt; enable<br>Switch# configure terminal<br>Switch(config)# interface fa0/24<br>Switch(config-if)# switchport mode trunk<br>Switch(config-if)# end<br>Switch# show interfaces trunk</code></div>
             </div>
           </div>
           <div class="function-row"><h3>Consultar los enlaces trunk <span class="purpose consultar">Consultar</span></h3>
-            <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Switch#</span><code class="cmd">show interfaces trunk</code><span class="command-note">Muestra los trunks activos y sus VLAN permitidas</span></div></div>
+            <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Switch#</span><button type="button" class="cmd demo-command" data-demo="switch-trunk-show" aria-label="Ver show interfaces trunk en Cisco IOS"><code>show interfaces trunk</code></button><span class="command-note">Muestra los trunks activos y sus VLAN permitidas</span></div></div>
             <div class="function-description"><p>Comprueba el puerto, la VLAN nativa y las listas de VLAN permitidas y activas. Un puerto configurado como trunk puede no aparecer si el enlace no está operativo.</p></div>
           </div>
         </div>
@@ -147,10 +146,10 @@
         <header class="block-header"><span class="dot dot-B"></span><h2 id="comprobar-title">F. Comprobar la configuración</h2><div class="tags"><span class="tag">Cisco IOS</span><span class="tag">Switch</span></div></header>
         <div class="function-list"><div class="function-row"><h3>Verificar el switch <span class="purpose consultar">Consultar</span></h3>
           <div class="function-commands single-command"><div class="system-command"><span class="tag">EXEC privilegiado · Switch#</span>
-            <code class="cmd">show vlan brief</code><span class="command-note">¿Qué VLAN y puertos de acceso aparecen?</span>
-            <code class="cmd">show interfaces status</code><span class="command-note">¿Qué estado y VLAN muestra cada puerto?</span>
-            <code class="cmd">show interfaces trunk</code><span class="command-note">¿Qué trunks están activos y qué VLAN permiten?</span>
-            <code class="cmd">show running-config</code><span class="command-note">¿Qué configuración está activa?</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-vlan-show" aria-label="Ver show vlan brief en Cisco IOS"><code>show vlan brief</code></button><span class="command-note">¿Qué VLAN y puertos de acceso aparecen?</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-status" aria-label="Ver show interfaces status en Cisco IOS"><code>show interfaces status</code></button><span class="command-note">¿Qué estado y VLAN muestra cada puerto?</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-trunk-show" aria-label="Ver show interfaces trunk en Cisco IOS"><code>show interfaces trunk</code></button><span class="command-note">¿Qué trunks están activos y qué VLAN permiten?</span>
+            <button type="button" class="cmd demo-command" data-demo="switch-running" aria-label="Ver show running-config en Cisco IOS"><code>show running-config</code></button><span class="command-note">¿Qué configuración está activa?</span>
           </div></div>
           <div class="function-description"><p>Usa cada vista para responder una pregunta distinta; compara el resultado con las VLAN y puertos que esperabas configurar.</p><p><strong>Fíjate en:</strong> un puerto desconectado o un trunk inactivo pueden hacer que la salida no coincida con lo esperado.</p></div>
         </div></div>
@@ -159,5 +158,20 @@
       <p class="back-link"><a href="../index.html">← Volver al índice general</a></p>
       <footer>Biblioteca de comandos · Redes Locales · 1.º SMX</footer>
     </main>
+    <dialog class="demo-dialog demo-dialog-red" aria-labelledby="demo-title" aria-describedby="demo-description demo-accessible-output">
+      <div class="demo-content">
+        <header class="demo-header">
+          <h2 id="demo-title"></h2>
+          <button type="button" class="demo-close" aria-label="Cerrar demostración">×</button>
+        </header>
+        <div class="tags demo-tags" aria-label="Sistema y finalidad"></div>
+        <p class="demo-caption"></p>
+        <div class="demo-terminal" aria-hidden="true"><span class="demo-prompt"></span><span class="demo-typed"></span><span class="demo-output"></span><span class="demo-final-prompt"></span></div>
+        <p class="sr-only" id="demo-accessible-output"></p>
+        <div class="demo-description" id="demo-description" hidden><strong>Fíjate en:</strong><div class="demo-description-text"></div></div>
+      </div>
+    </dialog>
+    <script src="../js/demostraciones-switch.js" defer></script>
+    <script src="../js/demostraciones.js" defer></script>
   </body>
 </html>

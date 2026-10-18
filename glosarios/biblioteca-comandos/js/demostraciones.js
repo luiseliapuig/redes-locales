@@ -205,6 +205,9 @@ const demostraciones = {
   ] }
 };
 
+// Las etapas Cisco aportan sus propios datos sin alterar las demás demostraciones.
+Object.assign(demostraciones, window.demostracionesCisco || {});
+
 // Las salidas compartidas se explican según la función desde la que se abren.
 const enfoquesDemostraciones = {
   "puertos-windows": { aclaracion: "La misma tabla incluye puertos y conexiones:", detalles: [
@@ -277,7 +280,9 @@ if (dialogoDemo) {
     subtitulo.textContent = nota && nota.classList.contains("command-note") ? nota.textContent.trim() : "";
     subtitulo.hidden = !subtitulo.textContent;
     etiquetas.replaceChildren();
-    const etiquetaSistema = boton.closest(".system-command").querySelector(".tag");
+    const etiquetaSistema = demo.sistema === "Cisco IOS"
+      ? boton.closest(".block").querySelector(".block-header .tag")
+      : boton.closest(".system-command").querySelector(".tag");
     const fila = boton.closest(".function-row");
     const etiquetaFinalidad = fila ? fila.querySelector("h3 .purpose") : null;
     if (etiquetaSistema) etiquetas.append(etiquetaSistema.cloneNode(true));
@@ -285,7 +290,7 @@ if (dialogoDemo) {
     descripcion.hidden = true;
     textoDescripcion.textContent = "";
     dialogoDemo.classList.toggle("demo-description-expanded", Array.isArray(demo.detalles));
-    resumen.textContent = "Comando: " + demo.comando + (demo.limpiar ? ". Se limpia la pantalla y aparece un nuevo prompt: " + simboloFinal : (demo.resultado ? ". Resultado simulado: " + demo.resultado : ". Sin salida.") + (demo.promptFinal ? " Nuevo prompt: " + simboloFinal : ""));
+    resumen.textContent = (demo.sistema === "Cisco IOS" && demo.historial ? "Contexto previo: " + demo.historial : "") + "Comando: " + (demo.sistema === "Cisco IOS" ? simbolo : "") + demo.comando + (demo.limpiar ? ". Se limpia la pantalla y aparece un nuevo prompt: " + simboloFinal : (demo.resultado ? ". Resultado simulado: " + demo.resultado : ". Sin salida.") + (demo.promptFinal || demo.sistema === "Cisco IOS" ? " Nuevo prompt: " + simboloFinal : ""));
     terminal.classList.toggle("windows-terminal", demo.sistema === "Windows CMD");
     prompt.textContent = (demo.historial || "") + simbolo;
     escrito.textContent = "";
@@ -294,21 +299,17 @@ if (dialogoDemo) {
     medidaActual = { demo, simbolo, simboloFinal };
     ajustarAncho(demo, simbolo, simboloFinal);
     terminal.scrollLeft = 0;
-    if (boton.closest("#direcciones, #enlace, #dns, #configurar, #dhcp, #conectividad, #recorrido, #vecinos, #conexiones, #puertos")) {
+    if (boton.closest("#direcciones, #enlace, #dns, #configurar, #dhcp, #conectividad, #recorrido, #vecinos, #conexiones, #puertos, .cisco-demos")) {
       terminal.scrollTop = 0;
       dialogoDemo.scrollTop = 0;
     }
     dialogoDemo.showModal();
     cierre.focus();
+    if (demo.sistema === "Cisco IOS") terminal.scrollTop = terminal.scrollHeight;
 
-    function mostrarResultado() {
-      escrito.classList.remove("cursor-visible");
-      if (demo.limpiar) {
-        prompt.textContent = "";
-        escrito.textContent = "";
-      }
-      salida.textContent = demo.resultado;
+    function finalizarResultado() {
       promptFinal.textContent = simboloFinal;
+      if (demo.sistema === "Cisco IOS") terminal.scrollTop = terminal.scrollHeight;
       if (typeof demo.aclaracion === "string" && demo.aclaracion.trim()) {
         textoDescripcion.textContent = demo.aclaracion;
         if (Array.isArray(demo.detalles)) {
@@ -327,9 +328,39 @@ if (dialogoDemo) {
       temporizador = null;
     }
 
+    function mostrarResultado(animar) {
+      escrito.classList.remove("cursor-visible");
+      if (demo.limpiar) {
+        prompt.textContent = "";
+        escrito.textContent = "";
+      }
+      if (!animar || !demo.resultado) {
+        salida.textContent = demo.resultado;
+        finalizarResultado();
+        return;
+      }
+
+      const lineas = demo.resultado.split("\n");
+      let siguiente = 0;
+      function mostrarLinea() {
+        if (!dialogoDemo.open) return;
+        while (siguiente < lineas.length && !lineas[siguiente].trim()) siguiente++;
+        if (siguiente < lineas.length) siguiente++;
+        while (siguiente < lineas.length && !lineas[siguiente].trim()) siguiente++;
+        salida.textContent = lineas.slice(0, siguiente).join("\n");
+        if (demo.sistema === "Cisco IOS") terminal.scrollTop = terminal.scrollHeight;
+        if (siguiente < lineas.length) {
+          temporizador = setTimeout(mostrarLinea, 225);
+        } else {
+          finalizarResultado();
+        }
+      }
+      mostrarLinea();
+    }
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       escrito.textContent = demo.comando;
-      mostrarResultado();
+      mostrarResultado(false);
       return;
     }
     let posicion = 0;
@@ -337,7 +368,7 @@ if (dialogoDemo) {
     function parpadearCursor() {
       if (!dialogoDemo.open) return;
       if (cambiosCursor === 6) {
-        mostrarResultado();
+        mostrarResultado(true);
         return;
       }
       escrito.classList.toggle("cursor-visible", cambiosCursor % 2 === 0);
@@ -353,7 +384,7 @@ if (dialogoDemo) {
     temporizador = setTimeout(escribir, 50);
   }
 
-  document.querySelectorAll("#entorno [data-demo], #navegar [data-demo], #organizar [data-demo], #ayuda [data-demo], #direcciones [data-demo], #enlace [data-demo], #dns [data-demo], #configurar [data-demo], #dhcp [data-demo], #conectividad [data-demo], #recorrido [data-demo], #vecinos [data-demo], #conexiones [data-demo], #puertos [data-demo]").forEach((boton) => {
+  document.querySelectorAll("#entorno [data-demo], #navegar [data-demo], #organizar [data-demo], #ayuda [data-demo], #direcciones [data-demo], #enlace [data-demo], #dns [data-demo], #configurar [data-demo], #dhcp [data-demo], #conectividad [data-demo], #recorrido [data-demo], #vecinos [data-demo], #conexiones [data-demo], #puertos [data-demo], .cisco-demos [data-demo]").forEach((boton) => {
     boton.addEventListener("click", () => abrirDemostracion(boton));
   });
   cierre.addEventListener("click", () => dialogoDemo.close());
