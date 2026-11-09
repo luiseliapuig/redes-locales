@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A1 · La primera xarxa · Packet Tracer</title>
+  <link rel="stylesheet" href="../activity.css">
+  <link rel="stylesheet" href="../shared/activity-session.css">
+  <link rel="stylesheet" href="../shared/evidence-ui.css">
+  <link rel="stylesheet" href="a1.css">
+</head>
+<body>
+  <header class="activity-hero"><div class="wrap">
+    <p class="activity-kicker">Xarxes Locals · Packet Tracer · A1</p>
+    <h1>La primera xarxa</h1>
+    <a class="guide-link" href="../../index.html" target="_blank" rel="noopener noreferrer">Guia Packet Tracer</a>
+  </div></header>
+  <main class="wrap">
+    <section class="pending">
+      <div class="activity-intro"><h2>La primera xarxa</h2><p class="activity-description">Crea una xarxa local amb dos ordinadors i un switch, configura les adreces IPv4 i comprova la connectivitat.</p><p class="activity-student"><strong>Alumne/a:</strong> <span data-student-name></span><span data-save-status></span></p><p class="activity-objective"><strong>Objectiu:</strong> Aprendre a muntar una xarxa local senzilla, configurar manualment les adreces IPv4 i comprovar la comunicació entre dos ordinadors.</p></div>
+      <div class="activity-block"><h2>Material necessari</h2><div class="materials-grid" id="materials"></div></div>
+      <div class="activity-block"><h2>1 · Munta la xarxa</h2><div class="topology">PC0 — Switch0 — PC1</div><p>Col·loca dos ordinadors PC-PT i un switch 2960-24TT. Connecta cada ordinador al switch amb un cable Copper Straight-Through, seleccionant manualment els ports.</p><p>Espera que els indicadors dels enllaços siguin verds abans de continuar.</p></div>
+      <div class="activity-block"><h2>2 · Configura les adreces IPv4</h2><table class="addressing"><thead><tr><th>Dispositiu</th><th>Adreça IPv4</th><th>Màscara</th></tr></thead><tbody><tr><td>PC0</td><td>192.168.1.10</td><td>255.255.255.0</td></tr><tr><td>PC1</td><td>192.168.1.20</td><td>255.255.255.0</td></tr></tbody></table><p>Obre cada ordinador, accedeix a Desktop → IP Configuration, selecciona Static i introdueix l'adreça IPv4 i la màscara indicades.</p><p>Deixa la porta d'enllaç i el servidor DNS sense configurar.</p><div class="evidence-grid" id="config-evidence"></div></div>
+      <div class="activity-block"><h2>3 · Comprova la connectivitat</h2><p>Des de PC0, obre Desktop → Command Prompt i executa:</p><code class="command">ping 192.168.1.20</code><p>Comprova si PC1 respon. Si el primer intent falla, espera uns segons i repeteix la prova.</p><div class="evidence-grid" id="ping-evidence"></div><div class="question"><h3>P01 · Què indica que el ping s'ha executat correctament?</h3><textarea aria-label="Resposta P01"></textarea></div></div>
+      <div class="activity-block"><h2>4 · Experimenta amb un error</h2><p>Canvia temporalment l'adreça IPv4 de PC1 a <code>192.168.2.20</code>, mantenint la màscara <code>255.255.255.0</code>.</p><p>Des de PC0, executa:</p><code class="command">ping 192.168.2.20</code><p>Observa el resultat.</p><div class="evidence-grid" id="error-evidence"></div><div class="question"><h3>P02 · El ping ha funcionat? Què ha passat?</h3><textarea aria-label="Resposta P02"></textarea></div><div class="question"><h3>P03 · Per què els dos ordinadors no es poden comunicar amb aquesta configuració?</h3><textarea aria-label="Resposta P03"></textarea></div></div>
+      <div class="activity-block"><h2>5 · Recupera la connexió</h2><p>Torna a configurar PC1 amb l'adreça <code>192.168.1.20</code> i la màscara <code>255.255.255.0</code>. Repeteix el ping des de PC0 i comprova que la comunicació torna a funcionar.</p><div class="question"><h3>P04 · Què has après sobre la relació entre l'adreça IPv4 i la màscara de subxarxa?</h3><textarea aria-label="Resposta P04"></textarea></div></div>
+    </section>
+  </main>
+  <script src="../shared/activity-session.js"></script>
+  <script src="../shared/evidence-ui.js"></script>
+  <script>
+    const activity={materials:[['2 × Ordinadors','PC-PT','../../1-explora/df-pc.png'],['1 × Commutador','Switch 2960','../../1-explora/s-2960.png'],['2 × Cables directes','Copper Straight-Through','../../1-explora/copper-straight-trough.png']],evidence:[['E01','Configuració IPv4 de PC0',"Adjunta una captura on es vegin l'adreça IPv4 i la màscara configurades a PC0.",'config-evidence'],['E02','Configuració IPv4 de PC1',"Adjunta una captura on es vegin l'adreça IPv4 i la màscara configurades a PC1.",'config-evidence'],['E03','Ping correcte de PC0 a PC1','Adjunta una captura on es vegin la comanda executada i les respostes rebudes.','ping-evidence'],['E04','Ping amb una configuració incorrecta','Adjunta una captura on es vegin la comanda executada i el resultat de la prova.','error-evidence']]};
+    const materials=document.querySelector('#materials');activity.materials.forEach(([primary,secondary,image])=>materials.insertAdjacentHTML('beforeend',`<div class="material-item"><img src="${image}" alt=""><div><strong class="material-quantity">${primary}</strong><span class="material-model">${secondary}</span></div></div>`));
+    function load(card,file){if(!file||!/^image\/(png|jpeg)$/.test(file.type))return;const r=new FileReader();r.onload=()=>{const p=card.querySelector('img');p.src=r.result;p.hidden=false;card.querySelector('button').hidden=false;document.dispatchEvent(new Event('activity:evidencechange'))};r.readAsDataURL(file)}
+    activity.evidence.forEach(([id,title,text,target])=>{const card=document.createElement('div');card.className='evidence';card.dataset.evidence=id;card.tabIndex=0;card.innerHTML=`<h3>${id} · ${title}</h3><p>${text}</p><div class="evidence-shortcut">Fes: <kbd>Ctrl + V</kbd> o <label class="evidence-add">Afegeix arxiu<input class="evidence-file" type="file" accept="image/png,image/jpeg"></label></div><img class="evidence-preview" alt="Vista prèvia de ${id}" hidden><button class="evidence-remove" type="button" hidden>Elimina la captura</button>`;document.querySelector('#'+target).append(card);card.querySelector('input').onchange=e=>load(card,e.target.files[0]);card.querySelector('button').onclick=()=>{card.querySelector('input').value='';card.querySelector('img').removeAttribute('src');card.querySelector('img').hidden=true;card.querySelector('button').hidden=true;document.dispatchEvent(new Event('activity:evidencechange'))};});
+    setupEvidenceUI(load);
+    setupActivitySession({ id:'A1', title:'La primera xarxa', questions:['P01','P02','P03','P04'], evidence:['E01','E02','E03','E04'] });
+  </script>
+</body>
+</html>

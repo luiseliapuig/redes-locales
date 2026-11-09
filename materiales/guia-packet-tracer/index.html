@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Guia interactiva per fer els primers passos amb Cisco Packet Tracer.">
+  <title>Primers passos amb Cisco Packet Tracer</title>
+  <style>
+    :root { --blue:#1769aa; --blue-dark:#0e4e82; --blue-pale:#eaf4fb; --ink:#183044; --muted:#52677a; --line:#d7e2ea; --page:#f4f8fb; --card:#fff; --warning:#fff7dc; --warning-line:#e6bf51; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--page); font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+    button, a { font:inherit; }
+    .hero { color:#fff; background:linear-gradient(125deg,#0d4777,#1977b8); padding:clamp(2.5rem,6vw,5.25rem) 1.25rem; }
+    .hero-content { display:flex; justify-content:space-between; align-items:flex-start; gap:2rem; }
+    .hero-copy { min-width:0; }
+    .wrap { width:min(1120px,calc(100% - 2rem)); margin:auto; }
+    .eyebrow { margin:0 0 .4rem; font-size:.85rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; opacity:.85; }
+    h1 { max-width:760px; margin:0; font-size:clamp(2rem,5vw,3.65rem); line-height:1.08; }
+    .intro { max-width:820px; margin:1.1rem 0 0; font-size:clamp(1rem,2vw,1.2rem); }
+    .installation-toggle, .installation-back { display:inline-flex; align-items:center; gap:.45rem; padding:.6rem .85rem; border:1px solid currentColor; border-radius:8px; color:#fff; background:transparent; font-weight:700; cursor:pointer; }
+    .installation-toggle:hover { color:var(--blue-dark); background:#fff; }
+    .installation-back { margin-bottom:1rem; color:var(--blue-dark); border-color:#9fc5dc; background:#fff; }
+    .installation-back:hover { background:var(--blue-pale); }
+    main { padding:2rem 0 4rem; }
+    .tabs { display:flex; gap:.5rem; margin-bottom:1.5rem; border-bottom:1px solid var(--line); }
+    [role="tab"] { padding:.8rem 1rem; color:var(--muted); border:0; border-bottom:3px solid transparent; background:transparent; font-weight:750; cursor:pointer; }
+    [role="tab"][aria-selected="true"] { color:var(--blue-dark); border-bottom-color:var(--blue); }
+    [role="tab"]:focus-visible, button:focus-visible, a:focus-visible { outline:3px solid #f3a328; outline-offset:3px; }
+    [role="tabpanel"][hidden] { display:none; }
+    section { margin-top:2.5rem; }
+    h2 { margin:0 0 .35rem; font-size:clamp(1.45rem,3vw,2rem); color:var(--blue-dark); }
+    h3 { margin:.1rem 0 .45rem; font-size:1.1rem; }
+    .section-lead { margin:0 0 1rem; color:var(--muted); }
+    .card { padding:clamp(1.15rem,3vw,1.8rem); background:var(--card); border:1px solid var(--line); border-radius:16px; box-shadow:0 3px 12px #153c5810; }
+    .download { display:grid; grid-template-columns:auto 1fr; gap:1rem; align-items:center; border-color:#b9d8ec; background:linear-gradient(115deg,#fff,#edf8ff); }
+    .download-icon { display:grid; width:3rem; height:3rem; place-items:center; border-radius:50%; color:#fff; background:var(--blue); font-size:1.45rem; }
+    .download h2 { font-size:1.35rem; }
+    .download p { margin:.25rem 0 .9rem; }
+    .button { display:inline-block; padding:.65rem 1rem; border:0; border-radius:8px; color:#fff; background:var(--blue); font-weight:700; text-decoration:none; cursor:pointer; transition:background .18s ease,transform .18s ease; }
+    .button:hover { background:var(--blue-dark); transform:translateY(-1px); }
+    .steps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+    .step { display:flex; flex-direction:column; }
+    .step-number { display:inline-grid; width:2rem; height:2rem; place-items:center; border-radius:50%; color:#fff; background:var(--blue); font-weight:800; }
+    .image-button { display:block; width:100%; margin-top:1rem; padding:0; border:1px solid var(--line); border-radius:10px; background:#edf4f8; cursor:zoom-in; overflow:hidden; }
+    .image-button img { display:block; width:100%; height:auto; max-height:330px; object-fit:contain; }
+    .image-caption { display:block; padding:.42rem .7rem; color:var(--muted); font-size:.85rem; text-align:left; }
+    .warning { margin-top:1rem; padding:.75rem .9rem; border-left:4px solid var(--warning-line); border-radius:6px; background:var(--warning); font-size:.94rem; }
+    .login-choice { padding:.85rem; border:1px solid var(--line); border-radius:9px; background:#f8fbfd; }
+    .login-choice strong { color:var(--blue-dark); }
+    .interface-layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr); gap:1rem; align-items:start; }
+    .zone-buttons, .category-buttons { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1rem; }
+    .zone-button, .category-button { padding:.48rem .7rem; border:1px solid #bdd5e5; border-radius:999px; color:var(--blue-dark); background:#fff; font-size:.92rem; font-weight:700; cursor:pointer; transition:background .18s ease,color .18s ease,border-color .18s ease; }
+    .zone-button[aria-pressed="true"], .category-button[aria-pressed="true"] { color:#fff; border-color:var(--blue); background:var(--blue); }
+    .screen { position:relative; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#e7edf1; }
+    .screen img { display:block; width:100%; height:auto; }
+    .hotspot { position:absolute; z-index:1; display:block; border:3px solid #1689dd; border-radius:5px; background:transparent; box-shadow:0 0 0 9999px #092c4230; opacity:0; pointer-events:none; transition:opacity .2s ease; }
+    .hotspot.active { opacity:1; }
+    .menus { left:.2%; top:.3%; width:49%; height:13.9%; }
+    .workspace { left:.2%; top:17.6%; width:98.7%; height:64%; }
+    .devices { left:.2%; top:82.3%; width:45.2%; height:17.4%; }
+    .explainer { min-height:150px; }
+    .explainer p { margin:.45rem 0 0; color:var(--muted); }
+    .menu-file { display:block; width:min(208px,100%); height:auto; margin-top:1rem; }
+    .menu-file[hidden] { display:none; }
+    .device-layout { display:grid; gap:1rem; }
+    .device-shot { position:relative; margin:0; border:1px solid var(--line); border-radius:10px; background:#edf4f8; overflow:hidden; }
+    .device-shot img { display:block; width:100%; height:auto; max-height:none; }
+    .device-overlay { position:absolute; inset:0 0 auto; display:flex; align-items:center; gap:.55em; height:18.4%; padding:0 1.7%; color:#fff; pointer-events:none; white-space:nowrap; font-size:clamp(.72rem,1.65vw,1.22rem); line-height:1.15; }
+    .device-overlay strong { font-size:1.08em; }
+    .device-overlay span { font-weight:500; }
+    .mini-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.65rem; }
+    .mini-list > div { display:flex; align-items:flex-start; gap:.75rem; min-height:118px; padding:.8rem .9rem; border:1px solid var(--line); border-left:3px solid #a9cfe7; border-radius:9px; background:#fff; }
+    .mini-list > div > div { min-width:0; }
+    .mini-list strong { color:var(--ink); }
+    .recommend { border-left-color:#2b9a69; background:#fff; }
+    .mini-list > .cable { align-items:flex-start; border-left-color:#a9cfe7; background:#fff; }
+    .component-icon, .cable-icon { width:58px; height:58px; flex:0 0 58px; object-fit:contain; }
+    .component-title { display:block; color:var(--blue-dark); font-weight:750; }
+    .component-subtitle { display:block; margin-top:.08rem; color:var(--blue-dark); font-size:.9em; font-weight:400; }
+    .component-description { display:block; margin-top:.35rem; }
+    .mini-list > .connection-warning { display:block; min-height:118px; padding:.8rem .9rem; border:1px solid #f0ca68; border-radius:9px; background:#fff8e4; color:#634600; }
+    .connection-warning strong { display:block; line-height:1.25; }
+    .connection-warning span { display:block; margin-top:.14rem; font-size:.92em; line-height:1.35; }
+    .pending { padding:2.5rem 1.25rem; text-align:center; }
+    .pending p { max-width:600px; margin:.5rem auto 0; color:var(--muted); }
+    .network-tutorial { max-width:960px; margin-inline:auto; }
+    .tutorial-step-title { margin:.1rem 0 0; color:var(--ink); font-size:1.08rem; }
+    .tutorial-explanation { margin:.25rem 0 .9rem; color:var(--muted); }
+    .tutorial-image { display:block; width:100%; height:auto; border-radius:8px; }
+    .tutorial-navigation { display:grid; grid-template-columns:2.25rem minmax(180px,260px) 2.25rem; align-items:center; gap:.7rem; width:max-content; max-width:100%; margin:1rem auto 0; }
+    .tutorial-arrow { display:grid; width:2.25rem; height:2.25rem; place-items:center; padding:0; border:0; border-radius:50%; color:var(--blue-dark); background:transparent; cursor:pointer; }
+    .tutorial-arrow svg { width:1.3rem; height:1.3rem; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; }
+    .tutorial-arrow:hover:not(:disabled) { background:var(--blue-pale); }
+    .tutorial-arrow:disabled { opacity:.35; cursor:not-allowed; }
+    .tutorial-dots { position:relative; display:flex; justify-content:space-between; align-items:center; }
+    .tutorial-dots::before { position:absolute; z-index:0; right:.45rem; left:.45rem; height:1px; background:#b9c7d1; content:""; }
+    .tutorial-step-dot { position:relative; z-index:1; width:.72rem; height:.72rem; padding:0; border:0; border-radius:50%; background:#b9c7d1; cursor:pointer; transition:background .18s ease,transform .18s ease; }
+    .tutorial-step-dot.is-complete, .tutorial-step-dot.is-current { background:var(--blue); }
+    .tutorial-step-dot.is-current { transform:scale(1.35); }
+    .tutorial-step-dot:hover { transform:scale(1.2); }
+    .tutorial-step-dot.is-current:hover { transform:scale(1.45); }
+    .network-complete { margin-top:.85rem; padding:.65rem .8rem; border-left:4px solid #2b9a69; border-radius:7px; background:#effaf4; }
+    .network-complete p { margin:.2rem 0 0; color:var(--muted); }
+    .pc-explorer { margin-top:2rem; }
+    .pc-explorer .interface-layout { margin-top:1rem; }
+    .pc-explainer h4 { margin:.1rem 0 .4rem; color:var(--blue-dark); font-size:1.08rem; }
+    .pc-explainer > p { margin:.4rem 0 0; color:var(--muted); }
+    .pc-subzones { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem; }
+    .pc-subzones[hidden], .pc-focus-text[hidden], .pc-note[hidden] { display:none; }
+    .pc-focus-text { color:var(--ink)!important; }
+    .pc-note { margin-top:1rem!important; padding-top:.7rem; border-top:1px solid var(--line); font-size:.92rem; }
+    .next-blocks { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:2rem; }
+    .next-blocks h3 { color:var(--blue-dark); }
+    .next-blocks p { margin:0; color:var(--muted); }
+    .activities-catalog[hidden], .activity-work[hidden] { display:none; }
+    .activity-card { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .activity-card p, .activity-objective, .activity-block > p { color:var(--muted); }
+    .activity-work { max-width:960px; margin-inline:auto; }
+    .activity-back { margin-bottom:1rem; }
+    .activity-objective { margin:.25rem 0 1.25rem; }
+    .activity-block { margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--line); }
+    .activity-block h3 { color:var(--blue-dark); }
+    .materials-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.65rem; }
+    .material-item { display:flex; align-items:flex-start; gap:.6rem; padding:.65rem; border:1px solid var(--line); border-radius:9px; }
+    .material-item img { width:48px; height:48px; object-fit:contain; }
+    .material-quantity { display:block; color:var(--blue-dark); font-weight:800; }
+    .topology { margin:.75rem 0; padding:.65rem; border-radius:8px; color:var(--blue-dark); background:var(--blue-pale); font-weight:800; text-align:center; }
+    .addressing { width:100%; border-collapse:collapse; margin:.75rem 0; }
+    .addressing th, .addressing td { padding:.5rem .65rem; border:1px solid var(--line); text-align:left; }
+    .addressing th { color:var(--blue-dark); background:var(--blue-pale); }
+    .command { display:inline-block; margin:.2rem 0; padding:.45rem .65rem; border-radius:6px; color:#fff; background:#183044; font:600 .95rem ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .evidence-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; margin-top:1rem; }
+    .evidence { padding:.75rem; border:1px dashed #9fc5dc; border-radius:9px; background:#fbfdff; }
+    .evidence h4, .question h4 { margin:0; color:var(--blue-dark); }
+    .evidence p, .question p { margin:.25rem 0 .65rem; color:var(--muted); font-size:.94rem; }
+    .evidence input { max-width:100%; }
+    .evidence-preview { display:block; width:100%; max-height:220px; margin-top:.65rem; object-fit:contain; }
+    .evidence-preview[hidden] { display:none; }
+    .evidence-remove { margin-top:.55rem; padding:.35rem .55rem; border:1px solid #bdd5e5; border-radius:6px; color:var(--blue-dark); background:#fff; cursor:pointer; }
+    .question { margin-top:1rem; }
+    .question textarea { display:block; width:100%; min-height:110px; padding:.65rem; border:1px solid #bdd5e5; border-radius:8px; color:var(--ink); font:inherit; resize:vertical; }
+    .activity-reference { margin-top:1.5rem; font-size:.94rem; }
+    dialog { width:min(1100px,calc(100% - 2rem)); max-height:calc(100% - 2rem); padding:0; border:0; border-radius:12px; background:#fff; box-shadow:0 18px 55px #0008; }
+    dialog::backdrop { background:#071b29b8; }
+    .modal-head { display:flex; justify-content:space-between; align-items:center; padding:.7rem .9rem; border-bottom:1px solid var(--line); }
+    .modal-head strong { color:var(--blue-dark); }
+    .modal-close { width:2.2rem; height:2.2rem; border:0; border-radius:50%; color:var(--ink); background:#edf3f7; font-size:1.45rem; cursor:pointer; }
+    .modal-body { display:grid; place-items:center; padding:1rem; background:#182631; }
+    .modal-body img { display:block; max-width:100%; max-height:calc(100vh - 8rem); object-fit:contain; }
+    @media (max-width:780px) { .steps,.interface-layout { grid-template-columns:1fr; } .mini-list { grid-template-columns:repeat(2,minmax(0,1fr)); } .interface-layout .explainer { min-height:0; } }
+    @media (max-width:620px) { .device-overlay { gap:.35em; padding-inline:1.3%; font-size:clamp(.48rem,1.8vw,.72rem); white-space:normal; } }
+    @media (max-width:520px) { .wrap { width:min(100% - 1.25rem,1120px); } .hero { padding-inline:.7rem; } .download { grid-template-columns:1fr; } .download-icon { width:2.6rem; height:2.6rem; } .tabs { gap:0; } [role="tab"] { flex:1; padding:.75rem .35rem; font-size:.88rem; } .mini-list { grid-template-columns:1fr; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-content">
+      <div class="hero-copy">
+        <p class="eyebrow">Xarxes Locals · SMX1</p>
+        <h1>Primers passos amb Cisco Packet Tracer</h1>
+        <p class="intro">Aprèn a utilitzar Cisco Packet Tracer: des de la instal·lació i l'inici de sessió fins a conèixer les eines, els dispositius i les connexions que necessitaràs per construir les teves primeres xarxes.</p>
+      </div>
+      <button id="installation-toggle" class="installation-toggle" type="button" aria-controls="installation-view" aria-expanded="false"><span aria-hidden="true">⇩</span> Instal·lació</button>
+    </div>
+  </header>
+  <main class="wrap">
+    <div id="guide-content">
+    <div class="tabs" role="tablist" aria-label="Contingut principal de la guia">
+      <button id="tab-explora" type="button" role="tab" aria-selected="true" aria-controls="panell-explora">1 · Explora la interfície</button>
+      <button id="tab-xarxa" type="button" role="tab" aria-selected="false" aria-controls="panell-xarxa" tabindex="-1">2 · Munta i configura una xarxa</button>
+    </div>
+
+    <div id="panell-explora" role="tabpanel" aria-labelledby="tab-explora">
+      <section aria-labelledby="interface-title">
+        <h2 id="interface-title">Explora la interfície</h2>
+        <p class="section-lead">Selecciona una zona per situar-la a la captura i saber per a què serveix.</p>
+        <div class="zone-buttons" role="group" aria-label="Zones de la interfície">
+          <button class="zone-button" type="button" data-zone="menus" aria-pressed="false">Menús i eines</button>
+          <button class="zone-button" type="button" data-zone="workspace" aria-pressed="true">Espai de treball</button>
+          <button class="zone-button" type="button" data-zone="devices" aria-pressed="false">Dispositius</button>
+        </div>
+        <div class="interface-layout">
+          <div class="screen has-selection">
+            <img src="1-explora/cisco3.png" alt="Interfície principal de Cisco Packet Tracer">
+            <span class="hotspot menus" aria-hidden="true"></span>
+            <span class="hotspot workspace active" aria-hidden="true"></span>
+            <span class="hotspot devices" aria-hidden="true"></span>
+          </div>
+          <article class="card explainer" aria-live="polite">
+            <h3 id="zone-heading">Espai de treball</h3>
+            <p id="zone-text">És la zona central on col·locaràs els dispositius, els connectaràs i construiràs les teves xarxes.</p>
+            <img id="menu-file-image" class="menu-file" src="1-explora/menu-file.png" alt="Menú File de Cisco Packet Tracer amb l'opció Save" hidden>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="devices-title">
+        <h2 id="devices-title">Dispositius i connexions</h2>
+        <p class="section-lead">El panell de selecció funciona per nivells: primer selecciona la categoria principal, després la subcategoria i, finalment, el model o tipus de connexió que apareix a la dreta.</p>
+        <div class="category-buttons" role="group" aria-label="Categories de dispositius">
+          <button class="category-button" type="button" data-category="routers" aria-pressed="true">Routers</button>
+          <button class="category-button" type="button" data-category="switches" aria-pressed="false">Switches</button>
+          <button class="category-button" type="button" data-category="endpoints" aria-pressed="false">Dispositius finals</button>
+          <button class="category-button" type="button" data-category="connections" aria-pressed="false">Connexions</button>
+        </div>
+        <div class="device-layout">
+          <div class="device-shot">
+            <img id="device-image" src="1-explora/c1.png" alt="Panell de selecció de routers de Cisco Packet Tracer">
+            <div class="device-overlay" aria-live="polite"><strong id="device-heading">Routers</strong><span id="device-intro">Permeten comunicar xarxes diferents. Els models disposen de característiques i interfícies diverses.</span></div>
+          </div>
+          <div id="device-details" class="mini-list" aria-live="polite">
+            <div><img class="component-icon" src="1-explora/r-1941.png" alt=""><div class="component-copy"><strong class="component-title">Router 1941</strong><span class="component-subtitle">Router clàssic</span><span class="component-description">Router clàssic, adequat per a pràctiques bàsiques d'encaminament.</span></div></div>
+            <div><img class="component-icon" src="1-explora/r-2911.png" alt=""><div class="component-copy"><strong class="component-title">Router 2911</strong><span class="component-subtitle">Més opcions d'interfícies</span><span class="component-description">Router amb més possibilitats d'interfícies i ampliació.</span></div></div>
+            <div><img class="component-icon" src="1-explora/r-4331.png" alt=""><div class="component-copy"><strong class="component-title">Router 4331</strong><span class="component-subtitle">Generació més moderna</span><span class="component-description">Model d'una generació més moderna de routers Cisco.</span></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="panell-xarxa" role="tabpanel" aria-labelledby="tab-xarxa" hidden>
+      <section class="network-tutorial" aria-labelledby="network-title">
+        <h2 id="network-title">2 · Munta i configura una xarxa</h2>
+        <article class="card">
+          <h3>1 · Munta la xarxa</h3>
+          <h4 id="network-step-title" class="tutorial-step-title">Pas 1 · Col·loca els dispositius</h4>
+          <p id="network-step-description" class="tutorial-explanation">Afegeix dos ordinadors PC-PT i un switch 2960-24TT a l'espai de treball, amb el switch al centre.</p>
+          <img id="network-step-image" class="tutorial-image" src="2-configura/rl1.png" alt="Dos ordinadors PC-PT i un switch 2960-24TT a l'espai de treball">
+          <div class="tutorial-navigation" aria-label="Navegació dels passos">
+            <button id="network-previous" class="tutorial-arrow" type="button" aria-label="Pas anterior" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13 6-6 6 6 6M19 6l-6 6 6 6"/></svg>
+            </button>
+            <div class="tutorial-dots" role="group" aria-label="Selecciona un pas">
+              <button class="tutorial-step-dot is-current" type="button" data-step="0" aria-label="Pas 1" aria-current="step"></button>
+              <button class="tutorial-step-dot" type="button" data-step="1" aria-label="Pas 2"></button>
+              <button class="tutorial-step-dot" type="button" data-step="2" aria-label="Pas 3"></button>
+              <button class="tutorial-step-dot" type="button" data-step="3" aria-label="Pas 4"></button>
+              <button class="tutorial-step-dot" type="button" data-step="4" aria-label="Pas 5"></button>
+            </div>
+            <button id="network-next" class="tutorial-arrow" type="button" aria-label="Pas següent">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 6 6 6-6 6M5 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div id="network-complete" class="network-complete" hidden>
+            <strong>Ja tenim la xarxa connectada!</strong>
+            <p>Ara configurarem les adreces IP dels ordinadors per aconseguir que es comuniquin.</p>
+          </div>
+        </article>
+      </section>
+      <section class="pc-explorer" aria-labelledby="pc-explorer-title">
+        <h3 id="pc-explorer-title">2 · Coneix l'ordinador</h3>
+        <div class="zone-buttons" aria-label="Pestanyes de l'ordinador">
+          <button class="zone-button pc-view-button" type="button" data-view="physical" aria-pressed="false">Physical</button>
+          <button class="zone-button pc-view-button" type="button" data-view="config" aria-pressed="false">Config</button>
+          <button class="zone-button pc-view-button" type="button" data-view="desktop" aria-pressed="true">Desktop</button>
+        </div>
+        <div class="interface-layout">
+          <div id="pc-screen" class="screen" aria-label="Captura de les pestanyes de l'ordinador a Cisco Packet Tracer">
+            <img id="pc-screen-image" src="2-configura/pc-3.png" alt="Pestanya Desktop de l'ordinador a Cisco Packet Tracer">
+            <div id="pc-highlight" class="hotspot active" aria-hidden="true"></div>
+          </div>
+          <aside class="card explainer pc-explainer" aria-live="polite">
+            <h4 id="pc-heading">Desktop — Eines de l'ordinador</h4>
+            <p id="pc-intro">Conté les eines que utilitzarem per configurar l'adreça IP i comprovar la connectivitat.</p>
+            <div id="pc-subzones" class="pc-subzones" aria-label="Zones destacades de la pestanya" hidden></div>
+            <p id="pc-focus-text" class="pc-focus-text">Permet configurar l'adreça IPv4, la màscara de subxarxa i la porta d'enllaç.</p>
+            <p id="pc-note" class="pc-note"><strong>No el confonguis amb Terminal:</strong> aquesta eina s'utilitza per accedir a la consola d'altres dispositius.</p>
+          </aside>
+        </div>
+      </section>
+      <section class="next-blocks" aria-label="Blocs següents">
+        <article class="card"><h3>3 · Configura l'adreça IPv4</h3><p>Contingut en preparació.</p></article>
+        <article class="card"><h3>4 · Comprova la connectivitat</h3><p>Contingut en preparació.</p></article>
+      </section>
+    </div>
+    <div id="panell-activitats" role="tabpanel" aria-labelledby="tab-activitats" hidden>
+      <section id="activities-catalog" class="activities-catalog" aria-labelledby="activities-title">
+        <h2 id="activities-title">Activitats</h2>
+        <article class="card activity-card"><div><h3>A1 · La primera xarxa</h3><p>Crea una xarxa local amb dos ordinadors i un switch, configura les adreces IPv4 i comprova la connectivitat.</p></div><a class="button" href="activitats/1/index.html">Comença l'activitat</a></article>
+      </section>
+      <section id="activity-work" class="activity-work" aria-labelledby="activity-title" hidden>
+        <button id="activity-back" class="installation-back activity-back" type="button">← Torna a les activitats</button>
+        <h2 id="activity-title">A1 · La primera xarxa</h2>
+        <p class="activity-objective"><strong>Objectiu:</strong> Aprendre a muntar una xarxa local senzilla, configurar manualment les adreces IPv4 i comprovar la comunicació entre dos ordinadors.</p>
+        <article class="card">
+          <section class="activity-block"><h3>Material necessari</h3><div class="materials-grid" id="activity-materials"></div></section>
+          <section class="activity-block"><h3>1 · Munta la xarxa</h3><div class="topology">PC0 — Switch0 — PC1</div><p>Col·loca dos ordinadors PC-PT i un switch 2960-24TT. Connecta cada ordinador al switch amb un cable Copper Straight-Through, seleccionant manualment els ports.</p><p>Espera que els indicadors dels enllaços siguin verds abans de continuar.</p></section>
+          <section class="activity-block"><h3>2 · Configura les adreces IPv4</h3><table class="addressing"><thead><tr><th>Dispositiu</th><th>Adreça IPv4</th><th>Màscara</th></tr></thead><tbody><tr><td>PC0</td><td>192.168.1.10</td><td>255.255.255.0</td></tr><tr><td>PC1</td><td>192.168.1.20</td><td>255.255.255.0</td></tr></tbody></table><p>Obre cada ordinador, accedeix a Desktop → IP Configuration, selecciona Static i introdueix l'adreça IPv4 i la màscara indicades.</p><p>Deixa la porta d'enllaç i el servidor DNS sense configurar.</p><div class="evidence-grid" id="evidence-config"></div></section>
+          <section class="activity-block"><h3>3 · Comprova la connectivitat</h3><p>Des de PC0, obre Desktop → Command Prompt i executa:</p><code class="command">ping 192.168.1.20</code><p>Comprova si PC1 respon. Si el primer intent falla, espera uns segons i repeteix la prova.</p><div class="evidence-grid" id="evidence-ping"></div><div class="question" data-question="P01"><h4>P01 · Què indica que el ping s'ha executat correctament?</h4><textarea aria-label="Resposta P01"></textarea></div></section>
+          <section class="activity-block"><h3>4 · Experimenta amb un error</h3><p>Canvia temporalment l'adreça IPv4 de PC1 a <code>192.168.2.20</code>, mantenint la màscara <code>255.255.255.0</code>.</p><p>Des de PC0, executa:</p><code class="command">ping 192.168.2.20</code><p>Observa el resultat.</p><div class="evidence-grid" id="evidence-error"></div><div class="question" data-question="P02"><h4>P02 · El ping ha funcionat? Què ha passat?</h4><textarea aria-label="Resposta P02"></textarea></div><div class="question" data-question="P03"><h4>P03 · Per què els dos ordinadors no es poden comunicar amb aquesta configuració?</h4><textarea aria-label="Resposta P03"></textarea></div></section>
+          <section class="activity-block"><h3>5 · Recupera la connexió</h3><p>Torna a configurar PC1 amb l'adreça <code>192.168.1.20</code> i la màscara <code>255.255.255.0</code>. Repeteix el ping des de PC0 i comprova que la comunicació torna a funcionar.</p><div class="question" data-question="P04"><h4>P04 · Què has après sobre la relació entre l'adreça IPv4 i la màscara de subxarxa?</h4><textarea aria-label="Resposta P04"></textarea></div></section>
+        </article><p class="activity-reference">Pots consultar <a href="#tab-xarxa" id="activity-guide-link">Munta i configura una xarxa</a> mentre realitzes la pràctica.</p>
+      </section>
+    </div>
+    </div>
+
+    <div id="installation-view" hidden aria-labelledby="installation-title" tabindex="-1">
+      <button id="installation-back" class="installation-back" type="button">← Torna a la guia</button>
+      <section aria-labelledby="download-title">
+        <article class="card download">
+          <div class="download-icon" aria-hidden="true">⇩</div>
+          <div>
+            <h2 id="download-title">Descarrega Cisco Packet Tracer</h2>
+            <p>Abans de començar, descarrega i instal·la Cisco Packet Tracer al teu ordinador. Pots obtenir l'instal·lador des de l'enllaç següent.</p>
+            <a class="button" href="https://drive.google.com/file/d/13yu0zzzFU0cQQZD3vImMywE0VIKKlRD-/view" target="_blank" rel="noopener noreferrer">Descarregar Packet Tracer</a>
+          </div>
+        </article>
+      </section>
+
+      <section aria-labelledby="installation-title">
+        <h2 id="installation-title">Primer inici i accés</h2>
+        <p class="section-lead">Obre el programa i identifica les pantalles que apareixen abans de començar a treballar.</p>
+        <div class="steps">
+          <article class="card step">
+            <span class="step-number" aria-hidden="true">1</span>
+            <h3>Pantalla inicial</h3>
+            <ol>
+              <li>Executa Cisco Packet Tracer.</li>
+              <li>Activa <strong>“Keep me logged in (for 3 months)”</strong> per mantenir la sessió iniciada.</li>
+              <li>Deixa <strong>“Login Server”</strong> configurat com a <strong>“Worldwide”</strong>.</li>
+              <li>Prem <strong>“LOGIN”</strong>.</li>
+            </ol>
+            <button class="image-button image-open" type="button" data-image="1-explora/cisco1.png" data-label="Pantalla inicial de Cisco Packet Tracer">
+              <img src="1-explora/cisco1.png" alt="Pantalla inicial d'inici de sessió de Cisco Packet Tracer">
+              <span class="image-caption">Prem per ampliar la captura.</span>
+            </button>
+            <p class="warning"><strong>Atenció:</strong> si utilitzes un ordinador públic o compartit, no activis l'opció de mantenir la sessió iniciada.</p>
+          </article>
+          <article class="card step">
+            <span class="step-number" aria-hidden="true">2</span>
+            <h3>Autenticació</h3>
+            <p>S'obrirà la pàgina de Cisco Networking Academy.</p>
+            <div class="login-choice"><strong>Opció principal: inicia sessió amb Google</strong> utilitzant el compte institucional del centre. Si encara no tens compte, completa el registre o la vinculació que et demani Cisco.</div>
+            <p>Si l'accés amb Google falla, pots utilitzar l'enllaç <strong>“Inscríbase”</strong>, a la part inferior de la pantalla, per crear un compte amb correu electrònic i contrasenya. Si ja tens un compte, intenta recuperar l'accés abans de crear-ne un altre.</p>
+            <button class="image-button image-open" type="button" data-image="1-explora/cisco2.png" data-label="Pàgina d'autenticació de Cisco Networking Academy">
+              <img src="1-explora/cisco2.png" alt="Pàgina d'autenticació de Cisco Networking Academy">
+              <span class="image-caption">Prem per ampliar la captura.</span>
+            </button>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="image-modal" aria-labelledby="modal-label">
+    <div class="modal-head"><strong id="modal-label">Captura ampliada</strong><button class="modal-close" type="button" aria-label="Tanca la imatge ampliada">×</button></div>
+    <div class="modal-body"><img id="modal-image" src="" alt=""></div>
+  </dialog>
+
+  <script>
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+    let activeTab = tabs.find(tab => tab.getAttribute('aria-selected') === 'true');
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((item, itemIndex) => { const active = itemIndex === index; item.setAttribute('aria-selected', active); item.tabIndex = active ? 0 : -1; panels[itemIndex].hidden = !active; });
+        activeTab = tab;
+      });
+      tab.addEventListener('keydown', event => {
+        if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+        event.preventDefault();
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[next].focus(); tabs[next].click();
+      });
+    });
+
+    const guideContent = document.querySelector('#guide-content');
+    const installationView = document.querySelector('#installation-view');
+    const installationToggle = document.querySelector('#installation-toggle');
+    const installationBack = document.querySelector('#installation-back');
+    function closeInstallation() {
+      installationView.hidden = true;
+      guideContent.hidden = false;
+      installationToggle.setAttribute('aria-expanded', 'false');
+      activeTab.focus();
+    }
+    installationToggle.addEventListener('click', () => {
+      if (!installationView.hidden) {
+        closeInstallation();
+        return;
+      }
+      guideContent.hidden = true;
+      installationView.hidden = false;
+      installationToggle.setAttribute('aria-expanded', 'true');
+      installationView.focus();
+    });
+    installationBack.addEventListener('click', closeInstallation);
+
+    const zones = {
+      menus: ['Menús i eines', 'A la part superior trobaràs els menús i les eines del programa. <strong>Recorda desar el teu treball amb File → Save (Ctrl+S)</strong> per no perdre els canvis.', true],
+      workspace: ['Espai de treball', 'És la zona central on col·locaràs els dispositius, els connectaràs i construiràs les teves xarxes.', false],
+      devices: ['Dispositius', 'A la part inferior esquerra trobaràs les categories de dispositius, els models disponibles i els diferents tipus de connexions.', false]
+    };
+    const zoneHeading = document.querySelector('#zone-heading');
+    const zoneText = document.querySelector('#zone-text');
+    const menuFileImage = document.querySelector('#menu-file-image');
+    const screen = document.querySelector('.screen');
+    document.querySelectorAll('.zone-button').forEach(button => button.addEventListener('click', () => {
+      const zone = button.dataset.zone;
+      document.querySelectorAll('.zone-button').forEach(item => item.setAttribute('aria-pressed', item === button));
+      document.querySelectorAll('.hotspot').forEach(item => item.classList.toggle('active', item.classList.contains(zone)));
+      zoneHeading.textContent = zones[zone][0]; zoneText.innerHTML = zones[zone][1];
+      menuFileImage.hidden = !zones[zone][2];
+      screen.classList.add('has-selection');
+    }));
+
+    const categories = {
+      routers: { image:'c1.png', alt:'Panell de selecció de routers de Cisco Packet Tracer', title:'Routers', intro:'Permeten comunicar xarxes diferents. Els models disposen de característiques i interfícies diverses.', details:'<div><img class="component-icon" src="r-1941.png" alt=""><div class="component-copy"><strong class="component-title">Router 1941</strong><span class="component-subtitle">Router clàssic</span><span class="component-description">Router clàssic, adequat per a pràctiques bàsiques d’encaminament.</span></div></div><div><img class="component-icon" src="r-2911.png" alt=""><div class="component-copy"><strong class="component-title">Router 2911</strong><span class="component-subtitle">Més opcions d’interfícies</span><span class="component-description">Router amb més possibilitats d’interfícies i ampliació.</span></div></div><div><img class="component-icon" src="r-4331.png" alt=""><div class="component-copy"><strong class="component-title">Router 4331</strong><span class="component-subtitle">Generació més moderna</span><span class="component-description">Model d’una generació més moderna de routers Cisco.</span></div></div>' },
+      switches: { image:'c2.png', alt:'Panell de selecció de switches de Cisco Packet Tracer', title:'Switches', intro:'Connecten dispositius dins d’una mateixa xarxa local.', details:'<div class="recommend"><img class="component-icon" src="s-2960.png" alt=""><div class="component-copy"><strong class="component-title">Switch 2960</strong><span class="component-subtitle">Recomanat per començar</span><span class="component-description">Switch de capa 2, adequat per a les primeres pràctiques de connexions, ports i VLAN.</span></div></div><div><img class="component-icon" src="s-3560.png" alt=""><div class="component-copy"><strong class="component-title">Switch 3560</strong><span class="component-subtitle">Switch multicapa</span><span class="component-description">Switch multicapa que també permet treballar amb determinades funcions de capa 3.</span></div></div>' },
+      endpoints: { image:'c3.png', alt:'Panell de selecció de dispositius finals de Cisco Packet Tracer', title:'Dispositius finals', intro:'Equips que utilitzen la xarxa per comunicar-se o oferir serveis.', details:'<div class="recommend"><img class="component-icon" src="df-pc.png" alt=""><div class="component-copy"><strong class="component-title">PC</strong><span class="component-subtitle">Recomanat per començar</span><span class="component-description">Ordinador de sobretaula per configurar adreces IP i comprovar la connectivitat.</span></div></div><div><img class="component-icon" src="df-laptop.png" alt=""><div class="component-copy"><strong class="component-title">Laptop</strong><span class="component-subtitle">Ordinador portàtil</span><span class="component-description">Ordinador portàtil, útil també per a pràctiques de xarxes sense fil.</span></div></div><div><img class="component-icon" src="df-server.png" alt=""><div class="component-copy"><strong class="component-title">Server</strong><span class="component-subtitle">Equip de serveis</span><span class="component-description">Servidor amb serveis simulats com DHCP, DNS o HTTP.</span></div></div><div><img class="component-icon" src="df-printer.png" alt=""><div class="component-copy"><strong class="component-title">Printer</strong><span class="component-subtitle">Impressora de xarxa</span><span class="component-description">Impressora connectada a la xarxa i compartida entre dispositius.</span></div></div>' },
+      connections: { image:'c4.png', alt:'Panell de selecció de connexions de Cisco Packet Tracer', title:'Connexions', intro:'Cables i connexions per unir dispositius a través dels ports corresponents.', details:'<div class="cable"><img class="cable-icon" src="copper-straight-trough.png" alt=""><div class="component-copy"><strong class="component-title">Copper Straight-Through</strong><span class="component-subtitle">Cable directe</span><span class="component-description">Connexions Ethernet habituals entre PC i switch, o router i switch.</span></div></div><div class="cable"><img class="cable-icon" src="copper-cross-over.png" alt=""><div class="component-copy"><strong class="component-title">Copper Cross-Over</strong><span class="component-subtitle">Cable creuat</span><span class="component-description">Utilitzat tradicionalment entre dispositius similars, com PC-PC o switch-switch.</span></div></div><div class="cable"><img class="cable-icon" src="console.png" alt=""><div class="component-copy"><strong class="component-title">Console</strong><span class="component-subtitle">Cable de consola</span><span class="component-description">Permet administrar un router o switch des d’un ordinador, connectant-lo al port de consola.</span></div></div><div class="cable"><img class="cable-icon" src="fiber.png" alt=""><div class="component-copy"><strong class="component-title">Fiber</strong><span class="component-subtitle">Fibra òptica</span><span class="component-description">Per connectar interfícies de fibra compatibles.</span></div></div><div class="cable"><img class="cable-icon" src="auto.png" alt=""><div class="component-copy"><strong class="component-title">Automatically Choose</strong><span class="component-subtitle">Connexió automàtica</span><span class="component-description">Packet Tracer selecciona automàticament el tipus de connexió.</span></div></div><div class="connection-warning"><strong>No utilitzis sempre la connexió automàtica!</strong><span>A les primeres pràctiques, selecciona manualment el cable i els ports per aprendre a connectar correctament els dispositius.</span></div>' }
+    };
+    Object.values(categories).forEach(category => {
+      category.image = `1-explora/${category.image}`;
+      category.details = category.details.replaceAll('src="', 'src="1-explora/');
+    });
+    const deviceImage = document.querySelector('#device-image');
+    const deviceHeading = document.querySelector('#device-heading');
+    const deviceIntro = document.querySelector('#device-intro');
+    const deviceDetails = document.querySelector('#device-details');
+    document.querySelectorAll('.category-button').forEach(button => button.addEventListener('click', () => {
+      const category = categories[button.dataset.category];
+      document.querySelectorAll('.category-button').forEach(item => item.setAttribute('aria-pressed', item === button));
+      deviceImage.src = category.image; deviceImage.alt = category.alt;
+      deviceHeading.textContent = category.title; deviceIntro.textContent = category.intro; deviceDetails.innerHTML = category.details;
+    }));
+
+    const networkSteps = [
+      { title:'Pas 1 · Col·loca els dispositius', image:'2-configura/rl1.png', alt:"Dos ordinadors PC-PT i un switch 2960-24TT a l'espai de treball", text:"Afegeix dos ordinadors PC-PT i un switch 2960-24TT a l'espai de treball, amb el switch al centre." },
+      { title:'Pas 2 · Selecciona el port del PC', image:'2-configura/rl2.png', alt:'Selecció del port FastEthernet0 d’un PC', text:'Tria el cable Copper Straight-Through, fes clic al primer PC i selecciona el port FastEthernet0.' },
+      { title:'Pas 3 · Connecta el PC al switch', image:'2-configura/rl3.png', alt:'Selecció d’un port FastEthernet disponible del switch', text:"Fes clic al switch i selecciona un port FastEthernet disponible, com FastEthernet0/1. Repeteix-ho amb l'altre PC." },
+      { title:"Pas 4 · Espera que s'activin els ports", image:'2-configura/rl4.png', alt:'Indicadors de port taronja durant l’activació', text:'En connectar els equips, alguns indicadors poden aparèixer de color taronja durant uns instants.' },
+      { title:'Pas 5 · Comprova els enllaços', image:'2-configura/rl5.png', alt:'Indicadors de connexió verds', text:'Quan tots els indicadors siguin verds, les connexions físiques estaran operatives.' }
+    ];
+    const networkStepTitle = document.querySelector('#network-step-title');
+    const networkStepImage = document.querySelector('#network-step-image');
+    const networkStepDescription = document.querySelector('#network-step-description');
+    const networkPrevious = document.querySelector('#network-previous');
+    const networkNext = document.querySelector('#network-next');
+    const networkComplete = document.querySelector('#network-complete');
+    const networkStepDots = [...document.querySelectorAll('.tutorial-step-dot')];
+    let networkStep = 0;
+    function renderNetworkStep() {
+      const step = networkSteps[networkStep];
+      networkStepTitle.textContent = step.title;
+      networkStepImage.src = step.image;
+      networkStepImage.alt = step.alt;
+      networkStepDescription.textContent = step.text;
+      networkPrevious.disabled = networkStep === 0;
+      networkNext.disabled = networkStep === networkSteps.length - 1;
+      networkComplete.hidden = networkStep !== networkSteps.length - 1;
+      networkStepDots.forEach((dot, index) => {
+        dot.classList.toggle('is-complete', index < networkStep);
+        dot.classList.toggle('is-current', index === networkStep);
+        dot.toggleAttribute('aria-current', index === networkStep);
+      });
+    }
+    networkPrevious.addEventListener('click', () => { if (networkStep > 0) { networkStep -= 1; renderNetworkStep(); } });
+    networkNext.addEventListener('click', () => { if (networkStep < networkSteps.length - 1) { networkStep += 1; renderNetworkStep(); } });
+    networkStepDots.forEach(dot => dot.addEventListener('click', () => { networkStep = Number(dot.dataset.step); renderNetworkStep(); }));
+
+    const pcViews = {
+      physical: {
+        image:'2-configura/pc-1.png', alt:"Pestanya Physical de l'ordinador a Cisco Packet Tracer", title:'Physical — Maquinari',
+        intro:'Mostra els components físics de l’ordinador i permet afegir o substituir mòduls de maquinari.',
+        zones:{ physical:{ label:'Physical', text:'', rect:{ left:'2%', top:'6.3%', width:'7.5%', height:'3%' } } }
+      },
+      config: {
+        image:'2-configura/pc-2.png', alt:"Pestanya Config de l'ordinador a Cisco Packet Tracer", title:'Config — Configuració del dispositiu',
+        intro:"Permet modificar el nom de l'ordinador i configurar les seves interfícies de xarxa.",
+        zones:{
+          display:{ label:'Display Name', text:"Permet canviar el nom amb què identifiquem l'ordinador a la xarxa simulada.", rect:{ left:'42.3%', top:'19.3%', width:'48.2%', height:'2.8%' } },
+          ethernet:{ label:'FastEthernet0', text:"És la interfície de xarxa Ethernet de l'ordinador. Des d'aquí podem consultar i modificar la seva configuració.", rect:{ left:'3.5%', top:'21.8%', width:'17.2%', height:'2.9%' } }
+        }
+      },
+      desktop: {
+        image:'2-configura/pc-3.png', alt:"Pestanya Desktop de l'ordinador a Cisco Packet Tracer", title:"Desktop — Eines de l'ordinador",
+        intro:"Conté les eines que utilitzarem per configurar l'adreça IP i comprovar la connectivitat.",
+        zones:{
+          ip:{ label:'IP Configuration', text:"Permet configurar l'adreça IPv4, la màscara de subxarxa i la porta d'enllaç.", rect:{ left:'5.3%', top:'12%', width:'14.4%', height:'14.1%' } },
+          command:{ label:'Command Prompt', text:"Obre la línia d'ordres del PC, des d'on podrem executar comandes com <code>ipconfig</code> i <code>ping</code>.", rect:{ left:'60.6%', top:'12%', width:'13.5%', height:'14.1%' } }
+        }
+      }
+    };
+    const pcScreenImage = document.querySelector('#pc-screen-image');
+    const pcHighlight = document.querySelector('#pc-highlight');
+    const pcHeading = document.querySelector('#pc-heading');
+    const pcIntro = document.querySelector('#pc-intro');
+    const pcSubzones = document.querySelector('#pc-subzones');
+    const pcFocusText = document.querySelector('#pc-focus-text');
+    const pcNote = document.querySelector('#pc-note');
+    const pcViewButtons = [...document.querySelectorAll('.pc-view-button')];
+    let pcView = 'desktop';
+    let pcZone = 'ip';
+    function renderPcExplorer() {
+      const view = pcViews[pcView];
+      const zone = view.zones[pcZone];
+      pcScreenImage.src = view.image;
+      pcScreenImage.alt = view.alt;
+      pcHeading.textContent = view.title;
+      pcIntro.textContent = view.intro;
+      Object.assign(pcHighlight.style, zone.rect);
+      pcFocusText.innerHTML = zone.text;
+      pcFocusText.hidden = !zone.text;
+      pcNote.hidden = pcView !== 'desktop';
+      pcViewButtons.forEach(button => button.setAttribute('aria-pressed', button.dataset.view === pcView));
+      const zones = Object.entries(view.zones);
+      pcSubzones.hidden = zones.length < 2;
+      pcSubzones.replaceChildren();
+      zones.forEach(([key, item]) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'zone-button';
+        button.textContent = item.label;
+        button.setAttribute('aria-pressed', key === pcZone);
+        button.addEventListener('click', () => { pcZone = key; renderPcExplorer(); });
+        pcSubzones.append(button);
+      });
+    }
+    pcViewButtons.forEach(button => button.addEventListener('click', () => {
+      pcView = button.dataset.view;
+      pcZone = pcView === 'config' ? 'display' : pcView === 'desktop' ? 'ip' : 'physical';
+      renderPcExplorer();
+    }));
+    renderPcExplorer();
+
+    const activity = {
+      materials:[
+        { quantity:'2 ×', name:'PC-PT', label:'Ordinadors', image:'1-explora/df-pc.png' },
+        { quantity:'1 ×', name:'Switch 2960', label:'Commutador', image:'1-explora/s-2960.png' },
+        { quantity:'2 ×', name:'Copper Straight-Through', label:'Cables directes', image:'1-explora/copper-straight-trough.png' }
+      ],
+      evidence:[
+        { id:'E01', title:'Configuració IPv4 de PC0', text:"Adjunta una captura on es vegin l'adreça IPv4 i la màscara configurades a PC0." },
+        { id:'E02', title:'Configuració IPv4 de PC1', text:"Adjunta una captura on es vegin l'adreça IPv4 i la màscara configurades a PC1." },
+        { id:'E03', title:'Ping correcte de PC0 a PC1', text:'Adjunta una captura on es vegin la comanda executada i les respostes rebudes.' },
+        { id:'E04', title:'Ping amb una configuració incorrecta', text:'Adjunta una captura on es vegin la comanda executada i el resultat de la prova.' }
+      ]
+    };
+    const materials = document.querySelector('#activity-materials');
+    activity.materials.forEach(item => materials.insertAdjacentHTML('beforeend', `<div class="material-item"><img src="${item.image}" alt=""><div><span class="material-quantity">${item.quantity}</span><strong>${item.name}</strong><span>${item.label}</span></div></div>`));
+    const evidenceTargets = [document.querySelector('#evidence-config'), document.querySelector('#evidence-ping'), document.querySelector('#evidence-error')];
+    const evidenceMemory = new Map();
+    function setEvidence(card, file) {
+      if (!file || !/^image\/(png|jpeg)$/.test(file.type)) return;
+      const reader = new FileReader();
+      reader.addEventListener('load', () => { evidenceMemory.set(card.dataset.evidence, reader.result); card.querySelector('.evidence-preview').src = reader.result; card.querySelector('.evidence-preview').hidden = false; card.querySelector('.evidence-remove').hidden = false; });
+      reader.readAsDataURL(file);
+    }
+    activity.evidence.forEach((item, index) => {
+      const card = document.createElement('div'); card.className = 'evidence'; card.dataset.evidence = item.id; card.tabIndex = 0;
+      card.innerHTML = `<h4>${item.id} · ${item.title}</h4><p>${item.text}</p><input type="file" accept="image/png,image/jpeg"><img class="evidence-preview" alt="Vista prèvia de ${item.id}" hidden><button class="evidence-remove" type="button" hidden>Elimina la captura</button>`;
+      evidenceTargets[index < 2 ? 0 : index - 1].append(card);
+      card.querySelector('input').addEventListener('change', event => setEvidence(card, event.target.files[0]));
+      card.querySelector('.evidence-remove').addEventListener('click', () => { evidenceMemory.delete(item.id); const preview = card.querySelector('.evidence-preview'); preview.removeAttribute('src'); preview.hidden = true; card.querySelector('input').value = ''; card.querySelector('.evidence-remove').hidden = true; });
+      card.addEventListener('paste', event => { const file = [...event.clipboardData.files].find(file => /^image\/(png|jpeg)$/.test(file.type)); if (file) { event.preventDefault(); setEvidence(card, file); } });
+    });
+    const catalog = document.querySelector('#activities-catalog');
+    const activityWork = document.querySelector('#activity-work');
+    // La fitxa de treball s'ha traslladat a activitats/1/index.html.
+
+    const modal = document.querySelector('#image-modal');
+    const modalImage = document.querySelector('#modal-image');
+    const modalLabel = document.querySelector('#modal-label');
+    let imageOpener = null;
+    function openImage(opener) { imageOpener = opener; modalImage.src = opener.dataset.image; modalImage.alt = opener.dataset.label; modalLabel.textContent = opener.dataset.label; modal.showModal(); }
+    document.querySelectorAll('.image-open').forEach(opener => {
+      opener.addEventListener('click', () => openImage(opener));
+      opener.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openImage(opener); } });
+    });
+    function closeImage() { modal.close(); }
+    document.querySelector('.modal-close').addEventListener('click', closeImage);
+    modal.addEventListener('click', event => { if (event.target === modal) closeImage(); });
+    modal.addEventListener('close', () => { if (imageOpener) imageOpener.focus(); imageOpener = null; });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !installationView.hidden && !modal.open) closeInstallation();
+    });
+  </script>
+</body>
+</html>
