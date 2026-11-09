@@ -84,7 +84,7 @@
     .connection-warning span { display:block; margin-top:.14rem; font-size:.92em; line-height:1.35; }
     .pending { padding:2.5rem 1.25rem; text-align:center; }
     .pending p { max-width:600px; margin:.5rem auto 0; color:var(--muted); }
-    .network-tutorial { max-width:960px; margin-inline:auto; }
+    .network-tutorial { margin-inline:auto; }
     .tutorial-step-title { margin:.1rem 0 0; color:var(--ink); font-size:1.08rem; }
     .tutorial-explanation { margin:.25rem 0 .9rem; color:var(--muted); }
     .tutorial-image { display:block; width:100%; height:auto; border-radius:8px; }
@@ -106,13 +106,22 @@
     .pc-explorer .interface-layout { margin-top:1rem; }
     .pc-explainer h4 { margin:.1rem 0 .4rem; color:var(--blue-dark); font-size:1.08rem; }
     .pc-explainer > p { margin:.4rem 0 0; color:var(--muted); }
-    .pc-subzones { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem; }
-    .pc-subzones[hidden], .pc-focus-text[hidden], .pc-note[hidden] { display:none; }
-    .pc-focus-text { color:var(--ink)!important; }
-    .pc-note { margin-top:1rem!important; padding-top:.7rem; border-top:1px solid var(--line); font-size:.92rem; }
-    .next-blocks { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:2rem; }
+    .pc-concepts { margin:.9rem 0 0; padding:0; list-style:none; }
+    .pc-concepts li { margin-top:.75rem; }
+    .pc-concepts strong { display:block; color:var(--blue-dark); }
+    .pc-concepts span { display:block; margin-top:.12rem; color:var(--muted); }
+    .next-blocks { display:grid; gap:1rem; margin-top:2.5rem; }
     .next-blocks h3 { color:var(--blue-dark); }
     .next-blocks p { margin:0; color:var(--muted); }
+    .guide-addressing { width:100%; margin:1rem 0; border-collapse:collapse; }
+    .guide-addressing th, .guide-addressing td { padding:.5rem .65rem; border:1px solid var(--line); text-align:left; }
+    .guide-addressing th { color:var(--blue-dark); background:var(--blue-pale); }
+    .guide-steps { margin:.9rem 0; padding-left:1.4rem; }
+    .guide-steps li { margin:.45rem 0; }
+    .guide-note { margin-top:1rem!important; padding:.7rem .85rem; border-left:4px solid #a9cfe7; border-radius:6px; background:#f5faff; }
+    .guide-reminder { margin-top:1rem!important; padding:.7rem .85rem; border-radius:7px; background:var(--blue-pale); color:var(--ink)!important; }
+    .terminal-command { display:block; margin:.75rem 0; padding:.75rem .9rem; overflow:auto; border-radius:8px; color:#f7fbff; background:#183044; font:600 .98rem ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .connectivity-steps h4 { margin:1.1rem 0 .25rem; color:var(--blue-dark); }
     .activities-catalog[hidden], .activity-work[hidden] { display:none; }
     .activity-card { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
     .activity-card p, .activity-objective, .activity-block > p { color:var(--muted); }
@@ -248,7 +257,7 @@
           </div>
         </article>
       </section>
-      <section class="pc-explorer" aria-labelledby="pc-explorer-title">
+      <section class="pc-explorer card" aria-labelledby="pc-explorer-title">
         <h3 id="pc-explorer-title">2 · Coneix l'ordinador</h3>
         <div class="zone-buttons" aria-label="Pestanyes de l'ordinador">
           <button class="zone-button pc-view-button" type="button" data-view="physical" aria-pressed="false">Physical</button>
@@ -263,15 +272,28 @@
           <aside class="card explainer pc-explainer" aria-live="polite">
             <h4 id="pc-heading">Desktop — Eines de l'ordinador</h4>
             <p id="pc-intro">Conté les eines que utilitzarem per configurar l'adreça IP i comprovar la connectivitat.</p>
-            <div id="pc-subzones" class="pc-subzones" aria-label="Zones destacades de la pestanya" hidden></div>
-            <p id="pc-focus-text" class="pc-focus-text">Permet configurar l'adreça IPv4, la màscara de subxarxa i la porta d'enllaç.</p>
-            <p id="pc-note" class="pc-note"><strong>No el confonguis amb Terminal:</strong> aquesta eina s'utilitza per accedir a la consola d'altres dispositius.</p>
+            <ul id="pc-concepts" class="pc-concepts"></ul>
           </aside>
         </div>
       </section>
       <section class="next-blocks" aria-label="Blocs següents">
-        <article class="card"><h3>3 · Configura l'adreça IPv4</h3><p>Contingut en preparació.</p></article>
-        <article class="card"><h3>4 · Comprova la connectivitat</h3><p>Contingut en preparació.</p></article>
+        <article class="card">
+          <h3>3 · Configura l'adreça IPv4</h3>
+          <p>Els ordinadors ja estan connectats al switch, però encara hem de configurar les seves adreces IPv4 perquè es puguin comunicar.</p>
+          <table class="guide-addressing"><thead><tr><th>Dispositiu</th><th>Adreça IPv4</th><th>Màscara de subxarxa</th></tr></thead><tbody><tr><td>PC0</td><td>192.168.1.10</td><td>255.255.255.0</td></tr><tr><td>PC1</td><td>192.168.1.20</td><td>255.255.255.0</td></tr></tbody></table>
+          <ol class="guide-steps"><li>Fes doble clic a <strong>PC0</strong> per obrir la finestra de l'ordinador.</li><li>Accedeix a <strong>Desktop → IP Configuration</strong>.</li><li>Selecciona <strong>Static</strong>.</li><li>Introdueix l'adreça IPv4 <code>192.168.1.10</code> i la màscara <code>255.255.255.0</code>.</li><li>Repeteix el procés a <strong>PC1</strong>, amb l'adreça <code>192.168.1.20</code> i la mateixa màscara.</li></ol>
+          <p class="guide-note">En aquesta xarxa no necessitem configurar la porta d'enllaç (Default Gateway) ni el servidor DNS, perquè els dos ordinadors es troben a la mateixa xarxa local i no hi ha cap router.</p>
+          <p class="guide-reminder"><strong>Recorda:</strong> Cada ordinador ha de tenir una adreça IPv4 diferent, però tots dos han de pertànyer a la mateixa xarxa.</p>
+        </article>
+        <article class="card connectivity-steps">
+          <h3>4 · Comprova la connectivitat</h3>
+          <p>Ara comprovarem si els dos ordinadors es poden comunicar. Per fer-ho, utilitzarem la comanda <code>ping</code>, que envia missatges de prova a un altre dispositiu i comprova si respon.</p>
+          <h4>Pas 1 · Obre la consola</h4><p>Fes doble clic a PC0, accedeix a Desktop i obre Command Prompt.</p><p class="guide-note">Utilitza Command Prompt, no Terminal. Terminal serveix per accedir a la consola d'altres dispositius mitjançant una connexió sèrie.</p>
+          <h4>Pas 2 · Executa el ping</h4><code class="terminal-command">ping 192.168.1.20</code><p>Aquesta comanda comprova si PC0 pot comunicar-se amb PC1.</p>
+          <h4>Pas 3 · Interpreta el resultat</h4><ul class="guide-steps"><li>Si apareixen respostes com <code>Reply from 192.168.1.20</code>, la comunicació funciona.</li><li>Si apareix <code>Request timed out</code>, no s'ha rebut resposta dins del temps esperat.</li><li>Si el primer intent falla, espera uns segons i repeteix el comandament. Packet Tracer pot necessitar un moment per resoldre la direcció MAC mitjançant ARP.</li></ul>
+          <h4>Pas 4 · Comprova la comunicació inversa</h4><p>Ara obre Command Prompt a PC1 i executa:</p><code class="terminal-command">ping 192.168.1.10</code><p>Comprova que PC1 també pot comunicar-se amb PC0.</p>
+          <div class="network-complete"><strong>La xarxa funciona!</strong><p>Has connectat dos ordinadors a un switch, els has configurat amb adreces IPv4 i has comprovat que es poden comunicar.</p><p>Els indicadors verds confirmen que els enllaços físics estan actius, però és el ping el que ens ajuda a comprovar la comunicació entre els ordinadors.</p></div>
+        </article>
       </section>
     </div>
     <div id="panell-activitats" role="tabpanel" aria-labelledby="tab-activitats" hidden>
@@ -351,12 +373,28 @@
   <script>
     const tabs = [...document.querySelectorAll('[role="tab"]')];
     const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+    const sectionByTab = new Map([[tabs[0], 'explora'], [tabs[1], 'munta']]);
+    const tabBySection = Object.fromEntries([...sectionByTab].map(([tab, section]) => [section, tab]));
     let activeTab = tabs.find(tab => tab.getAttribute('aria-selected') === 'true');
+    function selectSection(section, updateHash = false) {
+      if (section === 'instalacio') {
+        guideContent.hidden = true;
+        installationView.hidden = false;
+        installationToggle.setAttribute('aria-expanded', 'true');
+        if (updateHash && location.hash !== '#instalacio') location.hash = 'instalacio';
+        return;
+      }
+      const tab = tabBySection[section] || tabs[0];
+      const index = tabs.indexOf(tab);
+      installationView.hidden = true;
+      guideContent.hidden = false;
+      installationToggle.setAttribute('aria-expanded', 'false');
+      tabs.forEach((item, itemIndex) => { const active = itemIndex === index; item.setAttribute('aria-selected', active); item.tabIndex = active ? 0 : -1; panels[itemIndex].hidden = !active; });
+      activeTab = tab;
+      if (updateHash && location.hash !== `#${section}`) location.hash = section;
+    }
     tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => {
-        tabs.forEach((item, itemIndex) => { const active = itemIndex === index; item.setAttribute('aria-selected', active); item.tabIndex = active ? 0 : -1; panels[itemIndex].hidden = !active; });
-        activeTab = tab;
-      });
+      tab.addEventListener('click', () => selectSection(sectionByTab.get(tab), true));
       tab.addEventListener('keydown', event => {
         if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
         event.preventDefault();
@@ -369,23 +407,23 @@
     const installationView = document.querySelector('#installation-view');
     const installationToggle = document.querySelector('#installation-toggle');
     const installationBack = document.querySelector('#installation-back');
-    function closeInstallation() {
-      installationView.hidden = true;
-      guideContent.hidden = false;
-      installationToggle.setAttribute('aria-expanded', 'false');
-      activeTab.focus();
-    }
+    function closeInstallation() { selectSection(sectionByTab.get(activeTab), true); activeTab.focus(); }
     installationToggle.addEventListener('click', () => {
       if (!installationView.hidden) {
         closeInstallation();
         return;
       }
-      guideContent.hidden = true;
-      installationView.hidden = false;
-      installationToggle.setAttribute('aria-expanded', 'true');
+      selectSection('instalacio', true);
       installationView.focus();
     });
     installationBack.addEventListener('click', closeInstallation);
+    function syncSectionFromHash() {
+      const section = location.hash.slice(1);
+      if (section === 'instalacio' || tabBySection[section]) selectSection(section);
+      else { selectSection('explora'); if (location.hash) history.replaceState(null, '', `${location.pathname}${location.search}#explora`); }
+    }
+    window.addEventListener('hashchange', syncSectionFromHash);
+    syncSectionFromHash();
 
     const zones = {
       menus: ['Menús i eines', 'A la part superior trobaràs els menús i les eines del programa. <strong>Recorda desar el teu treball amb File → Save (Ctrl+S)</strong> per no perdre els canvis.', true],
@@ -461,66 +499,29 @@
     networkStepDots.forEach(dot => dot.addEventListener('click', () => { networkStep = Number(dot.dataset.step); renderNetworkStep(); }));
 
     const pcViews = {
-      physical: {
-        image:'2-configura/pc-1.png', alt:"Pestanya Physical de l'ordinador a Cisco Packet Tracer", title:'Physical — Maquinari',
-        intro:'Mostra els components físics de l’ordinador i permet afegir o substituir mòduls de maquinari.',
-        zones:{ physical:{ label:'Physical', text:'', rect:{ left:'2%', top:'6.3%', width:'7.5%', height:'3%' } } }
-      },
-      config: {
-        image:'2-configura/pc-2.png', alt:"Pestanya Config de l'ordinador a Cisco Packet Tracer", title:'Config — Configuració del dispositiu',
-        intro:"Permet modificar el nom de l'ordinador i configurar les seves interfícies de xarxa.",
-        zones:{
-          display:{ label:'Display Name', text:"Permet canviar el nom amb què identifiquem l'ordinador a la xarxa simulada.", rect:{ left:'42.3%', top:'19.3%', width:'48.2%', height:'2.8%' } },
-          ethernet:{ label:'FastEthernet0', text:"És la interfície de xarxa Ethernet de l'ordinador. Des d'aquí podem consultar i modificar la seva configuració.", rect:{ left:'3.5%', top:'21.8%', width:'17.2%', height:'2.9%' } }
-        }
-      },
-      desktop: {
-        image:'2-configura/pc-3.png', alt:"Pestanya Desktop de l'ordinador a Cisco Packet Tracer", title:"Desktop — Eines de l'ordinador",
-        intro:"Conté les eines que utilitzarem per configurar l'adreça IP i comprovar la connectivitat.",
-        zones:{
-          ip:{ label:'IP Configuration', text:"Permet configurar l'adreça IPv4, la màscara de subxarxa i la porta d'enllaç.", rect:{ left:'5.3%', top:'12%', width:'14.4%', height:'14.1%' } },
-          command:{ label:'Command Prompt', text:"Obre la línia d'ordres del PC, des d'on podrem executar comandes com <code>ipconfig</code> i <code>ping</code>.", rect:{ left:'60.6%', top:'12%', width:'13.5%', height:'14.1%' } }
-        }
-      }
+      physical:{ image:'2-configura/pc-1.png', alt:"Pestanya Physical de l'ordinador a Cisco Packet Tracer", title:'Physical — Maquinari', intro:'Mostra els components físics de l’ordinador i permet afegir o substituir mòduls de maquinari.', rect:{left:'2%',top:'6.3%',width:'7.5%',height:'3%'}, concepts:[['Physical','Pestanya on es mostren els components físics de l’ordinador.']] },
+      config:{ image:'2-configura/pc-2.png', alt:"Pestanya Config de l'ordinador a Cisco Packet Tracer", title:'Config — Configuració del dispositiu', intro:"Permet modificar el nom de l'ordinador i configurar les seves interfícies de xarxa.", rect:{left:'12%',top:'6.3%',width:'6.5%',height:'3%'}, concepts:[['Display Name','Nom amb què identifiquem l’ordinador a Packet Tracer.'],['FastEthernet0',"Interfície de xarxa de l'ordinador. Permet configurar-ne l'adreça IPv4 i la màscara de subxarxa."],['DHCP / Static','Permet obtenir la configuració automàticament o introduir-la manualment.'],['Default Gateway','Adreça del router que permet comunicar-se amb altres xarxes.'],['DNS Server','Servidor que permet traduir noms de domini a adreces IP.'],['Gateway/DNS IPv6','Configuració equivalent per a IPv6, que no utilitzarem de moment.']] },
+      desktop:{ image:'2-configura/pc-3.png', alt:"Pestanya Desktop de l'ordinador a Cisco Packet Tracer", title:"Desktop — Eines de l'ordinador", intro:"Conté les eines que utilitzarem per configurar l'adreça IP i comprovar la connectivitat.", rect:{left:'20%',top:'6.3%',width:'7.5%',height:'3%'}, concepts:[['IP Configuration','Permet configurar l’adreça IPv4, la màscara de subxarxa i la porta d’enllaç.'],['Command Prompt','Obre la línia d’ordres del PC, des d’on podrem executar comandes com ipconfig i ping.'],['Terminal','S’utilitza per accedir a la consola d’altres dispositius.']] }
     };
     const pcScreenImage = document.querySelector('#pc-screen-image');
     const pcHighlight = document.querySelector('#pc-highlight');
     const pcHeading = document.querySelector('#pc-heading');
     const pcIntro = document.querySelector('#pc-intro');
-    const pcSubzones = document.querySelector('#pc-subzones');
-    const pcFocusText = document.querySelector('#pc-focus-text');
-    const pcNote = document.querySelector('#pc-note');
+    const pcConcepts = document.querySelector('#pc-concepts');
     const pcViewButtons = [...document.querySelectorAll('.pc-view-button')];
     let pcView = 'desktop';
-    let pcZone = 'ip';
     function renderPcExplorer() {
       const view = pcViews[pcView];
-      const zone = view.zones[pcZone];
       pcScreenImage.src = view.image;
       pcScreenImage.alt = view.alt;
       pcHeading.textContent = view.title;
       pcIntro.textContent = view.intro;
-      Object.assign(pcHighlight.style, zone.rect);
-      pcFocusText.innerHTML = zone.text;
-      pcFocusText.hidden = !zone.text;
-      pcNote.hidden = pcView !== 'desktop';
+      Object.assign(pcHighlight.style, view.rect);
+      pcConcepts.replaceChildren(...view.concepts.map(([name, description]) => { const item = document.createElement('li'); item.innerHTML = `<strong>${name}</strong><span>${description}</span>`; return item; }));
       pcViewButtons.forEach(button => button.setAttribute('aria-pressed', button.dataset.view === pcView));
-      const zones = Object.entries(view.zones);
-      pcSubzones.hidden = zones.length < 2;
-      pcSubzones.replaceChildren();
-      zones.forEach(([key, item]) => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'zone-button';
-        button.textContent = item.label;
-        button.setAttribute('aria-pressed', key === pcZone);
-        button.addEventListener('click', () => { pcZone = key; renderPcExplorer(); });
-        pcSubzones.append(button);
-      });
     }
     pcViewButtons.forEach(button => button.addEventListener('click', () => {
       pcView = button.dataset.view;
-      pcZone = pcView === 'config' ? 'display' : pcView === 'desktop' ? 'ip' : 'physical';
       renderPcExplorer();
     }));
     renderPcExplorer();
