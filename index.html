@@ -1,191 +1,172 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Mapa de herramientas, materiales y glosarios del módulo de Redes locales.">
-  <title>Recursos de Redes locales</title>
+  <meta name="description" content="Recursos del módulo de Redes Locales organizados por resultados de aprendizaje.">
+  <title>Recursos de Redes Locales</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <style>
+    :root { --blue:#245580; --blue-soft:#eaf3f9; --border:#cbdce8; --ink:#21313d; }
+    body { color:var(--ink); background:#f4f7f9; }
+    .skip-link { position:absolute; left:-9999px; z-index:20; padding:.6rem .9rem; color:#fff; background:var(--blue); }
+    .skip-link:focus { top:.75rem; left:.75rem; }
+    .hero { background:linear-gradient(135deg,#1e4d74,#2d6b99); }
+    .hero .eyebrow { margin:0 0 .45rem; font-size:.82rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; opacity:.85; }
+    .section-nav { position:sticky; top:0; z-index:10; border-bottom:1px solid var(--border); background:rgba(255,255,255,.96); backdrop-filter:blur(8px); }
+    .section-nav .nav-link { padding:.65rem .1rem; color:#35536a; font-size:.9rem; white-space:nowrap; }
+    .section-nav .nav-link:hover, .section-nav .nav-link:focus { color:var(--blue); }
+    .ra-section { scroll-margin-top:4.5rem; margin-bottom:3.5rem; }
+    .ra-heading { display:flex; align-items:baseline; gap:.75rem; padding-bottom:.65rem; border-bottom:2px solid var(--border); }
+    .ra-heading h2 { margin:0; color:var(--blue); font-size:clamp(1.45rem,2.5vw,1.8rem); }
+    .ra-heading p { margin:0; color:#63717c; }
+    .column-heading { margin:1.25rem 0 .7rem; color:#39576c; font-size:1rem; font-weight:700; }
+    .resource-stack { display:grid; gap:.7rem; }
+    .resource-card { display:block; height:100%; padding:1rem 1.05rem; color:inherit; text-decoration:none; background:#fff; border:1px solid var(--border); border-radius:.7rem; box-shadow:0 1px 2px rgba(23,54,75,.04); transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease,background-color .16s ease; }
+    .resource-card:hover, .resource-card:focus-visible { color:inherit; background:#fbfdff; border-color:#74a8c9; box-shadow:0 .45rem 1rem rgba(29,73,105,.12); transform:translateY(-2px); }
+    .resource-card:focus-visible { outline:3px solid #8cc1df; outline-offset:3px; }
+    .resource-card h3 { margin:0 0 .3rem; color:#214f76; font-size:1rem; font-weight:700; }
+    .resource-card p { margin:0; color:#53636f; font-size:.93rem; line-height:1.45; }
+    .exam-pair .resource-card { width:100%; }
+    .exam-card { display:flex; align-items:center; justify-content:center; min-height:100%; text-align:center; }
+    .exam-card h3 { margin:0; }
+    .empty-state { margin:1.1rem 0 0; padding:.85rem 1rem; color:#697984; background:#fff; border:1px dashed var(--border); border-radius:.65rem; font-size:.93rem; }
+    .consultation { padding:1.4rem; background:var(--blue-soft); border:1px solid var(--border); border-radius:.85rem; }
+    footer { color:#657580; }
+    @media (max-width:575.98px) { .hero { padding-top:3rem!important; padding-bottom:3rem!important; } .section-nav .container { overflow-x:auto; } .section-nav .navbar-nav { flex-wrap:nowrap!important; } }
+  </style>
 </head>
-<body class="bg-body-tertiary">
-  <header class="bg-primary text-white py-5">
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <header class="hero text-white py-5">
     <div class="container">
-      <p class="text-uppercase fw-semibold mb-2">Formación Profesional</p>
-      <h1 class="display-5 fw-bold">Recursos de Redes locales</h1>
-      <p class="lead mb-0">Herramientas interactivas, materiales de apoyo y contenidos de consulta rápida.</p>
+      <p class="eyebrow">Formación Profesional</p>
+      <h1 class="display-5 fw-bold">Recursos de Redes Locales</h1>
+      <p class="lead mb-0">Materiales, herramientas y recursos de consulta organizados por resultados de aprendizaje.</p>
     </div>
   </header>
 
-  <nav class="navbar navbar-expand bg-body border-bottom" aria-label="Categorías de recursos">
+  <nav class="section-nav navbar navbar-expand" aria-label="Resultados de aprendizaje">
     <div class="container">
-      <ul class="navbar-nav flex-row flex-wrap gap-2 gap-sm-4">
-        <li class="nav-item"><a class="nav-link" href="#herramientas">Herramientas</a></li>
-        <li class="nav-item"><a class="nav-link" href="#materiales">Materiales</a></li>
-        <li class="nav-item"><a class="nav-link" href="#glosarios">Glosarios</a></li>
+      <ul class="navbar-nav flex-row gap-3 gap-lg-4">
+        <li class="nav-item"><a class="nav-link" href="#ra1">RA1</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ra2">RA2</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ra3">RA3</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ra4">RA4</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ra5">RA5</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ra6">RA6</a></li>
+        <li class="nav-item"><a class="nav-link" href="#transversal">Transversales</a></li>
+        <li class="nav-item"><a class="nav-link" href="#consulta">Consulta</a></li>
       </ul>
     </div>
   </nav>
 
-  <main class="container py-5">
-    <section id="herramientas" class="mb-5" aria-labelledby="titulo-herramientas">
-      <div class="mb-3">
-        <h2 id="titulo-herramientas" class="h3 mb-1">Herramientas</h2>
-        <p class="text-body-secondary mb-0">Aplicaciones y utilidades interactivas para practicar contenidos.</p>
-      </div>
+  <main id="contenido" class="container py-5">
+    <section class="ra-section" id="ra1" aria-labelledby="ra1-title">
+      <div class="ra-heading"><h2 id="ra1-title">RA1</h2><p>Modelos de red y direccionamiento IP.</p></div>
       <div class="row g-4">
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Conversor binario ↔ decimal</h3>
-              <p class="card-text">Convierte automáticamente números entre los sistemas binario y decimal mientras escribes.</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="herramientas/binario-decimal.html">Abrir herramienta</a>
-            </div>
-          </article>
-        </div>        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Constructor de modelos OSI y TCP/IP</h3>
-              <p class="card-text">Actividad de arrastrar piezas para reconstruir las capas, funciones y unidades de datos de los modelos OSI y TCP/IP.</p>
-              <div class="d-flex flex-wrap gap-2 mt-auto">
-                <a class="btn btn-primary" href="herramientas/constructor-modelos-osi-tcpip.html">Abrir herramienta</a>
-                <a class="btn btn-outline-secondary" href="herramientas/examen-modelos-osi-tcpip.html">Examen</a>
-              </div>
-            </div>
-          </article>
+        <div class="col-12 col-lg-6">
+          <h3 class="column-heading">Materiales</h3>
+          <div class="resource-stack">
+            <a class="resource-card" href="materiales/RA1/1-Estandares_modelos_protocolos_arquitectura/estandares-modelos-protocolos-arquitectura.html"><h3>Estándares, modelos, protocolos y arquitectura</h3><p>Introducción a los conceptos que hacen posibles las redes informáticas.</p></a>
+            <a class="resource-card" href="materiales/RA1/2-Modelos_de_red/modelos-osi-tcpip.html"><h3>Modelos OSI y TCP/IP</h3><p>Capas, funciones y unidades de datos de los modelos de referencia.</p></a>
+            <a class="resource-card" href="materiales/RA1/3-Guia_direccionamiento_IPv4/guia-direccionamiento-ipv4.html"><h3>Guía de direccionamiento IPv4</h3><p>Direcciones IP, máscaras de subred y rangos de hosts.</p></a>
+          </div>
         </div>
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Cálculo de redes IPv4</h3>
-              <p class="card-text">Entrenador para practicar máscaras, direcciones de red, rangos de hosts y broadcast en IPv4.</p>
-              <div class="d-flex flex-wrap gap-2 mt-auto">
-                <a class="btn btn-primary" href="herramientas/direccionamiento-ipv4.html">Abrir herramienta</a>
-                <a class="btn btn-outline-secondary" href="herramientas/examen-direccionamiento-ipv4.html">Examen</a>
-              </div>
+        <div class="col-12 col-lg-6">
+          <h3 class="column-heading">Herramientas</h3>
+          <div class="resource-stack">
+            <a class="resource-card" href="herramientas/RA1/1-binario-decimal.html"><h3>Conversor binario ↔ decimal</h3><p>Convierte números entre los sistemas binario y decimal.</p></a>
+            <div class="row g-2 exam-pair">
+              <div class="col-9 d-flex"><a class="resource-card" href="herramientas/RA1/2-constructor-modelos-osi-tcpip.html"><h3>Constructor de modelos OSI y TCP/IP</h3><p>Reconstruye capas, funciones y unidades de datos mediante arrastre.</p></a></div>
+              <div class="col-3 d-flex"><a class="resource-card exam-card" href="herramientas/RA1/2-examen-modelos-osi-tcpip.html"><h3>Modo examen</h3></a></div>
             </div>
-          </article>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Práctica de subnetting IPv4</h3>
-              <p class="card-text">Entrenador para calcular máscaras, saltos, número de subredes, hosts utilizables y rangos de direccionamiento.</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="herramientas/subnetting-ipv4.html">Abrir herramienta</a>
+            <div class="row g-2 exam-pair">
+              <div class="col-9 d-flex"><a class="resource-card" href="herramientas/RA1/3-direccionamiento-ipv4.html"><h3>Cálculo de redes IPv4</h3><p>Practica máscaras, red, hosts, broadcast y siguiente red.</p></a></div>
+              <div class="col-3 d-flex"><a class="resource-card exam-card" href="herramientas/RA1/3-examen-direccionamiento-ipv4.html"><h3>Modo examen</h3></a></div>
             </div>
-          </article>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Entrenador IPv6</h3>
-              <p class="card-text">Entrenador para practicar la compresión de direcciones IPv6, el prefijo global, el ID de subred, el ID de interfaz y la siguiente subred.</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="herramientas/entrenador_IPv6.html">Abrir herramienta</a>
-            </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="materiales" class="mb-5" aria-labelledby="titulo-materiales">
-      <div class="mb-3">
-        <h2 id="titulo-materiales" class="h3 mb-1">Materiales</h2>
-        <p class="text-body-secondary mb-0">Guías web de apoyo y ampliación.</p>
-      </div>
+    <section class="ra-section" id="ra2" aria-labelledby="ra2-title">
+      <div class="ra-heading"><h2 id="ra2-title">RA2</h2><p>Señales, transmisión y capacidad de red.</p></div>
       <div class="row g-4">
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Estándares, modelos, protocolos y arquitectura de red</h3>
-              <p class="card-text">Introducción a los estándares, modelos, protocolos y elementos de la arquitectura de red.</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="materiales/Estandares_modelos_protocolos_arquitectura/estandares-modelos-protocolos-arquitectura.html">Abrir material</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Modelos OSI y TCP/IP</h3>
-              <p class="card-text">Explica las capas, funciones y unidades de datos de los modelos de referencia OSI y TCP/IP.</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="materiales/Modelos_de_red/modelos-osi-tcpip.html">Abrir material</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Guía direccionamiento IPv4</h3>
-              <p class="card-text">Aprende a calcular direcciones IP, máscaras de subred y rangos de hosts en redes IPv4.</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="materiales/Guia_direccionamiento_IPv4/guia-direccionamiento-ipv4.html">Abrir material</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Guia interactiva de Packet Tracer</h3>
-              <p class="card-text">Aprèn a utilitzar Cisco Packet Tracer, explora la seva interfície i crea la teva primera xarxa local amb dos ordinadors i un switch.</p>
-              <p class="small text-body-secondary">Guia interactiva</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="materiales/guia-packet-tracer/index.html">Abrir material</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">VPN</h3>
-              <p class="card-text">Explica qué es una VPN, cómo funciona, sus tipos y la configuración de WireGuard en servidor y cliente.</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="materiales/VPN.html">Abrir material</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Wi-Fi</h3>
-              <p class="card-text">Recorre la historia, las ondas, las bandas, la seguridad, el cifrado y el acceso al medio en redes Wi-Fi.</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="materiales/Wi-Fi.html">Abrir material</a>
-            </div>
-          </article>
+        <div class="col-12 col-lg-6">
+          <h3 class="column-heading">Materiales</h3>
+          <div class="resource-stack">
+            <a class="resource-card" href="materiales/RA2/1-guia-senales-transmision-ra2.html"><h3>Señales y transmisión</h3><p>Fundamentos de la información, las señales y los medios de transmisión.</p></a>
+            <a class="resource-card" href="materiales/RA2/2-guia-conversion-transmision-ra2.html"><h3>Conversión y transmisión</h3><p>Guía sobre conversión analógica y digital y modos de transmisión.</p></a>
+            <a class="resource-card" href="materiales/RA2/3-guia-tasa-transferencia-ra2.html"><h3>Tasa de transferencia</h3><p>Unidades, capacidad, cálculos y reparto del ancho de banda.</p></a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="glosarios" aria-labelledby="titulo-glosarios">
-      <div class="mb-3">
-        <h2 id="titulo-glosarios" class="h3 mb-1">Glosarios</h2>
-        <p class="text-body-secondary mb-0">Materiales de consulta rápida y referencia.</p>
-      </div>
+    <section class="ra-section" id="ra3" aria-labelledby="ra3-title">
+      <div class="ra-heading"><h2 id="ra3-title">RA3</h2><p>Recursos del resultado de aprendizaje.</p></div>
+      <p class="empty-state">Todavía no hay recursos publicados para este resultado de aprendizaje.</p>
+    </section>
+
+    <section class="ra-section" id="ra4" aria-labelledby="ra4-title">
+      <div class="ra-heading"><h2 id="ra4-title">RA4</h2><p>Configuración, conectividad y tecnologías de red.</p></div>
       <div class="row g-4">
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Biblioteca de comandos</h3>
-              <p class="card-text">Consulta de comandos desde los primeros pasos con la terminal en Windows CMD y Linux hasta la administración de redes. Primera etapa disponible.</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="glosarios/biblioteca-comandos/index.html">Abrir biblioteca</a>
-            </div>
-          </article>
+        <div class="col-12 col-lg-6">
+          <h3 class="column-heading">Materiales</h3>
+          <div class="resource-stack">
+            <a class="resource-card" href="materiales/RA4/VPN.html"><h3>VPN</h3><p>Funcionamiento, tipos de VPN y configuración básica con WireGuard.</p></a>
+            <a class="resource-card" href="materiales/RA4/Wi-Fi.html"><h3>Wi-Fi</h3><p>Ondas, bandas, seguridad, cifrado y acceso al medio inalámbrico.</p></a>
+          </div>
         </div>
-        <div class="col-12 col-md-6 col-xl-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h3 class="card-title h5">Glosario de comandos Cisco IOS</h3>
-              <p class="card-text">Referencia de comandos para VLAN, enlaces trunk, routing inter-VLAN, DHCP y NAT, ordenados por uso.</p>
-              <a class="btn btn-primary mt-auto align-self-start" href="glosarios/cisco-ios.html">Abrir glosario</a>
+        <div class="col-12 col-lg-6">
+          <h3 class="column-heading">Herramientas</h3>
+          <div class="resource-stack">
+            <a class="resource-card" href="herramientas/RA4/1-entrenador_IPv6.html"><h3>Entrenador IPv6</h3><p>Practica compresión, prefijos, subredes e interfaces IPv6.</p></a>
+            <div class="row g-2 exam-pair">
+              <div class="col-9 d-flex"><a class="resource-card" href="herramientas/RA4/2-subnetting-ipv4.html"><h3>Práctica de subnetting IPv4</h3><p>Calcula máscaras, saltos, subredes, hosts y rangos.</p></a></div>
+              <div class="col-3 d-flex"><a class="resource-card exam-card" href="herramientas/RA4/2-examen-subnetting-ipv4.html"><h3>Modo examen</h3></a></div>
             </div>
-          </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ra-section" id="ra5" aria-labelledby="ra5-title">
+      <div class="ra-heading"><h2 id="ra5-title">RA5</h2><p>Recursos del resultado de aprendizaje.</p></div>
+      <p class="empty-state">Todavía no hay recursos publicados para este resultado de aprendizaje.</p>
+    </section>
+
+    <section class="ra-section" id="ra6" aria-labelledby="ra6-title">
+      <div class="ra-heading"><h2 id="ra6-title">RA6</h2><p>Recursos del resultado de aprendizaje.</p></div>
+      <p class="empty-state">Todavía no hay recursos publicados para este resultado de aprendizaje.</p>
+    </section>
+
+    <section class="ra-section" id="transversal" aria-labelledby="transversal-title">
+      <div class="ra-heading"><h2 id="transversal-title">Recursos transversales</h2><p>Recursos aplicables a diferentes resultados de aprendizaje.</p></div>
+      <div class="row g-4">
+        <div class="col-12 col-lg-6">
+          <h3 class="column-heading">Materiales</h3>
+          <div class="resource-stack">
+            <a class="resource-card" href="materiales/Transversal/guia-packet-tracer/index.html"><h3>Guía interactiva de Packet Tracer</h3><p>Explora Cisco Packet Tracer y crea una primera red local con dos ordenadores y un switch.</p></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="consulta" class="ra-section" aria-labelledby="consulta-title">
+      <div class="ra-heading"><h2 id="consulta-title">Consulta y referencia</h2><p>Recursos de apoyo para consultar durante el aprendizaje.</p></div>
+      <div class="consultation mt-4">
+        <div class="resource-stack">
+          <a class="resource-card" href="glosarios/biblioteca-comandos/index.html"><h3>Biblioteca de comandos</h3><p>Comandos de Windows CMD, Linux y Cisco IOS organizados por etapas de aprendizaje.</p></a>
+          <a class="resource-card" href="glosarios/cisco-ios.html"><h3>Glosario de comandos Cisco IOS</h3><p>Referencia rápida de comandos para VLAN, trunk, routing, DHCP y NAT.</p></a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="border-top bg-body py-4">
-    <div class="container text-body-secondary">
-      <small>Módulo de Redes locales</small>
-    </div>
+  <footer class="border-top bg-white py-4">
+    <div class="container"><small>Módulo de Redes Locales</small></div>
   </footer>
 </body>
 </html>
-
-
-
-
